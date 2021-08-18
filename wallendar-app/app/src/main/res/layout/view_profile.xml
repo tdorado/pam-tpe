@@ -53,22 +53,4 @@
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/profile_separator" />
 
-    <include
-        android:id="@+id/view_cvu"
-        layout="@layout/view_profile_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintTop_toBottomOf="@id/view_alias" />
-
-    <include
-        android:id="@+id/view_cbu"
-        layout="@layout/view_profile_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintTop_toBottomOf="@id/view_cvu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
