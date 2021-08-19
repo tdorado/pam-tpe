@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Wallendar</string>
+    <string name="groups">Groups</string>
+    <string name="events">Events</string>
+    <string name="balances">Balances</string>
+    <string name="profile">Profile</string>
 </resources>
