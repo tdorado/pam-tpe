@@ -1,23 +1,20 @@
 package com.td.wallendar.home.views.groups;
 
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 
+import java.util.Arrays;
 import java.util.List;
 
-// FIXME
-@RequiresApi(api = Build.VERSION_CODES.R)
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
 
-    private List<String> testDataset = List.of("GRUPO 1", "GRUPO 2", "GRUPO 3", "GRUPO 4");
+    private List<String> testDataset = Arrays.asList("GROUP 1", "GROUP 2", "GROUP 3", "GROUP 4");
 
     @NonNull
     @Override

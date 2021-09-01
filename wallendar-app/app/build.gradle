@@ -32,11 +32,13 @@ ext {
     appCompatVersion = '1.2.0'
     constraintLayoutVersion = '2.0.4'
     recyclerViewVersion = '1.1.0'
+    roomVersion = '2.3.0'
 }
 
 dependencies {
 
-
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
