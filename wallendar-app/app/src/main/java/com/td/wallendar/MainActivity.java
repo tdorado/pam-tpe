@@ -1,4 +1,4 @@
-package com.td.wallendar.home;
+package com.td.wallendar;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

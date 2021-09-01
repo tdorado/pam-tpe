@@ -14,7 +14,7 @@
             android:id="@+id/view_groups"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".home.MainActivity" />
+            tools:context=".MainActivity" />
 
         <com.td.wallendar.home.views.events.EventsViewImpl
             android:id="@+id/view_events"

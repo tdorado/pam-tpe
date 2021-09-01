@@ -8,6 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.td.wallendar.home.views.models.Group;
+
+import java.util.List;
+
 public class GroupsViewImpl extends RecyclerView implements GroupsView {
     public GroupsViewImpl(@NonNull Context context) {
         this(context, null);
@@ -26,5 +30,15 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView {
         setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         setAdapter(groupsAdapter);
+    }
+
+    @Override
+    public void listGroups(List<Group> groups) {
+
+    }
+
+    @Override
+    public void enterGroup(Group group) {
+
     }
 }
