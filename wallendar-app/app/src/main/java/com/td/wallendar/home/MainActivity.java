@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.R)
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        //groupsView.bind(new GroupsAdapter());
+        groupsView.bind(new GroupsAdapter());
     }
 
     private void setUpEventsView() {
