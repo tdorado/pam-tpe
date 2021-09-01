@@ -3,62 +3,98 @@ package com.td.wallendar.home;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.ViewSwitcher;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.td.wallendar.R;
+import com.td.wallendar.home.views.balances.BalancesView;
+import com.td.wallendar.home.views.events.EventsView;
 import com.td.wallendar.home.views.groups.GroupsAdapter;
 import com.td.wallendar.home.views.groups.GroupsView;
-import com.td.wallendar.home.views.profile.ProfileViewImpl;
+import com.td.wallendar.home.views.profile.ProfileView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int GROUPS = 0;
-    private final int EVENTS = 1;
-    private final int BALANCES = 2;
-    private final int PROFILE = 3;
+    private static final int GROUPS = 0;
+    private static final int EVENTS = 1;
+    private static final int BALANCES = 2;
+    private static final int PROFILE = 3;
 
-    private ViewSwitcher viewSwitcher;
+    private ViewFlipper viewFlipper;
     private BottomNavigationView bottomNavigationView;
-    // CUSTOM VIEWS
     private GroupsView groupsView;
-    private ProfileViewImpl profileView;
+    private EventsView eventsView;
+    private BalancesView balancesView;
+    private ProfileView profileView;
 
     @RequiresApi(api = Build.VERSION_CODES.R)
-    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
+        setUpViews();
+        setUpBottomNavigation();
+    }
 
+    @SuppressLint("NonConstantResourceId")
+    private void setUpBottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        viewSwitcher = findViewById(R.id.view_switcher);
-        // SETUP VIEWS
-        groupsView = findViewById(R.id.view_groups);
-        groupsView.bind(new GroupsAdapter());
-
-        profileView = findViewById(R.id.view_profile);
-        profileView.bind();
+        bottomNavigationView.setSelectedItemId(R.id.groups);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.groups:
-                    viewSwitcher.setDisplayedChild(GROUPS);
+                    viewFlipper.setDisplayedChild(GROUPS);
                     break;
                 case R.id.events:
+                    viewFlipper.setDisplayedChild(EVENTS);
                     break;
                 case R.id.balances:
+                    viewFlipper.setDisplayedChild(BALANCES);
                     break;
                 case R.id.profile:
-                    viewSwitcher.setDisplayedChild(2);
+                    viewFlipper.setDisplayedChild(PROFILE);
                     break;
                 default:
                     return false;
             }
             return true;
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private void setUpViews() {
+        viewFlipper = findViewById(R.id.view_flipper);
+
+        setUpGroupsView();
+        setUpEventsView();
+        setUpBalancesView();
+        setUpProfileView();
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    private void setUpGroupsView() {
+        groupsView = findViewById(R.id.view_groups);
+        //groupsView.bind(new GroupsAdapter());
+    }
+
+    private void setUpEventsView() {
+        eventsView = findViewById(R.id.view_events);
+        eventsView.bind();
+    }
+
+    private void setUpBalancesView() {
+        balancesView = findViewById(R.id.view_balances);
+        balancesView.bind();
+    }
+
+    private void setUpProfileView() {
+        profileView = findViewById(R.id.view_profile);
+        profileView.bind();
     }
 }

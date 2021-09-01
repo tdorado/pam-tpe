@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class GroupsViewImpl extends RecyclerView implements GroupsView {
     public GroupsViewImpl(@NonNull Context context) {
-        super(context);
+        this(context, null);
     }
 
     public GroupsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public GroupsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
