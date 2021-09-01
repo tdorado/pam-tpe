@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.models;
+package com.td.wallendar.home.models;
 
 import java.util.Date;
 

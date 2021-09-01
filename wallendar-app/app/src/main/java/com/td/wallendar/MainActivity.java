@@ -7,14 +7,13 @@ import android.widget.ViewFlipper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.td.wallendar.R;
-import com.td.wallendar.home.views.balances.BalancesAdapter;
-import com.td.wallendar.home.views.balances.BalancesView;
-import com.td.wallendar.home.views.events.EventsAdapter;
-import com.td.wallendar.home.views.events.EventsView;
-import com.td.wallendar.home.views.groups.GroupsAdapter;
-import com.td.wallendar.home.views.groups.GroupsView;
-import com.td.wallendar.home.views.profile.ProfileView;
+import com.td.wallendar.home.balances.view.BalancesAdapter;
+import com.td.wallendar.home.balances.view.BalancesView;
+import com.td.wallendar.home.events.view.EventsAdapter;
+import com.td.wallendar.home.events.view.EventsView;
+import com.td.wallendar.home.groups.view.GroupsAdapter;
+import com.td.wallendar.home.groups.view.GroupsView;
+import com.td.wallendar.home.profile.view.ProfileView;
 
 public class MainActivity extends AppCompatActivity {
 

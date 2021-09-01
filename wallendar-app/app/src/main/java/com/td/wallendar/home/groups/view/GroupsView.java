@@ -1,6 +1,6 @@
-package com.td.wallendar.home.views.groups;
+package com.td.wallendar.home.groups.view;
 
-import com.td.wallendar.home.views.models.Group;
+import com.td.wallendar.home.models.Group;
 
 import java.util.List;
 

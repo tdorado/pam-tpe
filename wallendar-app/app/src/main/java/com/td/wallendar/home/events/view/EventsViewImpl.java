@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.events;
+package com.td.wallendar.home.events.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

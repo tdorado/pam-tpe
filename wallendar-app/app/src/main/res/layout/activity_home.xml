@@ -10,23 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.td.wallendar.home.views.groups.GroupsViewImpl
+        <com.td.wallendar.home.groups.view.GroupsViewImpl
             android:id="@+id/view_groups"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity" />
 
-        <com.td.wallendar.home.views.events.EventsViewImpl
+        <com.td.wallendar.home.events.view.EventsViewImpl
             android:id="@+id/view_events"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.td.wallendar.home.views.balances.BalancesViewImpl
+        <com.td.wallendar.home.balances.view.BalancesViewImpl
             android:id="@+id/view_balances"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.td.wallendar.home.views.profile.ProfileViewImpl
+        <com.td.wallendar.home.profile.view.ProfileViewImpl
             android:id="@+id/view_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.models;
+package com.td.wallendar.home.models;
 
 public class Payment {
     private User from;
