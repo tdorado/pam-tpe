@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.td.wallendar.R;
+import com.td.wallendar.home.views.balances.BalancesAdapter;
 import com.td.wallendar.home.views.balances.BalancesView;
 import com.td.wallendar.home.views.events.EventsAdapter;
 import com.td.wallendar.home.views.events.EventsView;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
-        balancesView.bind();
+        balancesView.bind(new BalancesAdapter());
     }
 
     private void setUpProfileView() {

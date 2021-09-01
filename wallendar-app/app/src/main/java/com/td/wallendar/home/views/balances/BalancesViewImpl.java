@@ -2,11 +2,14 @@ package com.td.wallendar.home.views.balances;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class BalancesViewImpl extends LinearLayout implements BalancesView {
+import com.td.wallendar.home.views.events.EventsAdapter;
+
+public class BalancesViewImpl extends RecyclerView implements BalancesView {
     public BalancesViewImpl(Context context) {
         this(context, null);
     }
@@ -20,7 +23,9 @@ public class BalancesViewImpl extends LinearLayout implements BalancesView {
     }
 
     @Override
-    public void bind() {
-
+    public void bind(final BalancesAdapter balancesAdapter) {
+        setHasFixedSize(true);
+        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        setAdapter(balancesAdapter);
     }
 }
