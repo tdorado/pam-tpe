@@ -22,13 +22,13 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.td.wallendarbackend.constants.SecurityConstants.EXPIRATION_TIME;
-import static com.td.wallendarbackend.constants.SecurityConstants.KEY;
+import static com.td.wallendarbackend.constants.SecurityConstants.*;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager) {
+        this.setFilterProcessesUrl(AUTHENTICATE_URL);
         this.authenticationManager = authenticationManager;
     }
 
@@ -50,12 +50,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-
         Date exp = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         Key key = Keys.hmacShaKeyFor(KEY.getBytes());
         Claims claims = Jwts.claims().setSubject(((User) auth.getPrincipal()).getUsername());
         String token = Jwts.builder().setClaims(claims).signWith(key, SignatureAlgorithm.HS512).setExpiration(exp).compact();
         res.addHeader("token", token);
-
     }
 }

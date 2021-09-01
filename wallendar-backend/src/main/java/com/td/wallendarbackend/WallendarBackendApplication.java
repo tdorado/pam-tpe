@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class WallendarBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WallendarBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WallendarBackendApplication.class, args);
+    }
 
 }

@@ -24,8 +24,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader(HEADER_NAME);
 
@@ -46,13 +45,11 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
             Claims user = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(KEY.getBytes())).build()
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody();
-
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-            }else{
-                return  null;
+            } else {
+                return null;
             }
-
         }
         return null;
     }
