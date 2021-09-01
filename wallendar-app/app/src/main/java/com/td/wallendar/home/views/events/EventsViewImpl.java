@@ -5,8 +5,10 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class EventsViewImpl extends LinearLayout implements EventsView {
+public class EventsViewImpl extends RecyclerView implements EventsView {
     public EventsViewImpl(Context context) {
         this(context, null);
     }
@@ -20,7 +22,9 @@ public class EventsViewImpl extends LinearLayout implements EventsView {
     }
 
     @Override
-    public void bind() {
-
+    public void bind(final EventsAdapter eventsAdapter) {
+        setHasFixedSize(true);
+        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        setAdapter(eventsAdapter);
     }
 }

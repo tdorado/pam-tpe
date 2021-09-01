@@ -1,16 +1,15 @@
 package com.td.wallendar.home;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.ViewFlipper;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.td.wallendar.R;
 import com.td.wallendar.home.views.balances.BalancesView;
+import com.td.wallendar.home.views.events.EventsAdapter;
 import com.td.wallendar.home.views.events.EventsView;
 import com.td.wallendar.home.views.groups.GroupsAdapter;
 import com.td.wallendar.home.views.groups.GroupsView;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private BalancesView balancesView;
     private ProfileView profileView;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     private void setUpViews() {
         viewFlipper = findViewById(R.id.view_flipper);
 
@@ -77,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
         groupsView.bind(new GroupsAdapter());
@@ -85,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpEventsView() {
         eventsView = findViewById(R.id.view_events);
-        eventsView.bind();
+        eventsView.bind(new EventsAdapter());
     }
 
     private void setUpBalancesView() {
