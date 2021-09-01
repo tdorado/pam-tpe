@@ -8,11 +8,11 @@ import androidx.annotation.Nullable;
 
 public class BalancesViewImpl extends LinearLayout implements BalancesView {
     public BalancesViewImpl(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public BalancesViewImpl(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public BalancesViewImpl(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
