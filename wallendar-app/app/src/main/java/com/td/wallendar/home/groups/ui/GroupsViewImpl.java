@@ -1,4 +1,4 @@
-package com.td.wallendar.home.groups.view;
+package com.td.wallendar.home.groups.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.td.wallendar.home.groups.GroupsAdapter;
 import com.td.wallendar.models.Group;
 
 import java.util.List;

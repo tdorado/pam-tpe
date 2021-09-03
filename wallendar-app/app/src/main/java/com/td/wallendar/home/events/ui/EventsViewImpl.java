@@ -1,4 +1,4 @@
-package com.td.wallendar.home.events.view;
+package com.td.wallendar.home.events.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.td.wallendar.home.events.EventsAdapter;
 
 public class EventsViewImpl extends RecyclerView implements EventsView {
     public EventsViewImpl(Context context) {

@@ -1,4 +1,4 @@
-package com.td.wallendar.home.balances.view;
+package com.td.wallendar.home.balances.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.td.wallendar.home.balances.BalancesAdapter;
 
 public class BalancesViewImpl extends RecyclerView implements BalancesView {
     public BalancesViewImpl(Context context) {

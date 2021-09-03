@@ -1,4 +1,4 @@
-package com.td.wallendar.home.profile.view;
+package com.td.wallendar.home.profile.ui;
 
 import static android.view.Gravity.CENTER;
 

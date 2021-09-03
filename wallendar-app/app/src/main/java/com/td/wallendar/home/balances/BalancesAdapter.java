@@ -1,4 +1,4 @@
-package com.td.wallendar.home.balances.view;
+package com.td.wallendar.home.balances;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
+import com.td.wallendar.home.balances.BalancesViewHolder;
 
 import java.util.Arrays;
 import java.util.List;
