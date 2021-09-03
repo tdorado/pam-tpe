@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.td.wallendar.home.models.Group;
+import com.td.wallendar.models.Group;
 
 import java.util.List;
 

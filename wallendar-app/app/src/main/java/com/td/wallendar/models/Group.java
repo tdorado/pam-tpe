@@ -1,4 +1,4 @@
-package com.td.wallendar.home.models;
+package com.td.wallendar.models;
 
 import java.util.List;
 

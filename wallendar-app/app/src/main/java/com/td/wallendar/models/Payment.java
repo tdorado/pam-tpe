@@ -1,18 +1,14 @@
-package com.td.wallendar.home.models;
+package com.td.wallendar.models;
 
-import java.util.Date;
-
-public class Debt {
+public class Payment {
     private User from;
     private User to;
     private double amount;
-    private Date date;
 
-    public Debt(User from, User to, double amount, Date date) {
+    public Payment(User from, User to, double amount) {
         this.from = from;
         this.to = to;
         this.amount = amount;
-        this.date = date;
     }
 
     public User getFrom() {
@@ -37,13 +33,5 @@ public class Debt {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 }

@@ -1,14 +1,15 @@
-package com.td.wallendar.home.models;
+package com.td.wallendar.models;
 
 import java.util.List;
 
 public class Charge {
     private User owner;
+    private String title;
     private PaymentDivision paymentDivision;
     private List<User> debtors;
     private double amount;
 
-    public Charge(User owner, PaymentDivision paymentDivision, List<User> debtors, double amount) {
+    public Charge(User owner, String title, PaymentDivision paymentDivision, List<User> debtors, double amount) {
         this.owner = owner;
         this.paymentDivision = paymentDivision;
         this.debtors = debtors;
@@ -21,6 +22,14 @@ public class Charge {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public PaymentDivision getPaymentDivision() {

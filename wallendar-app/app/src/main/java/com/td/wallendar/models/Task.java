@@ -1,10 +1,11 @@
-package com.td.wallendar.home.models;
+package com.td.wallendar.models;
 
 public class Task {
     private User userAssigned;
+    private String title;
     private double amount;
 
-    public Task(User userAssigned, double amount) {
+    public Task(User userAssigned, String title, double amount) {
         this.userAssigned = userAssigned;
         this.amount = amount;
     }
@@ -15,6 +16,14 @@ public class Task {
 
     public void setUserAssigned(User userAssigned) {
         this.userAssigned = userAssigned;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public double getAmount() {
