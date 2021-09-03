@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.balances;
+package com.td.wallendar.home.balances.view;
 
 import android.view.LayoutInflater;
 import android.view.View;

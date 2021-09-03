@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.groups;
+package com.td.wallendar.home.events.view;
 
 import android.view.View;
 import android.widget.TextView;
@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 
-public class GroupsViewHolder extends RecyclerView.ViewHolder {
-    public GroupsViewHolder(@NonNull View itemView) {
+public class EventsViewHolder extends RecyclerView.ViewHolder {
+    public EventsViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     public void bind(final String text) {
-        final TextView textView = itemView.findViewById(R.id.row_group_name);
+        final TextView textView = itemView.findViewById(R.id.row_event_name);
 
         textView.setText(text);
     }

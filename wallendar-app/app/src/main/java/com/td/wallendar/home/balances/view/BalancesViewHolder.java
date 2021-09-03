@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.balances;
+package com.td.wallendar.home.balances.view;
 
 import android.view.View;
 import android.widget.TextView;

@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.groups;
+package com.td.wallendar.home.groups.view;
 
 import android.view.LayoutInflater;
 import android.view.View;

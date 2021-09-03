@@ -1,4 +1,4 @@
-package com.td.wallendar.home.views.events;
+package com.td.wallendar.home.events.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
