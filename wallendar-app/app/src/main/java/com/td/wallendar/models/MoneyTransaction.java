@@ -2,17 +2,20 @@ package com.td.wallendar.models;
 
 import java.util.Date;
 
-public class Debt {
+public class MoneyTransaction {
     private User from;
     private User to;
     private double amount;
     private Date date;
+    private MoneyTransactionType moneyTransactionType;
 
-    public Debt(User from, User to, double amount, Date date) {
+    public MoneyTransaction(User from, User to, double amount, Date date,
+                            MoneyTransactionType moneyTransactionType) {
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.date = date;
+        this.moneyTransactionType = moneyTransactionType;
     }
 
     public User getFrom() {
@@ -45,5 +48,13 @@ public class Debt {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public MoneyTransactionType getMoneyTransactionType() {
+        return moneyTransactionType;
+    }
+
+    public void setMoneyTransactionType(MoneyTransactionType moneyTransactionType) {
+        this.moneyTransactionType = moneyTransactionType;
     }
 }

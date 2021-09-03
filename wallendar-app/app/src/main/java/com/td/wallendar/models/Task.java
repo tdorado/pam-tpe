@@ -3,11 +3,12 @@ package com.td.wallendar.models;
 public class Task {
     private User userAssigned;
     private String title;
-    private double amount;
+    private String description;
 
-    public Task(User userAssigned, String title, double amount) {
+    public Task(User userAssigned, String title, String description) {
         this.userAssigned = userAssigned;
-        this.amount = amount;
+        this.title= title;
+        this.description = description;
     }
 
     public User getUserAssigned() {
@@ -26,11 +27,11 @@ public class Task {
         this.title = title;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

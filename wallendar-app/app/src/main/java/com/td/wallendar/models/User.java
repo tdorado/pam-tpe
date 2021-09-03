@@ -1,17 +1,47 @@
 package com.td.wallendar.models;
 
 public class User {
-    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String cellphone;
 
-    public User(String username) {
-        this.username = username;
+    public User(String email, String firstName, String lastName, String cellphone) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cellphone = cellphone;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 }

@@ -2,16 +2,17 @@ package com.td.wallendar.models;
 
 import java.util.List;
 
-public class Charge {
+public abstract class Charge {
     private User owner;
     private String title;
-    private PaymentDivision paymentDivision;
+    private ChargeType chargeType;
     private List<User> debtors;
     private double amount;
 
-    public Charge(User owner, String title, PaymentDivision paymentDivision, List<User> debtors, double amount) {
+    public Charge(User owner, String title, ChargeType chargeType, List<User> debtors, double amount) {
         this.owner = owner;
-        this.paymentDivision = paymentDivision;
+        this.title= title;
+        this.chargeType = chargeType;
         this.debtors = debtors;
         this.amount = amount;
     }
@@ -32,12 +33,12 @@ public class Charge {
         this.title = title;
     }
 
-    public PaymentDivision getPaymentDivision() {
-        return paymentDivision;
+    public ChargeType getChargeType() {
+        return chargeType;
     }
 
-    public void setPaymentDivision(PaymentDivision paymentDivision) {
-        this.paymentDivision = paymentDivision;
+    public void setChargeType(ChargeType chargeType) {
+        this.chargeType = chargeType;
     }
 
     public List<User> getDebtors() {

@@ -3,26 +3,34 @@ package com.td.wallendar.models;
 import java.util.List;
 
 public class Group {
-    private String groupName;
+    private String title;
+    private User owner;
     private List<User> users;
     private List<Charge> charges;
-    private List<Debt> debts;
-    private List<Payment> payments;
+    private List<MoneyTransaction> moneyTransactions;
 
-    public Group(String groupName, List<User> users, List<Charge> charges, List<Debt> debts, List<Payment> payments) {
-        this.groupName = groupName;
+    public Group(String title, User owner, List<User> users, List<Charge> charges, List<MoneyTransaction> moneyTransactions) {
+        this.title = title;
+        this.owner = owner;
         this.users = users;
         this.charges = charges;
-        this.debts = debts;
-        this.payments = payments;
+        this.moneyTransactions = moneyTransactions;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public List<User> getUsers() {
@@ -41,19 +49,11 @@ public class Group {
         this.charges = charges;
     }
 
-    public List<Debt> getDebts() {
-        return debts;
+    public List<MoneyTransaction> getMoneyTransactions() {
+        return moneyTransactions;
     }
 
-    public void setDebts(List<Debt> debts) {
-        this.debts = debts;
-    }
-
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
+    public void setMoneyTransactions(List<MoneyTransaction> moneyTransactions) {
+        this.moneyTransactions = moneyTransactions;
     }
 }
