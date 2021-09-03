@@ -8,12 +8,10 @@ public class Event extends Group {
     private Date date;
     private List<Task> tasks;
 
-    public Event(final String groupName,
-                 final List<User> users,
-                 final List<Debt> debts,
-                 final Date date,
+    public Event(final String groupName, final List<User> users, final List<Charge> charges,
+                 final List<Debt> debts, final List<Payment> payments, final Date date,
                  final List<Task> tasks) {
-        super(groupName, users, debts);
+        super(groupName, users, charges, debts, payments);
         this.date = date;
         this.tasks = tasks;
     }
