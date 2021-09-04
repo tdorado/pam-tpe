@@ -11,7 +11,7 @@ public abstract class Charge {
 
     public Charge(User owner, String title, ChargeType chargeType, List<User> debtors, double amount) {
         this.owner = owner;
-        this.title= title;
+        this.title = title;
         this.chargeType = chargeType;
         this.debtors = debtors;
         this.amount = amount;

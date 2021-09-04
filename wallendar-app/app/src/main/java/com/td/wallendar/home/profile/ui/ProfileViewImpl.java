@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.td.wallendar.R;
 
-public class ProfileViewImpl extends LinearLayout implements ProfileView{
+public class ProfileViewImpl extends LinearLayout implements ProfileView {
     public ProfileViewImpl(Context context) {
         this(context, null);
     }

@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
-import com.td.wallendar.home.events.EventsViewHolder;
 
 import java.util.Arrays;
 import java.util.List;

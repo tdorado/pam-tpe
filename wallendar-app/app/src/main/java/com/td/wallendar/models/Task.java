@@ -7,7 +7,7 @@ public class Task {
 
     public Task(User userAssigned, String title, String description) {
         this.userAssigned = userAssigned;
-        this.title= title;
+        this.title = title;
         this.description = description;
     }
 
