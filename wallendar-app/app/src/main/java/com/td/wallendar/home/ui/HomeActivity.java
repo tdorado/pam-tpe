@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        groupsView.bind(new GroupsAdapter());
+        groupsView.bind();
     }
 
     private void setUpEventsView() {
