@@ -19,12 +19,16 @@ public class GroupsPresenter {
     }
 
     void listGroups(final Long userId) {
-        final List<Group> groups = groupsRepository.getGroupsByUser(userId);
-        groupsView.get().listGroups(groups);
+        if (groupsRepository != null) {
+            final List<Group> groups = groupsRepository.getGroupsByUser(userId);
+            groupsView.get().listGroups(groups);
+        }
     }
 
     void getGroup(final Long groupId) {
-        final Group group = groupsRepository.getGroup(groupId);
-        groupsView.get().enterGroup(group);
+        if (groupsRepository != null) {
+            final Group group = groupsRepository.getGroup(groupId);
+            groupsView.get().enterGroup(group);
+        }
     }
 }

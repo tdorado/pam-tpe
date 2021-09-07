@@ -21,6 +21,7 @@
         <activity android:name=".addcharge.ui.AddChargeActivity" />
         <activity android:name=".addgroup.ui.AddGroupActivity" />
         <activity android:name=".addevent.ui.AddEventActivity" />
+        <activity android:name=".group.ui.GroupActivity" />
 
     </application>
 

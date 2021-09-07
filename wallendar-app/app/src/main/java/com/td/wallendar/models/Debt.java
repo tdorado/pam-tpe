@@ -2,7 +2,7 @@ package com.td.wallendar.models;
 
 import java.util.Date;
 
-public class Debt {
+public class Debt implements GroupHistory {
     private User from;
     private User to;
     private double amount;
@@ -42,6 +42,16 @@ public class Debt {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public User getFromUser() {
+        return getFrom();
+    }
+
+    @Override
+    public User getToUser() {
+        return getTo();
     }
 
     public Date getDate() {

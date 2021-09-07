@@ -10,6 +10,8 @@ public class Group {
     private List<Charge> charges;
     private List<Debt> debts;
 
+    public Group() {}
+
     public Group(final Long id,
                  final String title,
                  final User owner,

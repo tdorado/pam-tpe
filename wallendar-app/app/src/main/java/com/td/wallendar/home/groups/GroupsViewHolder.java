@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
+import com.td.wallendar.models.Group;
+
+import java.util.List;
 
 public class GroupsViewHolder extends RecyclerView.ViewHolder {
     public GroupsViewHolder(@NonNull View itemView) {
@@ -17,6 +20,9 @@ public class GroupsViewHolder extends RecyclerView.ViewHolder {
         final TextView textView = itemView.findViewById(R.id.row_group_name);
 
         textView.setText(text);
+    }
+
+    public void bind(final List<Group> groups) {
     }
 
 }

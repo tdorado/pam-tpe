@@ -23,7 +23,7 @@ import com.td.wallendar.home.events.ui.EventsView;
 import com.td.wallendar.home.groups.ui.GroupsView;
 import com.td.wallendar.home.profile.ui.ProfileView;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private static final int GROUPS = 0;
     private static final int EVENTS = 1;
@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        switch (currentView){
+        switch (currentView) {
             case GROUPS:
                 menu.findItem(R.id.add_group).setVisible(true);
                 menu.findItem(R.id.add_event).setVisible(false);
@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.add_group:
                 startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
                 return true;
@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        groupsView.bind(addChargeFAB);
+        groupsView.bind(addChargeFAB, this);
     }
 
     private void setUpEventsView() {
@@ -161,4 +161,5 @@ public class HomeActivity extends AppCompatActivity {
         profileView = findViewById(R.id.view_profile);
         profileView.bind();
     }
+
 }

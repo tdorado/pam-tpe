@@ -1,6 +1,7 @@
 package com.td.wallendar.home.groups.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.db.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.groups.GroupsAdapter;
+import com.td.wallendar.home.ui.HomeView;
 import com.td.wallendar.models.Group;
 
 import java.lang.ref.WeakReference;
@@ -21,6 +24,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     private GroupsPresenter groupsPresenter;
     private GroupsAdapter groupsAdapter;
+    private HomeView homeView;
 
     public GroupsViewImpl(@NonNull Context context) {
         this(context, null);
@@ -36,8 +40,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     }
 
     @Override
-    public void bind(ExtendedFloatingActionButton addChargeFAB) {
-
+    public void bind(final ExtendedFloatingActionButton addChargeFAB, final HomeView homeView) {
         // Shrink floating button when scrolling, extend at the top. Just fancy fab
         this.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -55,17 +58,19 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
                 }
             }
         });
-//
-//        this.groupsAdapter = new GroupsAdapter(this);
-//        setHasFixedSize(true);
-//
-//        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-//
-//        setAdapter(groupsAdapter);
-//
-//        buildPresenter();
-//
-//        groupsPresenter.listGroups(getUserId());
+        this.homeView = homeView;
+        this.groupsAdapter = new GroupsAdapter(this);
+        this.groupsPresenter = new GroupsPresenter(new WeakReference<>(this), null);
+
+        setHasFixedSize(true);
+
+        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        setAdapter(groupsAdapter);
+
+        buildPresenter();
+
+        groupsPresenter.listGroups(getUserId());
     }
 
     @Override
@@ -75,7 +80,8 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     @Override
     public void enterGroup(Group group) {
-        // TODO enter new activity
+        final Intent intent = new Intent(homeView.getApplicationContext(), GroupActivity.class);
+        homeView.startActivity(intent);
     }
 
     @Override
