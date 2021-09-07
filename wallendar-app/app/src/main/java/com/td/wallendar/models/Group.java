@@ -3,18 +3,25 @@ package com.td.wallendar.models;
 import java.util.List;
 
 public class Group {
+    private Long id;
     private String title;
     private User owner;
     private List<User> users;
     private List<Charge> charges;
     private List<MoneyTransaction> moneyTransactions;
 
-    public Group(String title, User owner, List<User> users, List<Charge> charges, List<MoneyTransaction> moneyTransactions) {
+    public Group(final Long id,
+                 final String title,
+                 final User owner,
+                 final List<User> users,
+                 final List<Charge> charges,
+                 final List<MoneyTransaction> moneyTransactions) {
         this.title = title;
         this.owner = owner;
         this.users = users;
         this.charges = charges;
         this.moneyTransactions = moneyTransactions;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -55,5 +62,13 @@ public class Group {
 
     public void setMoneyTransactions(List<MoneyTransaction> moneyTransactions) {
         this.moneyTransactions = moneyTransactions;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
