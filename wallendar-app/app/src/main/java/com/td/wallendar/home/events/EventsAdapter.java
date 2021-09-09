@@ -14,7 +14,7 @@ import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
-    private List<String> testDataset = Arrays.asList("EVENT 1", "EVENT 2", "EVENT 3", "EVENT 4");
+    private List<String> testDataset = Arrays.asList("EVENT 1", "EVENT 2", "EVENT 3", "EVENT 4", "EVENT 5", "EVENT 6", "EVENT 7", "EVENT 8");
 
     @NonNull
     @Override

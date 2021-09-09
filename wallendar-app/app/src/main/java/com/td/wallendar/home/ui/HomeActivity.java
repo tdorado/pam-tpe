@@ -1,13 +1,18 @@
 package com.td.wallendar.home.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.td.wallendar.R;
+import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.home.balances.BalancesAdapter;
 import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.events.EventsAdapter;
@@ -24,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final int PROFILE = 3;
 
     private ViewFlipper viewFlipper;
+    private ExtendedFloatingActionButton addChargeFAB;
     private BottomNavigationView bottomNavigationView;
     private GroupsView groupsView;
     private EventsView eventsView;
@@ -47,15 +53,19 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.groups:
+                    addChargeFAB.show();
                     viewFlipper.setDisplayedChild(GROUPS);
                     break;
                 case R.id.events:
+                    addChargeFAB.show();
                     viewFlipper.setDisplayedChild(EVENTS);
                     break;
                 case R.id.balances:
+                    addChargeFAB.hide();
                     viewFlipper.setDisplayedChild(BALANCES);
                     break;
                 case R.id.profile:
+                    addChargeFAB.hide();
                     viewFlipper.setDisplayedChild(PROFILE);
                     break;
                 default:
@@ -68,21 +78,31 @@ public class HomeActivity extends AppCompatActivity {
     private void setUpViews() {
         viewFlipper = findViewById(R.id.view_flipper);
 
+        setUpAddChargeButton();
         setUpGroupsView();
         setUpEventsView();
         setUpBalancesView();
         setUpProfileView();
     }
 
+    private void setUpAddChargeButton() {
+        addChargeFAB = findViewById(R.id.add_charge_fab);
+        addChargeFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, AddChargeActivity.class));
+            }
+        });
+    }
 
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        groupsView.bind();
+        groupsView.bind(addChargeFAB);
     }
 
     private void setUpEventsView() {
         eventsView = findViewById(R.id.view_events);
-        eventsView.bind(new EventsAdapter());
+        eventsView.bind(addChargeFAB, new EventsAdapter());
     }
 
     private void setUpBalancesView() {
