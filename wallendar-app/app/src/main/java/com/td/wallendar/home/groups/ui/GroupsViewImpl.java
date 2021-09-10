@@ -32,6 +32,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     public GroupsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
     }
 
     @Override

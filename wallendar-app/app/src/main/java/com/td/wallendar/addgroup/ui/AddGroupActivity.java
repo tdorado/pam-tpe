@@ -1,21 +1,16 @@
-package com.td.wallendar.addcharge.ui;
+package com.td.wallendar.addgroup.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.td.wallendar.R;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class AddChargeActivity extends AppCompatActivity implements AddChargeView{
+public class AddGroupActivity extends AppCompatActivity implements AddGroupView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +18,10 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.add_charge);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_close_white);
+        actionBar.setTitle(R.string.add_group);
 
-        setContentView(R.layout.activity_add_charge);
-
-        List<String> groups = Arrays.asList("GROUP 1", "GROUP 2", "GROUP 3", "GROUP 4");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_popup_item, groups);
-        AutoCompleteTextView editTextFilledExposedDropdown = findViewById(R.id.group_charge_dropdown);
-        editTextFilledExposedDropdown.setAdapter(adapter);
+        setContentView(R.layout.activity_add_group);
     }
 
     @Override
@@ -42,13 +33,13 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_charge_menu, menu);
+        inflater.inflate(R.menu.add_group_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add_charge_done) {
+        if (item.getItemId() == R.id.add_group_done) {
             finish();
             return true;
         }
