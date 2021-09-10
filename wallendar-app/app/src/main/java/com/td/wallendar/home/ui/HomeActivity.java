@@ -87,12 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab);
-        addChargeFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, AddChargeActivity.class));
-            }
-        });
+        addChargeFAB.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, AddChargeActivity.class)));
     }
 
     private void setUpGroupsView() {
