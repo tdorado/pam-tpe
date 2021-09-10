@@ -3,21 +3,23 @@ package com.td.wallendar.home.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
+import com.td.wallendar.addevent.ui.AddEventActivity;
+import com.td.wallendar.addgroup.ui.AddGroupActivity;
 import com.td.wallendar.home.balances.BalancesAdapter;
 import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.events.EventsAdapter;
 import com.td.wallendar.home.events.ui.EventsView;
-import com.td.wallendar.home.groups.GroupsAdapter;
 import com.td.wallendar.home.groups.ui.GroupsView;
 import com.td.wallendar.home.profile.ui.ProfileView;
 
@@ -27,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final int EVENTS = 1;
     private static final int BALANCES = 2;
     private static final int PROFILE = 3;
+    private int currentView = GROUPS;
 
     private ViewFlipper viewFlipper;
     private ExtendedFloatingActionButton addChargeFAB;
@@ -45,6 +48,47 @@ public class HomeActivity extends AppCompatActivity {
         setUpBottomNavigation();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        switch (currentView){
+            case GROUPS:
+                menu.findItem(R.id.add_group).setVisible(true);
+                menu.findItem(R.id.add_event).setVisible(false);
+                return true;
+            case EVENTS:
+                menu.findItem(R.id.add_event).setVisible(true);
+                menu.findItem(R.id.add_group).setVisible(false);
+                return true;
+            default:
+                menu.findItem(R.id.add_group).setVisible(false);
+                menu.findItem(R.id.add_event).setVisible(false);
+                return true;
+        }
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add_group:
+                startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
+                return true;
+            case R.id.add_event:
+                startActivity(new Intent(HomeActivity.this, AddEventActivity.class));
+                return true;
+            default:
+                return false;
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     private void setUpBottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -53,18 +97,26 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.groups:
+                    currentView = GROUPS;
+                    invalidateOptionsMenu();
                     addChargeFAB.show();
                     viewFlipper.setDisplayedChild(GROUPS);
                     break;
                 case R.id.events:
+                    currentView = EVENTS;
+                    invalidateOptionsMenu();
                     addChargeFAB.show();
                     viewFlipper.setDisplayedChild(EVENTS);
                     break;
                 case R.id.balances:
+                    currentView = BALANCES;
+                    invalidateOptionsMenu();
                     addChargeFAB.hide();
                     viewFlipper.setDisplayedChild(BALANCES);
                     break;
                 case R.id.profile:
+                    currentView = PROFILE;
+                    invalidateOptionsMenu();
                     addChargeFAB.hide();
                     viewFlipper.setDisplayedChild(PROFILE);
                     break;

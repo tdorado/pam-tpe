@@ -8,4 +8,14 @@
     <string name="add_charge_to">Add to</string>
     <string name="enter_description">Enter a description</string>
     <string name="charge_amount">Price</string>
+    <string name="add_group">Add Group</string>
+    <string name="enter_group_name">Enter group title</string>
+    <string name="add_event">Add Event</string>
+    <string name="enter_event_title">Enter event title</string>
+    <string name="selected_date">Selected date is: </string>
+    <string name="select_date">Select Date</string>
+    <string name="select_a_date">Select a date</string>
+    <string name="selected_time">Selected time is: </string>
+    <string name="select_time">Select Time</string>
+    <string name="select_a_time">Select a time</string>
 </resources>
