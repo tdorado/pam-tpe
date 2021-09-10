@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.db.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.home.groups.GroupsAdapter;
 import com.td.wallendar.models.Group;
@@ -34,17 +35,36 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     }
 
     @Override
-    public void bind() {
-        this.groupsAdapter = new GroupsAdapter(this);
-        setHasFixedSize(true);
+    public void bind(ExtendedFloatingActionButton addChargeFAB) {
 
-        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        // Shrink floating button when scrolling, extend at the top. Just fancy fab
+        this.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    addChargeFAB.extend();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-        setAdapter(groupsAdapter);
-
-        buildPresenter();
-
-        groupsPresenter.listGroups(getUserId());
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && addChargeFAB.isExtended()) {
+                    addChargeFAB.shrink();
+                }
+            }
+        });
+//
+//        this.groupsAdapter = new GroupsAdapter(this);
+//        setHasFixedSize(true);
+//
+//        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+//
+//        setAdapter(groupsAdapter);
+//
+//        buildPresenter();
+//
+//        groupsPresenter.listGroups(getUserId());
     }
 
     @Override
