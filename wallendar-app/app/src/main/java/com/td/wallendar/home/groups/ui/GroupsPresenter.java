@@ -1,7 +1,6 @@
 package com.td.wallendar.home.groups.ui;
 
 import com.td.wallendar.models.Group;
-import com.td.wallendar.models.User;
 import com.td.wallendar.repositories.GroupsRepository;
 
 import java.lang.ref.WeakReference;
