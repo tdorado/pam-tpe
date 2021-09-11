@@ -31,6 +31,11 @@ public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryVie
             new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
             new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
             new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
             new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date())
     );
 
