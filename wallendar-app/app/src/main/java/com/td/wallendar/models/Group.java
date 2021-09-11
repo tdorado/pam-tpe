@@ -8,19 +8,19 @@ public class Group {
     private User owner;
     private List<User> users;
     private List<Charge> charges;
-    private List<MoneyTransaction> moneyTransactions;
+    private List<Debt> debts;
 
     public Group(final Long id,
                  final String title,
                  final User owner,
                  final List<User> users,
                  final List<Charge> charges,
-                 final List<MoneyTransaction> moneyTransactions) {
+                 final List<Debt> debts) {
         this.title = title;
         this.owner = owner;
         this.users = users;
         this.charges = charges;
-        this.moneyTransactions = moneyTransactions;
+        this.debts = debts;
         this.id = id;
     }
 
@@ -56,12 +56,12 @@ public class Group {
         this.charges = charges;
     }
 
-    public List<MoneyTransaction> getMoneyTransactions() {
-        return moneyTransactions;
+    public List<Debt> getDebts() {
+        return debts;
     }
 
-    public void setMoneyTransactions(List<MoneyTransaction> moneyTransactions) {
-        this.moneyTransactions = moneyTransactions;
+    public void setDebts(List<Debt> debts) {
+        this.debts = debts;
     }
 
     public Long getId() {

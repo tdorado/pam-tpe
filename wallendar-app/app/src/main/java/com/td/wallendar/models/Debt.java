@@ -2,20 +2,22 @@ package com.td.wallendar.models;
 
 import java.util.Date;
 
-public class MoneyTransaction {
+public class Debt {
     private User from;
     private User to;
     private double amount;
     private Date date;
-    private MoneyTransactionType moneyTransactionType;
+    private boolean settledUp;
+    private Charge associatedCharge;
 
-    public MoneyTransaction(User from, User to, double amount, Date date,
-                            MoneyTransactionType moneyTransactionType) {
+    public Debt(User from, User to, double amount, Date date,
+                boolean settledUp, Charge associatedCharge) {
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.date = date;
-        this.moneyTransactionType = moneyTransactionType;
+        this.settledUp = settledUp;
+        this.associatedCharge = associatedCharge;
     }
 
     public User getFrom() {
@@ -50,11 +52,19 @@ public class MoneyTransaction {
         this.date = date;
     }
 
-    public MoneyTransactionType getMoneyTransactionType() {
-        return moneyTransactionType;
+    public boolean isSettledUp() {
+        return settledUp;
     }
 
-    public void setMoneyTransactionType(MoneyTransactionType moneyTransactionType) {
-        this.moneyTransactionType = moneyTransactionType;
+    public void setSettledUp(boolean settledUp) {
+        this.settledUp = settledUp;
+    }
+
+    public Charge getAssociatedCharge() {
+        return associatedCharge;
+    }
+
+    public void setAssociatedCharge(Charge associatedCharge) {
+        this.associatedCharge = associatedCharge;
     }
 }
