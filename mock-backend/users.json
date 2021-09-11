@@ -1,0 +1,7 @@
+{
+  "users": [
+    { "email": "tdallas@itba.edu.ar", "firstName": "Tomas", "lastName": "Dallas", "cellphone": "1156057655" },
+    { "email": "tdorado@itba.edu.ar", "firstName": "Tomas", "lastName": "Dorado", "cellphone": "1156057655" },
+    { "email": "jdoe@itba.edu.ar", "firstName": "John", "lastName": "Doe", "cellphone": "1123456677" }
+  ]
+}
