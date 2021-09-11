@@ -15,7 +15,7 @@ import com.td.wallendar.R;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddChargeActivity extends AppCompatActivity implements AddChargeView{
+public class AddChargeActivity extends AppCompatActivity implements AddChargeView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

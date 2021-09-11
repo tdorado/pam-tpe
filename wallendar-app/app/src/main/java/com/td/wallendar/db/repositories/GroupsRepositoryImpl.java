@@ -1,7 +1,6 @@
 package com.td.wallendar.db.repositories;
 
 import com.td.wallendar.models.Group;
-import com.td.wallendar.models.User;
 import com.td.wallendar.repositories.GroupsRepository;
 
 import java.util.ArrayList;

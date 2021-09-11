@@ -15,8 +15,6 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 import com.td.wallendar.R;
 
-import java.util.Calendar;
-
 public class AddEventActivity extends AppCompatActivity implements AddEventView {
 
     private Button mPickDateButton;
@@ -61,7 +59,7 @@ public class AddEventActivity extends AppCompatActivity implements AddEventView 
         return false;
     }
 
-    private void setUpDatePicker(){
+    private void setUpDatePicker() {
 
         mPickDateButton = findViewById(R.id.pick_date_button);
         mShowSelectedDateText = findViewById(R.id.show_selected_date);
@@ -76,7 +74,7 @@ public class AddEventActivity extends AppCompatActivity implements AddEventView 
 
         materialDatePicker.addOnPositiveButtonClickListener(
                 selection -> {
-                    String selectedDate = getResources().getString(R.string.selected_date)+ " " + materialDatePicker.getHeaderText();
+                    String selectedDate = getResources().getString(R.string.selected_date) + " " + materialDatePicker.getHeaderText();
                     mShowSelectedDateText.setText(selectedDate);
                 });
     }
@@ -97,7 +95,7 @@ public class AddEventActivity extends AppCompatActivity implements AddEventView 
                 selection -> {
                     Integer min = materialTimePicker.getMinute();
                     String minute = (min == 0 ? "00" : min.toString());
-                    String selectedTime = getResources().getString(R.string.selected_time)+ " " +
+                    String selectedTime = getResources().getString(R.string.selected_time) + " " +
                             materialTimePicker.getHour() + ":" + minute;
                     mShowSelectedTimeText.setText(selectedTime);
                 });

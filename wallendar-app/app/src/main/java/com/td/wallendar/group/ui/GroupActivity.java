@@ -1,9 +1,7 @@
 package com.td.wallendar.group.ui;
 
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +14,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     private GroupActivitiesAdapter groupActivitiesAdapter;
     private RecyclerView recycler;
 
-    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

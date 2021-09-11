@@ -5,5 +5,6 @@ import android.content.Intent;
 
 public interface HomeView {
     void startActivity(Intent intent);
+
     Context getApplicationContext();
 }

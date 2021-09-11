@@ -1,18 +1,15 @@
 package com.td.wallendar.group;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 import com.td.wallendar.models.EqualCharge;
-import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.models.User;
 
@@ -21,7 +18,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.R)
 public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryViewHolder> {
 
     // I need kotlin
