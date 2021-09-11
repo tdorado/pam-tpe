@@ -13,10 +13,10 @@ public class Event extends Group {
                  final User owner,
                  final List<User> users,
                  final List<Charge> charges,
-                 final List<MoneyTransaction> moneyTransactions,
+                 final List<Debt> debts,
                  final Date date,
                  final List<Task> tasks) {
-        super(id, title, owner, users, charges, moneyTransactions);
+        super(id, title, owner, users, charges, debts);
         this.date = date;
         this.tasks = tasks;
     }
