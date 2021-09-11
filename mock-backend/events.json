@@ -1,0 +1,81 @@
+{
+  "events": [
+    {
+      "title": "Asado",
+      "owner": {
+        "email": "tdorado@itba.edu.ar"
+      },
+      "date": "2021-09-25T15:36:54.606Z",
+      "users": [
+        "tdallas@itba.edu.ar",
+        "tdorado@itba.edu.ar",
+        "jdoe@itba.edu.ar"
+      ],
+      "tasks": [],
+      "charges": [
+        {
+          "id": 1,
+          "owner": "tdallas@itba.edu.ar",
+          "title": "Cocas",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdorado@itba.edu.ar"],
+          "amount": 250,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "id": 2,
+          "owner": "tdallas@itba.edu.ar",
+          "title": "Carne para el asado",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdorado@itba.edu.ar"],
+          "amount": 3200,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "id": 3,
+          "owner": "tdorado@itba.edu.ar",
+          "title": "Cervezas",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdallas@itba.edu.ar"],
+          "amount": 1000,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "id": 4,
+          "owner": "tdorado@itba.edu.ar",
+          "title": "Picada",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdallas@itba.edu.ar"],
+          "amount": 1500,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "id": 4,
+          "owner": "tdorado@itba.edu.ar",
+          "title": "Picada",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdallas@itba.edu.ar", "jdoe@itba.edu.ar"],
+          "amount": 3000,
+          "date": "2021-09-11T15:36:54.606Z"
+        }
+      ],
+      "balances": [
+        {
+          "user": "tdorado@itba.edu.ar",
+          "amount": 800,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "user": "tdallas@itba.edu.ar",
+          "amount": 200,
+          "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "user": "jdoe@itba.edu.ar",
+          "amount": -1000,
+          "date": "2021-09-11T15:36:54.606Z"
+        }
+      ]
+    }
+  ]
+}
