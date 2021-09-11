@@ -19,11 +19,12 @@ import java.util.Optional;
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
 
     private List<String> testDataset = Arrays.asList("GROUP 1", "GROUP 2", "GROUP 3", "GROUP 4");
-    private List<Group> groups = new ArrayList<>();
+    private List<Group> groups;
     private final View.OnClickListener listener;
 
     public GroupsAdapter(final View.OnClickListener listener) {
         this.listener = listener;
+        this.groups = new ArrayList<>();
     }
 
     @NonNull

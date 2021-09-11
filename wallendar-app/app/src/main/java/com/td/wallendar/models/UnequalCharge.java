@@ -1,5 +1,6 @@
 package com.td.wallendar.models;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,10 @@ public class UnequalCharge extends Charge {
     private Map<User, Double> amountPerUser;
 
     //Hay que verificar que la sumatoria de amountPerUser sea = amount
-    public UnequalCharge(User owner, String title, List<User> debtors,
-                         double amount, Map<User, Double> amountPerUser) {
-        super(owner, title, ChargeType.UNEQUALLY, debtors, amount);
+    public UnequalCharge(final User owner, final String title, final List<User> debtors,
+                         final double amount, final Map<User, Double> amountPerUser,
+                         final Date date) {
+        super(owner, title, ChargeType.UNEQUALLY, debtors, amount, date);
         this.amountPerUser = amountPerUser;
     }
 
