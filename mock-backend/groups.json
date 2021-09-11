@@ -5,6 +5,7 @@
       "owner": {
         "email": "tdallas@itba.edu.ar"
       },
+      "date": "2021-09-25T15:36:54.606Z",
       "users": ["tdallas@itba.edu.ar", "tdorado@itba.edu.ar"],
       "charges": [
         {
@@ -13,13 +14,13 @@
           "title": "Aguas",
           "chargeType": "EQUALLY",
           "debtors": ["tdorado@itba.edu.ar"],
-          "amount": 250,
+          "amount": 300,
           "date": "2021-09-11T15:36:54.606Z"
         },
         {
           "id": 2,
           "owner": "tdallas@itba.edu.ar",
-          "title": "Carne para el asado",
+          "title": "Compra super",
           "chargeType": "EQUALLY",
           "debtors": ["tdorado@itba.edu.ar"],
           "amount": 3200,
@@ -42,22 +43,96 @@
           "debtors": ["tdallas@itba.edu.ar"],
           "amount": 1500,
           "date": "2021-09-11T15:36:54.606Z"
+        },
+        {
+          "id": 5,
+          "owner": "tdorado@itba.edu.ar",
+          "title": "Mas picada",
+          "chargeType": "EQUALLY",
+          "debtors": ["tdallas@itba.edu.ar"],
+          "amount": 1000,
+          "date": "2021-09-11T15:36:54.606Z"
         }
       ],
       "balances": [
         {
-          "from": "tdorado@itba.edu.ar",
-          "to": "tdallas@itba.edu.ar",
-          "amount": 1200,
+          "user": "tdorado@itba.edu.ar",
+          "amount": 0,
           "date": "2021-09-11T15:36:54.606Z"
         },
         {
-          "from": "tdallas@itba.edu.ar",
-          "to": "tdorado@itba.edu.ar",
+          "user": "tdallas@itba.edu.ar",
           "amount": 0,
           "date": "2021-09-11T15:36:54.606Z"
         }
       ]
-    }
+    },
+    {
+        "title": "Amigos",
+        "owner": {
+          "email": "tdorado@itba.edu.ar"
+        },
+        "date": "2021-09-25T15:36:54.606Z",
+        "users": ["tdallas@itba.edu.ar", "tdorado@itba.edu.ar"],
+        "charges": [
+          {
+            "id": 1,
+            "owner": "tdallas@itba.edu.ar",
+            "title": "Aguas",
+            "chargeType": "EQUALLY",
+            "debtors": ["tdorado@itba.edu.ar"],
+            "amount": 300,
+            "date": "2021-09-11T15:36:54.606Z"
+          },
+          {
+            "id": 2,
+            "owner": "tdallas@itba.edu.ar",
+            "title": "Chocolates",
+            "chargeType": "EQUALLY",
+            "debtors": ["tdorado@itba.edu.ar"],
+            "amount": 3200,
+            "date": "2021-09-11T15:36:54.606Z"
+          },
+          {
+            "id": 3,
+            "owner": "tdorado@itba.edu.ar",
+            "title": "Cervezas",
+            "chargeType": "EQUALLY",
+            "debtors": ["tdallas@itba.edu.ar"],
+            "amount": 1000,
+            "date": "2021-09-11T15:36:54.606Z"
+          },
+          {
+            "id": 4,
+            "owner": "tdorado@itba.edu.ar",
+            "title": "Picada",
+            "chargeType": "EQUALLY",
+            "debtors": ["tdallas@itba.edu.ar"],
+            "amount": 1500,
+            "date": "2021-09-11T15:36:54.606Z"
+          },
+          {
+            "id": 5,
+            "owner": "tdorado@itba.edu.ar",
+            "title": "Galletitas",
+            "chargeType": "EQUALLY",
+            "debtors": ["tdallas@itba.edu.ar"],
+            "amount": 500,
+            "date": "2021-09-11T15:36:54.606Z"
+          }
+        ],
+        "balances": [
+          {
+            "user": "tdorado@itba.edu.ar",
+            "amount": -250,
+            "date": "2021-09-11T15:36:54.606Z"
+          },
+          {
+            "user": "tdallas@itba.edu.ar",
+            "amount": 250,
+            "date": "2021-09-11T15:36:54.606Z"
+          }
+        ]
+      }
   ]
 }
