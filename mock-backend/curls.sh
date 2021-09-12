@@ -1,5 +1,5 @@
 curl --request POST \
-  --url http://localhost:8080/debt/pay \
+  --url http://localhost:8080/users/debts \
   --header 'Content-Type: application/json' \
   --data '{
 	"debt_id": 2,
@@ -25,7 +25,7 @@ curl --request GET \
   --url http://localhost:8080/events/1
 
   curl --request POST \
-  --url http://localhost:8080/charge \
+  --url http://localhost:8080/charges \
   --header 'Content-Type: application/json' \
   --data '{
 		"owner": "tdallas@itba.edu.ar",

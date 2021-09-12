@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.td.wallendar.db.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.groups.GroupsAdapter;
 import com.td.wallendar.home.ui.HomeView;
