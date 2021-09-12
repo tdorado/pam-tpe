@@ -2,9 +2,7 @@
   "groups": [
     {
       "title": "El palco",
-      "owner": {
-        "email": "tdallas@itba.edu.ar"
-      },
+      "owner": "tdallas@itba.edu.ar",
       "date": "2021-09-25T15:36:54.606Z",
       "users": ["tdallas@itba.edu.ar", "tdorado@itba.edu.ar"],
       "charges": [
@@ -69,9 +67,7 @@
     },
     {
         "title": "Amigos",
-        "owner": {
-          "email": "tdorado@itba.edu.ar"
-        },
+        "owner": "tdorado@itba.edu.ar",
         "date": "2021-09-25T15:36:54.606Z",
         "users": ["tdallas@itba.edu.ar", "tdorado@itba.edu.ar"],
         "charges": [
