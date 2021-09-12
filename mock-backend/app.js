@@ -14,8 +14,8 @@ let chargeIds = 1;
 
 router.post("/users/debts", (req, res) => {
   console.log("Received request to", req.path, "with params", req.body);
-  const { debt_id, from_user_id, to_user_id, amount } = req.body;
-  return res.json({ amount_payed: amount });
+  const { fromUserId, toUserId, amount } = req.body;
+  return res.json({ amountPayed: amount });
 });
 
 router.get("/users", (req, res) => {
