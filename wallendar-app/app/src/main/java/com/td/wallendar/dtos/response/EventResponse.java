@@ -3,24 +3,26 @@ package com.td.wallendar.dtos.response;
 import java.util.Date;
 import java.util.List;
 
-public class GroupResponse {
+public class EventResponse {
     private String title;
     private String owner;
     private Date date;
     private List<String> users;
+    private List<String> tasks;
     private List<ChargeResponse> charges;
     private List<BalanceResponse> balances;
 
-    public GroupResponse(String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<BalanceResponse> balances) {
+    public EventResponse() {
+    }
+
+    public EventResponse(String title, String owner, Date date, List<String> users, List<String> tasks, List<ChargeResponse> charges, List<BalanceResponse> balances) {
         this.title = title;
         this.owner = owner;
         this.date = date;
         this.users = users;
+        this.tasks = tasks;
         this.charges = charges;
         this.balances = balances;
-    }
-
-    public GroupResponse() {
     }
 
     public String getTitle() {
@@ -55,6 +57,14 @@ public class GroupResponse {
         this.users = users;
     }
 
+    public List<String> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<String> tasks) {
+        this.tasks = tasks;
+    }
+
     public List<ChargeResponse> getCharges() {
         return charges;
     }
@@ -70,4 +80,5 @@ public class GroupResponse {
     public void setBalances(List<BalanceResponse> balances) {
         this.balances = balances;
     }
+
 }

@@ -2,9 +2,7 @@
   "events": [
     {
       "title": "Asado",
-      "owner": {
-        "email": "tdorado@itba.edu.ar"
-      },
+      "owner": "tdorado@itba.edu.ar",
       "date": "2021-09-25T15:36:54.606Z",
       "users": [
         "tdallas@itba.edu.ar",
