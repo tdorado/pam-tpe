@@ -1,4 +1,4 @@
-package com.td.wallendar.repositories;
+package com.td.wallendar.repositories.interfaces;
 
 import com.td.wallendar.models.Group;
 

@@ -12,7 +12,7 @@ const { users } = require("./users.json");
 console.log("loaded jsons")
 let chargeIds = 1;
 
-router.post("/debt/pay", (req, res) => {
+router.post("/users/debts", (req, res) => {
   console.log("Received request to", req.path, "with params", req.body);
   const { debt_id, from_user_id, to_user_id, amount } = req.body;
   return res.json({ amount_payed: amount });
@@ -57,7 +57,7 @@ router.get("/events/:event_id", (req, res) => {
 });
 
 // to event or group
-router.post("/charge", (req, res) => {
+router.post("/charges", (req, res) => {
   console.log("Received request to", req.path, "with params", req.body);
 
   res.json({ charge: { id: chargeIds++, ...req.body } });
