@@ -8,10 +8,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface GroupsService {
-    @GET("/groups?user_id={user_id}")
-    Call<GroupsResponse> getGroupsByUserId(@Path("user_id") final String userId);
+    @GET("/groups")
+    Call<GroupsResponse> getGroupsByUserId(@Query("user_id") final Long userId);
 
     @GET("/groups/{groupId}")
     Call<GroupResponse> getGroupById(@Path("group_id") final String groupId);
