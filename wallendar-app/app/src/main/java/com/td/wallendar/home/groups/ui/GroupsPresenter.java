@@ -43,6 +43,7 @@ public class GroupsPresenter {
     }
 
     private void onGroupsError(Throwable throwable) {
+        System.out.println(throwable);
     }
 
     void getGroup(final Long groupId) {

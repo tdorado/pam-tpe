@@ -28,7 +28,7 @@ public class GroupsMapper {
             }
             group.setUsers(usersList);
 
-
+            result.add(group);
         }
         return result;
     }

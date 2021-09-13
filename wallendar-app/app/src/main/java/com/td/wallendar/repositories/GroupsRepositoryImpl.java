@@ -15,7 +15,7 @@ public class GroupsRepositoryImpl implements GroupsRepository {
     public GroupsService groupsService;
 
     public GroupsRepositoryImpl() {
-        this.groupsService = new ServiceModule().init().create(GroupsService.class);
+        this.groupsService = ServiceModule.init().create(GroupsService.class);
     }
 
     @Override
