@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +18,6 @@ import com.td.wallendar.models.Group;
 import com.td.wallendar.models.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -102,18 +98,18 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
     @Override
     public void onGroupsLoadError() {
-        Toast.makeText(getApplicationContext(), "Groups load error", Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(), "Groups load error", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void chargeError() {
-        Toast.makeText(getApplicationContext(), "Add charge ends with error", Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(), "Add charge ends with error", Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void chargeAddedOk() {
-        Toast.makeText(getApplicationContext(), "Charge added ok", Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(), "Charge added ok", Toast.LENGTH_LONG).show();
         onBackPressed();
     }
 
