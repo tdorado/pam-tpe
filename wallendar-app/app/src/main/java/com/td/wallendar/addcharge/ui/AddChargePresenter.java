@@ -7,8 +7,8 @@ import com.td.wallendar.repositories.ChargesRepositoryImpl;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.AndroidSchedulerProvider;
-import com.td.wallendar.utils.SchedulerProvider;
+import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class AddChargePresenter {
             groupsDisposable.add(
                     groupsRepository.getGroupsByUser(userId)
                             .subscribeOn(schedulerProvider.io())
-                            .observeOn(AndroidSchedulers.mainThread())
+                            .observeOn(schedulerProvider.ui())
                             .subscribe(this::onGroupsReceived, this::onGroupsError)
             );
         }
@@ -54,7 +54,7 @@ public class AddChargePresenter {
             chargeDisposable.add(
                     chargesRepository.addCharge(charge)
                             .subscribeOn(schedulerProvider.io())
-                            .observeOn(AndroidSchedulers.mainThread())
+                            .observeOn(schedulerProvider.ui())
                             .subscribe(this::onChargeAdded, this::onChargeAddedError)
             );
         }
