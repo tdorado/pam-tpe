@@ -16,13 +16,10 @@ public class GroupsViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public void bind(final String text) {
+    public void bind(final Group groups) {
         final TextView textView = itemView.findViewById(R.id.row_group_name);
 
-        textView.setText(text);
-    }
-
-    public void bind(final List<Group> groups) {
+        textView.setText(groups.getTitle());
     }
 
 }

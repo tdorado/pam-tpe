@@ -93,7 +93,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     @Override
     public Long getUserId() {
-        return null;
+        return 1L;
     }
 
     @Override

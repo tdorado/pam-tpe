@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class GroupResponse {
+    private Long id;
     private String title;
     private String owner;
     private Date date;
@@ -11,7 +12,8 @@ public class GroupResponse {
     private List<ChargeResponse> charges;
     private List<BalanceResponse> balances;
 
-    public GroupResponse(String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<BalanceResponse> balances) {
+    public GroupResponse(Long id, String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<BalanceResponse> balances) {
+        this.id = id;
         this.title = title;
         this.owner = owner;
         this.date = date;
@@ -21,6 +23,14 @@ public class GroupResponse {
     }
 
     public GroupResponse() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

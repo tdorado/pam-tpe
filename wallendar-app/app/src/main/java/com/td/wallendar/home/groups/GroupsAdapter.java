@@ -17,7 +17,6 @@ import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
 
-    private List<String> testDataset = Arrays.asList("GROUP 1", "GROUP 2", "GROUP 3", "GROUP 4");
     private List<Group> groups;
     private final View.OnClickListener listener;
 
@@ -36,12 +35,12 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GroupsViewHolder holder, int position) {
-        holder.bind(testDataset.get(position));
+        holder.bind(groups.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return testDataset == null ? 0 : testDataset.size();
+        return groups == null ? 0 : groups.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")

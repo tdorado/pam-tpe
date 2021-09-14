@@ -2,14 +2,14 @@ const express = require("express");
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 const router = express.Router();
 
 const { groups } = require("./groups.json");
 const { events } = require("./events.json");
 const { users } = require("./users.json");
-console.log("loaded jsons")
+console.log("loaded jsons");
 let chargeIds = 1;
 
 router.post("/users/debts", (req, res) => {
@@ -63,6 +63,10 @@ router.post("/charges", (req, res) => {
   res.json({ charge: { id: chargeIds++, ...req.body } });
 });
 
+router.get("/hello", (req, res) => {
+  res.send("HELLO");
+});
+
 app.use("/", router);
 
 // catch 404 and forward to error handler
@@ -80,7 +84,7 @@ app.use(function (err, req, res, next) {
   res.json("error");
 });
 
-console.log("Listening pot 8080")
+console.log("Listening pot 8080");
 app.listen(8080);
 
 module.exports = app;
