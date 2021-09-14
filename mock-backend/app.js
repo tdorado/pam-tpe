@@ -40,7 +40,7 @@ router.get("/groups/:group_id", (req, res) => {
   console.log("Received request to", req.path, "with params", req.params);
 
   const { group_id } = req.params;
-  res.json({ group: groups[group_id] });
+  res.json(groups[group_id]);
 });
 
 router.get("/events", (req, res) => {
@@ -53,7 +53,7 @@ router.get("/events/:event_id", (req, res) => {
   console.log("Received request to", req.path, "with params", req.params);
 
   const { event_id } = req.params;
-  res.json({ event: events[event_id] });
+  res.json(events[event_id]);
 });
 
 // to event or group
