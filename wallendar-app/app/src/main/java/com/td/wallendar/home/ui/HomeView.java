@@ -7,4 +7,12 @@ public interface HomeView {
     void startActivity(Intent intent);
 
     Context getApplicationContext();
+
+    void showGroups();
+
+    void showEvents();
+
+    void showBalances();
+
+    void showProfile();
 }

@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,13 +40,30 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private BalancesView balancesView;
     private ProfileView profileView;
 
+    private HomePresenter homePresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
+        createPresenter();
+
         setUpViews();
         setUpBottomNavigation();
+    }
+
+    private void createPresenter() {
+        homePresenter = (HomePresenter) getLastNonConfigurationInstance();
+
+        if(homePresenter == null){
+            homePresenter = new HomePresenter(this);
+        }
+    }
+
+    @Nullable
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return homePresenter;
     }
 
     @Override
@@ -94,31 +112,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.groups);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.groups:
-                    currentView = GROUPS;
-                    invalidateOptionsMenu();
-                    addChargeFAB.show();
-                    viewFlipper.setDisplayedChild(GROUPS);
+                    homePresenter.onGroupsClicked();
                     break;
                 case R.id.events:
-                    currentView = EVENTS;
-                    invalidateOptionsMenu();
-                    addChargeFAB.show();
-                    viewFlipper.setDisplayedChild(EVENTS);
+                    homePresenter.onEventsClicked();
                     break;
                 case R.id.balances:
-                    currentView = BALANCES;
-                    invalidateOptionsMenu();
-                    addChargeFAB.hide();
-                    viewFlipper.setDisplayedChild(BALANCES);
+                    homePresenter.onBalancesClicked();
                     break;
                 case R.id.profile:
-                    currentView = PROFILE;
-                    invalidateOptionsMenu();
-                    addChargeFAB.hide();
-                    viewFlipper.setDisplayedChild(PROFILE);
+                    homePresenter.onProfileClicked();
                     break;
                 default:
                     return false;
@@ -162,4 +168,35 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         profileView.bind();
     }
 
+    @Override
+    public void showGroups() {
+        currentView = GROUPS;
+        invalidateOptionsMenu();
+        addChargeFAB.show();
+        viewFlipper.setDisplayedChild(GROUPS);
+    }
+
+    @Override
+    public void showEvents() {
+        currentView = EVENTS;
+        invalidateOptionsMenu();
+        addChargeFAB.show();
+        viewFlipper.setDisplayedChild(EVENTS);
+    }
+
+    @Override
+    public void showBalances() {
+        currentView = BALANCES;
+        invalidateOptionsMenu();
+        addChargeFAB.hide();
+        viewFlipper.setDisplayedChild(BALANCES);
+    }
+
+    @Override
+    public void showProfile() {
+        currentView = PROFILE;
+        invalidateOptionsMenu();
+        addChargeFAB.hide();
+        viewFlipper.setDisplayedChild(PROFILE);
+    }
 }
