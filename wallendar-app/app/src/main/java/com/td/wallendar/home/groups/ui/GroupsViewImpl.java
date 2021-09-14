@@ -86,9 +86,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     @Override
     public void buildPresenter() {
-        if (groupsPresenter == null) {
-            groupsPresenter = new GroupsPresenter(new WeakReference<>(this), new GroupsRepositoryImpl());
-        }
+        groupsPresenter = new GroupsPresenter(new WeakReference<>(this), new GroupsRepositoryImpl());
     }
 
     @Override

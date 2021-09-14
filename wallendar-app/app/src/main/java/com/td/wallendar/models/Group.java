@@ -13,6 +13,10 @@ public class Group {
     public Group() {
     }
 
+    public Group(final String title) {
+        this.title = title;
+    }
+
     public Group(final Long id,
                  final String title,
                  final User owner,
