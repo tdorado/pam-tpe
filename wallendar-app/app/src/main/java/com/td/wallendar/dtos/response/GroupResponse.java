@@ -10,9 +10,9 @@ public class GroupResponse {
     private Date date;
     private List<String> users;
     private List<ChargeResponse> charges;
-    private List<BalanceResponse> balances;
+    private List<DebtResponse> balances;
 
-    public GroupResponse(Long id, String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<BalanceResponse> balances) {
+    public GroupResponse(Long id, String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<DebtResponse> balances) {
         this.id = id;
         this.title = title;
         this.owner = owner;
@@ -73,11 +73,11 @@ public class GroupResponse {
         this.charges = charges;
     }
 
-    public List<BalanceResponse> getBalances() {
+    public List<DebtResponse> getBalances() {
         return balances;
     }
 
-    public void setBalances(List<BalanceResponse> balances) {
+    public void setBalances(List<DebtResponse> balances) {
         this.balances = balances;
     }
 }

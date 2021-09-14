@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Charge implements GroupHistory {
+    private Long id;
     private User owner;
     private String title;
     private ChargeType chargeType;
@@ -11,14 +12,26 @@ public abstract class Charge implements GroupHistory {
     private double amount;
     private Date date;
 
-    public Charge(final User owner, final String title, final ChargeType chargeType,
+    public Charge() {
+    }
+
+    public Charge(final Long id, final User owner, final String title, final ChargeType chargeType,
                   final List<User> debtors, final double amount, final Date date) {
+        this.id = id;
         this.owner = owner;
         this.title = title;
         this.chargeType = chargeType;
         this.debtors = debtors;
         this.amount = amount;
         this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getFromUser() {

@@ -47,8 +47,20 @@ public class GroupsPresenter {
 
     void getGroup(final Long groupId) {
         if (groupsRepository != null) {
-            final Group group = groupsRepository.getGroup(groupId);
+            disposable.add(groupsRepository.getGroup(groupId)
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .subscribe(this::onGroupReceived, this::onGroupError));
+        }
+    }
+
+    private void onGroupReceived(Group group) {
+        if (groupsView != null) {
             groupsView.get().enterGroup(group);
         }
+    }
+
+    private void onGroupError(Throwable throwable) {
+        System.out.println(throwable);
     }
 }

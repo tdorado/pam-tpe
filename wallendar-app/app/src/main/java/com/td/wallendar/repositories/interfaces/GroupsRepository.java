@@ -9,5 +9,5 @@ import io.reactivex.Observable;
 public interface GroupsRepository {
     Observable<List<Group>> getGroupsByUser(final Long userId);
 
-    Group getGroup(final Long groupId);
+    Observable<Group> getGroup(final Long groupId);
 }

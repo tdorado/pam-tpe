@@ -1,15 +1,15 @@
 package com.td.wallendar.dtos.response;
 
-public class BalanceResponse {
+public class DebtResponse {
     private String user;
     private double amount;
 
-    public BalanceResponse(String user, double amount) {
+    public DebtResponse(String user, double amount) {
         this.user = user;
         this.amount = amount;
     }
 
-    public BalanceResponse() {
+    public DebtResponse() {
     }
 
     public String getUser() {

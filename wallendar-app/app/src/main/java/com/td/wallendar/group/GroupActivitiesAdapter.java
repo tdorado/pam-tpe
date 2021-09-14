@@ -22,17 +22,17 @@ public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryVie
 
     // I need kotlin
     private List<GroupHistory> historic = Arrays.asList(
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date())
+            new EqualCharge(1L,new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(2L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(3L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(4L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(5L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(6L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(7L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(8L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(9L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(10L, new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
+            new EqualCharge(11L, new User(), "Group title", new ArrayList<>(), 2123d, new Date())
     );
 
     public GroupActivitiesAdapter() {

@@ -8,11 +8,15 @@ public class UnequalCharge extends Charge {
     private Map<User, Double> amountPerUser;
 
     //Hay que verificar que la sumatoria de amountPerUser sea = amount
-    public UnequalCharge(final User owner, final String title, final List<User> debtors,
+    public UnequalCharge(final Long id, final User owner, final String title, final List<User> debtors,
                          final double amount, final Map<User, Double> amountPerUser,
                          final Date date) {
-        super(owner, title, ChargeType.UNEQUALLY, debtors, amount, date);
+        super(id, owner, title, ChargeType.UNEQUALLY, debtors, amount, date);
         this.amountPerUser = amountPerUser;
+    }
+
+    public UnequalCharge() {
+
     }
 
     public Map<User, Double> getAmountPerUser() {

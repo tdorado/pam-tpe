@@ -12,23 +12,7 @@ public class GroupsMapper {
     public static List<Group> toModel(final GroupsResponse groupsResponse) {
         List<Group> result = new ArrayList<>();
         for (GroupResponse groupResponse : groupsResponse.getGroups()) {
-            Group group = new Group();
-
-            group.setTitle(groupResponse.getTitle());
-
-            User owner = new User();
-            owner.setEmail(groupResponse.getOwner());
-            group.setOwner(owner);
-
-            List<User> usersList = new ArrayList<>();
-            for (String user : groupResponse.getUsers()) {
-                User newUser = new User();
-                newUser.setEmail(user);
-                usersList.add(newUser);
-            }
-            group.setUsers(usersList);
-
-            result.add(group);
+            result.add(GroupMapper.toModel(groupResponse));
         }
         return result;
     }
