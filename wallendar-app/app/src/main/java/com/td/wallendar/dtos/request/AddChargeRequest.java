@@ -1,7 +1,16 @@
 package com.td.wallendar.dtos.request;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.td.wallendar.models.Charge;
+import com.td.wallendar.models.User;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AddChargeRequest {
     private String owner;
@@ -21,6 +30,21 @@ public class AddChargeRequest {
     }
 
     public AddChargeRequest() {
+    }
+
+    public static AddChargeRequest from(final Charge charge) {
+        final List<String> debtors = new ArrayList<>();
+        for (User u : charge.getDebtors()) {
+            debtors.add(u.getEmail());
+        }
+        return new AddChargeRequest(
+                charge.getOwner().getEmail(),
+                charge.getTitle(),
+                charge.getChargeType().name(),
+                debtors,
+                charge.getAmount(),
+                charge.getDate()
+        );
     }
 
     public String getOwner() {

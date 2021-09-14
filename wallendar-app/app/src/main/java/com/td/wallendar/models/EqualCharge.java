@@ -16,4 +16,13 @@ public class EqualCharge extends Charge {
     public EqualCharge() {
 
     }
+
+    public EqualCharge(final User owner,
+                       final String title,
+                       final List<User> debtors,
+                       final double amount,
+                       final Date date,
+                       final Group group) {
+        super(owner, title, ChargeType.EQUALLY, debtors, amount, date, group);
+    }
 }

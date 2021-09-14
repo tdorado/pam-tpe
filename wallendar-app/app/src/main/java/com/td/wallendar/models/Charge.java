@@ -11,6 +11,18 @@ public abstract class Charge implements GroupHistory {
     private List<User> debtors;
     private double amount;
     private Date date;
+    private Group group;
+
+    public Charge(final User owner, final String title, final ChargeType chargeType,
+                  final List<User> debtors, final double amount, final Date date, final Group group) {
+        this.owner = owner;
+        this.title = title;
+        this.chargeType = chargeType;
+        this.debtors = debtors;
+        this.amount = amount;
+        this.date = date;
+        this.group = group;
+    }
 
     public Charge() {
     }
@@ -24,6 +36,7 @@ public abstract class Charge implements GroupHistory {
         this.debtors = debtors;
         this.amount = amount;
         this.date = date;
+        this.group = group;
     }
 
     public Long getId() {
@@ -96,5 +109,13 @@ public abstract class Charge implements GroupHistory {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
