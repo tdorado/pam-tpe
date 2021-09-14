@@ -3,6 +3,8 @@ package com.td.wallendar.addcharge.ui;
 import com.td.wallendar.dtos.response.AddChargeResponse;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.ChargesRepositoryImpl;
+import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.AndroidSchedulerProvider;
@@ -16,8 +18,8 @@ import io.reactivex.disposables.CompositeDisposable;
 public class AddChargePresenter {
 
     private final AddChargeView view;
-    private ChargesRepository chargesRepository;
-    private GroupsRepository groupsRepository;
+    private ChargesRepository chargesRepository = new ChargesRepositoryImpl();
+    private GroupsRepository groupsRepository = new GroupsRepositoryImpl();
 
     private final CompositeDisposable groupsDisposable = new CompositeDisposable();
     private final CompositeDisposable chargeDisposable = new CompositeDisposable();

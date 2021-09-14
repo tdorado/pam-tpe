@@ -68,6 +68,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
     public void buildPresenter() {
         addChargePresenter = new AddChargePresenter(this);
+        addChargePresenter.onViewAttached(1L);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     @Override
     public void chargeAddedOk() {
         Toast.makeText(getApplicationContext(), "Charge added ok", Toast.LENGTH_LONG);
-
+        onBackPressed();
     }
 
     @Override
