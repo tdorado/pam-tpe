@@ -2,13 +2,12 @@ package com.td.wallendar.home.groups.ui;
 
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.AndroidSchedulerProvider;
-import com.td.wallendar.utils.SchedulerProvider;
+import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class GroupsPresenter {
@@ -31,7 +30,7 @@ public class GroupsPresenter {
         if (groupsRepository != null) {
             disposable.add(groupsRepository.getGroupsByUser(userId)
                     .subscribeOn(schedulerProvider.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .observeOn(schedulerProvider.ui())
                     .subscribe(this::onGroupsReceived, this::onGroupsError));
         }
     }
