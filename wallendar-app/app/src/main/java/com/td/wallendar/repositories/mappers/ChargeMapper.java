@@ -27,11 +27,12 @@ public class ChargeMapper {
 
                 User owner = new User();
                 owner.setEmail(chargeResponse.getOwner());
+                charge.setOwner(owner);
 
                 charge.setTitle(chargeResponse.getTitle());
 
                 List<User> debtors = new ArrayList<>();
-                for(String u : chargeResponse.getDebtors()){
+                for (String u : chargeResponse.getDebtors()) {
                     User user = new User();
                     user.setEmail(u);
                     debtors.add(user);

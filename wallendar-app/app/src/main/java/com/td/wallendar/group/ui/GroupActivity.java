@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.group.GroupActivitiesAdapter;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
+
+import java.util.List;
 
 public class GroupActivity extends AppCompatActivity implements GroupView {
 
@@ -67,5 +70,10 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     @Override
     public void bindGroup(Group group) {
         groupTitle.setText(group.getTitle());
+    }
+
+    @Override
+    public void listGroupHistory(List<GroupHistory> historic) {
+        groupActivitiesAdapter.setData(historic);
     }
 }

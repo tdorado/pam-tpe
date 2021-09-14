@@ -3,7 +3,6 @@ package com.td.wallendar.repositories.mappers;
 import com.td.wallendar.dtos.response.GroupResponse;
 import com.td.wallendar.dtos.response.GroupsResponse;
 import com.td.wallendar.models.Group;
-import com.td.wallendar.models.User;
 
 import java.util.ArrayList;
 import java.util.List;

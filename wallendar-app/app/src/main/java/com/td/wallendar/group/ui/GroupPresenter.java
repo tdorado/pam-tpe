@@ -1,11 +1,14 @@
 package com.td.wallendar.group.ui;
 
 import com.td.wallendar.models.Group;
+import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -18,7 +21,7 @@ public class GroupPresenter {
     private SchedulerProvider schedulerProvider;
 
     public GroupPresenter(final GroupView groupView,
-                           final GroupsRepository groupsRepository) {
+                          final GroupsRepository groupsRepository) {
         this.groupView = new WeakReference<>(groupView);
         this.groupsRepository = groupsRepository;
         this.schedulerProvider = new AndroidSchedulerProvider();
@@ -37,6 +40,8 @@ public class GroupPresenter {
     private void onGroupReceived(Group group) {
         if (groupView != null) {
             groupView.get().bindGroup(group);
+            List<GroupHistory> historic = new ArrayList<>(group.getCharges());
+            groupView.get().listGroupHistory(historic);
         }
     }
 

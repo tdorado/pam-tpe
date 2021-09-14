@@ -60,7 +60,6 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
         });
         this.homeView = homeView;
         this.groupsAdapter = new GroupsAdapter(this);
-        this.groupsPresenter = new GroupsPresenter(new WeakReference<>(this), null);
 
         setHasFixedSize(true);
 
@@ -87,7 +86,7 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     @Override
     public void buildPresenter() {
-        if (groupsPresenter != null) {
+        if (groupsPresenter == null) {
             groupsPresenter = new GroupsPresenter(new WeakReference<>(this), new GroupsRepositoryImpl());
         }
     }

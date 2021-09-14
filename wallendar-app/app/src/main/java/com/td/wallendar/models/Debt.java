@@ -48,6 +48,16 @@ public class Debt implements GroupHistory {
     }
 
     @Override
+    public MoneyTransactionType getMoneyTransactionType() {
+        return MoneyTransactionType.DEBT;
+    }
+
+    @Override
+    public String getTitle() {
+        return null;
+    }
+
+    @Override
     public User getFromUser() {
         return getFrom();
     }

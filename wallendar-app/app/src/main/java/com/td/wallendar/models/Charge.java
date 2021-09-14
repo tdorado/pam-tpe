@@ -34,11 +34,18 @@ public abstract class Charge implements GroupHistory {
         this.id = id;
     }
 
+    @Override
+    public MoneyTransactionType getMoneyTransactionType() {
+        return MoneyTransactionType.CHARGE;
+    }
+
+    @Override
     public User getFromUser() {
         return owner;
     }
 
     // If there is no toUser, then this activity belongs to a charge where it generates n to's
+    @Override
     public User getToUser() {
         return null;
     }

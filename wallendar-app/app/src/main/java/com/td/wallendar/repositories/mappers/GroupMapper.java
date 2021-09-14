@@ -30,13 +30,13 @@ public class GroupMapper {
         group.setUsers(usersList);
 
         List<Debt> debts = new ArrayList<>();
-        for(DebtResponse balance: groupResponse.getBalances()){
+        for (DebtResponse balance : groupResponse.getBalances()) {
             debts.add(DebtMapper.toModel(balance));
         }
         group.setDebts(debts);
 
         List<Charge> charges = new ArrayList<>();
-        for(ChargeResponse charge: groupResponse.getCharges()){
+        for (ChargeResponse charge : groupResponse.getCharges()) {
             charges.add(ChargeMapper.toModel(charge));
         }
         group.setCharges(charges);
