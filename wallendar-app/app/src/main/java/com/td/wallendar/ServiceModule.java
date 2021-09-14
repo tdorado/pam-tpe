@@ -16,7 +16,7 @@ public class ServiceModule {
                 .build();
     }
 
-    public static Retrofit getRetrofit(){
+    public static Retrofit getRetrofit() {
         return retrofit;
     }
 

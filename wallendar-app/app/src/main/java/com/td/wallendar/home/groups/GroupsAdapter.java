@@ -12,7 +12,6 @@ import com.td.wallendar.R;
 import com.td.wallendar.models.Group;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {

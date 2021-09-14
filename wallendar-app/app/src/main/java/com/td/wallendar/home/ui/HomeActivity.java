@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private void createPresenter() {
         homePresenter = (HomePresenter) getLastNonConfigurationInstance();
 
-        if(homePresenter == null){
+        if (homePresenter == null) {
             homePresenter = new HomePresenter(this);
         }
     }

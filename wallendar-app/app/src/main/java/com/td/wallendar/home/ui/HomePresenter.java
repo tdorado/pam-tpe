@@ -10,25 +10,25 @@ public class HomePresenter {
     }
 
     public void onGroupsClicked() {
-        if(homeView.get() != null){
+        if (homeView.get() != null) {
             homeView.get().showGroups();
         }
     }
 
     public void onEventsClicked() {
-        if(homeView.get() != null){
+        if (homeView.get() != null) {
             homeView.get().showEvents();
         }
     }
 
     public void onBalancesClicked() {
-        if(homeView.get() != null){
+        if (homeView.get() != null) {
             homeView.get().showBalances();
         }
     }
 
     public void onProfileClicked() {
-        if(homeView.get() != null){
+        if (homeView.get() != null) {
             homeView.get().showProfile();
         }
     }

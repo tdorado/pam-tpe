@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupsMapper {
-    public static List<Group> toModel(final GroupsResponse groupsResponse){
+    public static List<Group> toModel(final GroupsResponse groupsResponse) {
         List<Group> result = new ArrayList<>();
-        for(GroupResponse groupResponse : groupsResponse.getGroups()){
+        for (GroupResponse groupResponse : groupsResponse.getGroups()) {
             Group group = new Group();
 
             group.setTitle(groupResponse.getTitle());
@@ -21,8 +21,8 @@ public class GroupsMapper {
             group.setOwner(owner);
 
             List<User> usersList = new ArrayList<>();
-            for(String user : groupResponse.getUsers()){
-                User newUser =  new User();
+            for (String user : groupResponse.getUsers()) {
+                User newUser = new User();
                 newUser.setEmail(user);
                 usersList.add(newUser);
             }
