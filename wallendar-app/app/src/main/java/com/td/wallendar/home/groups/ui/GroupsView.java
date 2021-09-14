@@ -12,5 +12,5 @@ public interface GroupsView extends AbstractView {
 
     void listGroups(final List<Group> groups);
 
-    void enterGroup(final Group group);
+    void enterGroup(final Long groupId);
 }

@@ -49,9 +49,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
     }
 
     public Long getGroupIdAt(final int position) {
-        if (groups.size() > position) {
-            return groups.get(position).getId();
-        }
-        return null;
+//        if (position > groups.size() - 1) {
+//            return groups.get(position).getId();
+//        }
+//        return null;
+        return (long) position;
     }
 }

@@ -79,8 +79,9 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     }
 
     @Override
-    public void enterGroup(Group group) {
+    public void enterGroup(Long groupId) {
         final Intent intent = new Intent(homeView.getApplicationContext(), GroupActivity.class);
+        intent.putExtra("GROUP_ID", groupId);
         homeView.startActivity(intent);
     }
 
@@ -100,6 +101,6 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     public void onClick(View view) {
         final int itemPosition = this.getChildLayoutPosition(view);
         final Long groupId = groupsAdapter.getGroupIdAt(itemPosition);
-        groupsPresenter.getGroup(groupId);
+        enterGroup(groupId);
     }
 }
