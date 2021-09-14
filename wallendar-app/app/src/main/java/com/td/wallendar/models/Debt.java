@@ -10,6 +10,9 @@ public class Debt implements GroupHistory {
     private boolean settledUp;
     private Charge associatedCharge;
 
+    public Debt() {
+    }
+
     public Debt(User from, User to, double amount, Date date,
                 boolean settledUp, Charge associatedCharge) {
         this.from = from;
@@ -42,6 +45,16 @@ public class Debt implements GroupHistory {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public MoneyTransactionType getMoneyTransactionType() {
+        return MoneyTransactionType.DEBT;
+    }
+
+    @Override
+    public String getTitle() {
+        return null;
     }
 
     @Override

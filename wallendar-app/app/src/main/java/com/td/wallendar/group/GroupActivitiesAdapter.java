@@ -9,31 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
-import com.td.wallendar.models.EqualCharge;
 import com.td.wallendar.models.GroupHistory;
-import com.td.wallendar.models.User;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryViewHolder> {
 
-    // I need kotlin
-    private List<GroupHistory> historic = Arrays.asList(
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date()),
-            new EqualCharge(new User(), "Group title", new ArrayList<>(), 2123d, new Date())
-    );
+    private List<GroupHistory> historic;
 
     public GroupActivitiesAdapter() {
     }

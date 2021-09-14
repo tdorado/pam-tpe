@@ -12,7 +12,6 @@ import com.td.wallendar.R;
 import com.td.wallendar.models.Group;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
@@ -50,9 +49,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsViewHolder> {
     }
 
     public Long getGroupIdAt(final int position) {
-        if (groups.size() > position) {
-            return groups.get(position).getId();
-        }
-        return null;
+//        if (position > groups.size() - 1) {
+//            return groups.get(position).getId();
+//        }
+//        return null;
+        return (long) position;
     }
 }

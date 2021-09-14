@@ -18,4 +18,8 @@
     <string name="selected_time">Selected time is: </string>
     <string name="select_time">Select Time</string>
     <string name="select_a_time">Select a time</string>
+    <string name="settle_up">Settle Up</string>
+    <string name="reminder">Remind</string>
+
+    <string name="user_paid_amount">%1$s paid $%2$s</string>
 </resources>

@@ -13,5 +13,5 @@ public interface GroupsService {
     Observable<GroupsResponse> getGroupsByUserId(@Query("user_id") final String userId);
 
     @GET("/groups/{groupId}")
-    Observable<GroupResponse> getGroupById(@Path("group_id") final String groupId);
+    Observable<GroupResponse> getGroupById(@Path("groupId") final String groupId);
 }

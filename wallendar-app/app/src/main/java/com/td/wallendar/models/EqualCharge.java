@@ -5,11 +5,15 @@ import java.util.List;
 
 public class EqualCharge extends Charge {
 
-    public EqualCharge(final User owner,
+    public EqualCharge(final Long id, final User owner,
                        final String title,
                        final List<User> debtors,
                        final double amount,
                        final Date date) {
-        super(owner, title, ChargeType.EQUALLY, debtors, amount, date);
+        super(id, owner, title, ChargeType.EQUALLY, debtors, amount, date);
+    }
+
+    public EqualCharge() {
+
     }
 }

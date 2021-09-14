@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.groups.GroupsAdapter;
 import com.td.wallendar.home.ui.HomeView;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.GroupsRepositoryImpl;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -60,7 +60,6 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
         });
         this.homeView = homeView;
         this.groupsAdapter = new GroupsAdapter(this);
-        this.groupsPresenter = new GroupsPresenter(new WeakReference<>(this), null);
 
         setHasFixedSize(true);
 
@@ -79,14 +78,15 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     }
 
     @Override
-    public void enterGroup(Group group) {
+    public void enterGroup(Long groupId) {
         final Intent intent = new Intent(homeView.getApplicationContext(), GroupActivity.class);
+        intent.putExtra("GROUP_ID", groupId);
         homeView.startActivity(intent);
     }
 
     @Override
     public void buildPresenter() {
-        if (groupsPresenter != null) {
+        if (groupsPresenter == null) {
             groupsPresenter = new GroupsPresenter(new WeakReference<>(this), new GroupsRepositoryImpl());
         }
     }
@@ -100,6 +100,6 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
     public void onClick(View view) {
         final int itemPosition = this.getChildLayoutPosition(view);
         final Long groupId = groupsAdapter.getGroupIdAt(itemPosition);
-        groupsPresenter.getGroup(groupId);
+        enterGroup(groupId);
     }
 }
