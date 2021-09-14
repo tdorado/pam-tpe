@@ -8,7 +8,11 @@
     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.td.wallendar.home.groups.ui.GroupsViewImpl
             android:id="@+id/view_groups"
@@ -39,10 +43,10 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:text="@string/add_charge"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="@+id/view_flipper"
         app:backgroundTint="@color/purple_200"
         app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="@+id/view_flipper"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -53,6 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_flipper"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

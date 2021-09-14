@@ -33,18 +33,21 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/row_event_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thu. · May 16 · 7:30 pm"
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/row_event_own_debt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="You owe U$D 1500 in total"
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/row_event_debt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="You are owed U$D 1500 in total"

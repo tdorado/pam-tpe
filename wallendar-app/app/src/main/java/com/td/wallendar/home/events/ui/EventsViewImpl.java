@@ -10,8 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.home.events.EventsAdapter;
+import com.td.wallendar.models.Event;
+import com.td.wallendar.repositories.EventsRepositoryImpl;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class EventsViewImpl extends RecyclerView implements EventsView {
+    private EventsAdapter eventsAdapter;
+    private EventsPresenter eventsPresenter;
+
     public EventsViewImpl(Context context) {
         this(context, null);
     }
@@ -26,6 +34,7 @@ public class EventsViewImpl extends RecyclerView implements EventsView {
 
     @Override
     public void bind(ExtendedFloatingActionButton addChargeFAB, final EventsAdapter eventsAdapter) {
+        this.eventsAdapter = eventsAdapter;
         // Shrink floating button when scrolling, extend when stop. Just fancy fab
         this.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -46,5 +55,16 @@ public class EventsViewImpl extends RecyclerView implements EventsView {
         setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         setAdapter(eventsAdapter);
+        initializePresenter();
+    }
+
+    private void initializePresenter() {
+        this.eventsPresenter = new EventsPresenter(new WeakReference<>(this), new EventsRepositoryImpl());
+        eventsPresenter.listEvents(1L);
+    }
+
+    @Override
+    public void showEvents(List<Event> events) {
+        this.eventsAdapter.setData(events);
     }
 }
