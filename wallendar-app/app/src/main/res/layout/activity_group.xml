@@ -43,9 +43,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="75dp"
         android:text="TITULO DE GRUPO"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/image_group"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,8 +107,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/group_linear_buttons" />
 
@@ -119,8 +119,11 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:text="@string/add_charge"
+        android:textSize="14sp"
+        android:textColor="@color/white"
         app:backgroundTint="@color/purple_200"
         app:icon="@drawable/ic_add"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/linear_group_container"
         app:layout_constraintEnd_toEndOf="parent" />
 
