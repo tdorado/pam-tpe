@@ -8,13 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
+import com.td.wallendar.models.Event;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
-    private List<String> testDataset = Arrays.asList("EVENT 1", "EVENT 2", "EVENT 3", "EVENT 4", "EVENT 5", "EVENT 6", "EVENT 7", "EVENT 8");
+    private List<Event> events = new ArrayList<>();
 
     @NonNull
     @Override
@@ -25,11 +27,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull EventsViewHolder holder, int position) {
-        holder.bind(testDataset.get(position));
+        holder.bind(events.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return testDataset == null ? 0 : testDataset.size();
+        return events == null ? 0 : events.size();
+    }
+
+    public void setData(final List<Event> events) {
+        this.events = events;
     }
 }
