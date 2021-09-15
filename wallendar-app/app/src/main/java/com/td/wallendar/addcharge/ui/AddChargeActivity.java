@@ -34,6 +34,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     private double chargeAmountSelected;
 
     private AddChargePresenter addChargePresenter;
+    private AutoCompleteTextView editTextFilledExposedDropdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,13 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
         );
 
         buildPresenter();
+
+        Bundle extras = getIntent().getExtras();
+        Long groupId = null;
+        if(extras != null){
+            groupId = extras.getLong("GROUP_ID");
+            addChargePresenter.setGroupId(groupId);
+        }
 
     }
 
@@ -121,8 +129,13 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
             stringGroupMap.put(group.getTitle(), group);
         }
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_popup_item, stringGroups);
-        AutoCompleteTextView editTextFilledExposedDropdown = findViewById(R.id.group_charge_dropdown);
+        editTextFilledExposedDropdown = findViewById(R.id.group_charge_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
         editTextFilledExposedDropdown.setOnItemClickListener((adapterView, view, i, l) -> groupSelected = adapter.getItem(i));
+    }
+
+    @Override
+    public void setSelectedGroup(Long groupId) {
+        editTextFilledExposedDropdown.setText(adapter.getItem(groupId.intValue()),false);
     }
 }

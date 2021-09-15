@@ -26,8 +26,15 @@ public class AddChargePresenter {
 
     private final SchedulerProvider schedulerProvider = new AndroidSchedulerProvider();
 
+    private Long groupId;
+
     public AddChargePresenter(final AddChargeView view) {
         this.view = view;
+        groupId = null;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public void onViewAttached(final Long userId) {
@@ -47,6 +54,9 @@ public class AddChargePresenter {
 
     private void onGroupsReceived(List<Group> groups) {
         view.addGroups(groups);
+        if(groupId != null){
+            view.setSelectedGroup(groupId);
+        }
     }
 
     public void addCharge(final Charge charge) {
