@@ -1,7 +1,9 @@
 package com.td.wallendar.group.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -45,6 +47,14 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
 
         createPresenter();
         groupPresenter.getGroup(groupId);
+
+        // TODO
+        findViewById(R.id.group_pay_debts).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+                .show());
+        findViewById(R.id.group_balances).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+                .show());
+        findViewById(R.id.group_activity).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+                .show());
     }
 
     private void createPresenter() {

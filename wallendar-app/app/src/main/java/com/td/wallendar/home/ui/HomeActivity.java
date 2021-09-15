@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -124,6 +125,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     homePresenter.onBalancesClicked();
                     break;
                 case R.id.profile:
+                    Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+                            .show();
                     homePresenter.onProfileClicked();
                     break;
                 default:
