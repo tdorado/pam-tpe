@@ -1,19 +1,26 @@
 package com.td.wallendar.repositories.mappers;
 
 import com.td.wallendar.dtos.response.DebtResponse;
+import com.td.wallendar.dtos.response.TotalDebtsResponse;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DebtMapper {
-    public static Debt toModel(DebtResponse debtResponse) {
-        Debt debt = new Debt();
+    public static List<Debt> toModel(TotalDebtsResponse totalDebtsResponse) {
+        List<Debt> result = new ArrayList<>();
+        for(DebtResponse debtResponse: totalDebtsResponse.getDebts()){
+            Debt debt = new Debt();
 
-        User to = new User();
-        to.setEmail(debtResponse.getUser());
-        debt.setTo(to);
+            debt.setTo(new User(debtResponse.getUserTo(), "", "", ""));
+            debt.setFrom(new User(debtResponse.getUserFrom(), "", "", ""));
+            debt.setAmount(debtResponse.getAmount());
+            debt.setSettledUp(debtResponse.isSettledUp());
 
-        debt.setAmount(debtResponse.getAmount());
-
-        return debt;
+            result.add(debt);
+        }
+        return result;
     }
 }

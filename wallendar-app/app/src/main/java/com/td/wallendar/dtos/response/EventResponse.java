@@ -10,12 +10,12 @@ public class EventResponse {
     private List<String> users;
     private List<String> tasks;
     private List<ChargeResponse> charges;
-    private List<DebtResponse> balances;
+    private List<BalanceResponse> balances;
 
     public EventResponse() {
     }
 
-    public EventResponse(String title, String owner, Date date, List<String> users, List<String> tasks, List<ChargeResponse> charges, List<DebtResponse> balances) {
+    public EventResponse(String title, String owner, Date date, List<String> users, List<String> tasks, List<ChargeResponse> charges, List<BalanceResponse> balances) {
         this.title = title;
         this.owner = owner;
         this.date = date;
@@ -73,11 +73,11 @@ public class EventResponse {
         this.charges = charges;
     }
 
-    public List<DebtResponse> getBalances() {
+    public List<BalanceResponse> getBalances() {
         return balances;
     }
 
-    public void setBalances(List<DebtResponse> balances) {
+    public void setBalances(List<BalanceResponse> balances) {
         this.balances = balances;
     }
 
