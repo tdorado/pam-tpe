@@ -160,7 +160,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
-        balancesView.bind(new BalancesAdapter());
+        balancesView.bind();
     }
 
     private void setUpProfileView() {

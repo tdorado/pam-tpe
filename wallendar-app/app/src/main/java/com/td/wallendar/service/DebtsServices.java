@@ -8,6 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface DebtsServices {
-    @GET("/users/{event_id}/total_debts")
+    @GET("/users/{user_id}/total_debts")
     Observable<TotalDebtsResponse> getTotalDebtsByUserId(@Path("user_id") final Long userId);
 }

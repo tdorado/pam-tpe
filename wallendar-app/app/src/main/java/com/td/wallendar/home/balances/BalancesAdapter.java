@@ -1,5 +1,6 @@
 package com.td.wallendar.home.balances;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
+import com.td.wallendar.models.Debt;
+import com.td.wallendar.models.Group;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class BalancesAdapter extends RecyclerView.Adapter<BalancesViewHolder> {
 
-    private List<String> testDataset = Arrays.asList("John Doe owes $1500 to you", "John Doe owes $500 to you", "You owe $1500 to John Doe");
+    private List<Debt> dataset;
 
     @NonNull
     @Override
@@ -25,11 +28,17 @@ public class BalancesAdapter extends RecyclerView.Adapter<BalancesViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BalancesViewHolder holder, int position) {
-        holder.bind(testDataset.get(position));
+        holder.bind(dataset.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return testDataset == null ? 0 : testDataset.size();
+        return dataset == null ? 0 : dataset.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(final List<Debt> debts) {
+        this.dataset = debts;
+        notifyDataSetChanged();
     }
 }
