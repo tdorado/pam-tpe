@@ -9,6 +9,7 @@ const router = express.Router();
 const { groups } = require("./groups.json");
 const { events } = require("./events.json");
 const { users } = require("./users.json");
+const { debts } = require("./debts.json");
 console.log("loaded jsons");
 let chargeIds = 1;
 
@@ -16,6 +17,12 @@ router.post("/users/debts", (req, res) => {
   console.log("Received request to", req.path, "with params", req.body);
   const { fromUserId, toUserId, amount } = req.body;
   return res.json({ amountPayed: amount });
+});
+
+router.get("/users/:user_id/total_debts", (req, res) => {
+  console.log("Received request to", req.path, "with params", req.body);
+  const { user_id } = req.params;
+  return res.json({ debts });
 });
 
 router.get("/users", (req, res) => {

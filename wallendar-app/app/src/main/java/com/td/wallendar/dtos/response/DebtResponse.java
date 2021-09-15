@@ -1,23 +1,35 @@
 package com.td.wallendar.dtos.response;
 
 public class DebtResponse {
-    private String user;
+    private String userFrom;
+    private String userTo;
     private double amount;
-
-    public DebtResponse(String user, double amount) {
-        this.user = user;
-        this.amount = amount;
-    }
+    private boolean settledUp;
 
     public DebtResponse() {
     }
 
-    public String getUser() {
-        return user;
+    public DebtResponse(String userFrom, String userTo, double amount, boolean settledUp) {
+        this.userFrom = userFrom;
+        this.userTo = userTo;
+        this.amount = amount;
+        this.settledUp = settledUp;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public String getUserFrom() {
+        return userFrom;
+    }
+
+    public void setUserFrom(String userFrom) {
+        this.userFrom = userFrom;
+    }
+
+    public String getUserTo() {
+        return userTo;
+    }
+
+    public void setUserTo(String userTo) {
+        this.userTo = userTo;
     }
 
     public double getAmount() {
@@ -26,5 +38,13 @@ public class DebtResponse {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public boolean isSettledUp() {
+        return settledUp;
+    }
+
+    public void setSettledUp(boolean settledUp) {
+        this.settledUp = settledUp;
     }
 }

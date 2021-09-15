@@ -1,7 +1,7 @@
 package com.td.wallendar.repositories.mappers;
 
 import com.td.wallendar.dtos.response.ChargeResponse;
-import com.td.wallendar.dtos.response.DebtResponse;
+import com.td.wallendar.dtos.response.BalanceResponse;
 import com.td.wallendar.dtos.response.GroupResponse;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Debt;
@@ -30,8 +30,8 @@ public class GroupMapper {
         group.setUsers(usersList);
 
         List<Debt> debts = new ArrayList<>();
-        for (DebtResponse balance : groupResponse.getBalances()) {
-            debts.add(DebtMapper.toModel(balance));
+        for (BalanceResponse balance : groupResponse.getBalances()) {
+            debts.add(BalanceMapper.toModel(balance));
         }
         group.setDebts(debts);
 
