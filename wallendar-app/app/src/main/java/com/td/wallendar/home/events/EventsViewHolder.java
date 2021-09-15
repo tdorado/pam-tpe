@@ -2,6 +2,7 @@ package com.td.wallendar.home.events;
 
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,13 @@ import com.td.wallendar.utils.DateFormatter;
 public class EventsViewHolder extends RecyclerView.ViewHolder {
     public EventsViewHolder(@NonNull View itemView) {
         super(itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     public void bind(final Event event) {
