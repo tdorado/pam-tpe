@@ -1,7 +1,7 @@
 package com.td.wallendar.group.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.R;
+import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.group.GroupActivitiesAdapter;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
@@ -25,6 +27,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     private GroupActivitiesAdapter groupActivitiesAdapter;
     private RecyclerView recycler;
 
+    private ExtendedFloatingActionButton addChargeFAB;
     private TextView groupTitle;
 
     @Override
@@ -47,6 +50,8 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
 
         createPresenter();
         groupPresenter.getGroup(groupId);
+
+        setUpAddChargeButton(groupId);
 
         // TODO
         findViewById(R.id.group_pay_debts).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
@@ -85,5 +90,14 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     @Override
     public void listGroupHistory(List<GroupHistory> historic) {
         groupActivitiesAdapter.setData(historic);
+    }
+
+    private void setUpAddChargeButton(Long groupId) {
+        addChargeFAB = findViewById(R.id.add_charge_fab);
+        addChargeFAB.setOnClickListener(view -> {
+            final Intent intent = new Intent(GroupActivity.this, AddChargeActivity.class);
+            intent.putExtra("GROUP_ID", groupId);
+            startActivity(intent);
+            });
     }
 }

@@ -13,4 +13,6 @@ public interface AddChargeView extends AbstractView {
     void chargeAddedOk();
 
     void addGroups(List<Group> groups);
+
+    void setSelectedGroup(Long groupId);
 }
