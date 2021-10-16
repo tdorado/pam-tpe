@@ -41,8 +41,9 @@ public class Group {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Payment> payments;
 
-    public Group(String title, ApplicationUser owner) {
+    public Group(String title, ApplicationUser owner, List<ApplicationUser> members) {
         this.title = title;
         this.owner = owner;
+        this.members = members;
     }
 }

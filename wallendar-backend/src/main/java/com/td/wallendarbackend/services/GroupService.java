@@ -8,6 +8,8 @@ import com.td.wallendarbackend.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -27,14 +29,16 @@ public class GroupService {
     }
 
     public List<Group> findGroupsByApplicationUserId(long applicationUserId){
-        ApplicationUser applicationUser = new ApplicationUser();
-        applicationUser.setId(applicationUserId);
+        ApplicationUser applicationUser = applicationUserRepository.findById(applicationUserId);
         return groupRepository.findGroupsByApplicationUserId(applicationUser);
     }
 
-    public void createGroup(GroupRequest groupRequest){
+    public Group createGroup(GroupRequest groupRequest){
         ApplicationUser owner = applicationUserRepository.findById(groupRequest.getOwnerId());
-        Group group = new Group(groupRequest.getTitle(), owner);
+        List<ApplicationUser> members = Collections.singletonList(owner);
+        Group group = new Group(groupRequest.getTitle(), owner, members);
+
         groupRepository.save(group);
+        return group;
     }
 }

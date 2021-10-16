@@ -2,7 +2,6 @@ package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.ApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
-import com.td.wallendarbackend.models.Group;
 import com.td.wallendarbackend.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
