@@ -1,6 +1,8 @@
 package com.td.wallendarbackend.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "groups")
 public class Group {
     @Id
@@ -23,7 +27,7 @@ public class Group {
     private ApplicationUser owner;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<ApplicationUser> users;
+    private List<ApplicationUser> members;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -36,4 +40,9 @@ public class Group {
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Payment> payments;
+
+    public Group(String title, ApplicationUser owner) {
+        this.title = title;
+        this.owner = owner;
+    }
 }
