@@ -1,28 +1,42 @@
 package com.td.wallendarbackend.controllers;
 
-import com.td.wallendarbackend.models.ApplicationUser;
-import com.td.wallendarbackend.repositories.ApplicationUserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.td.wallendarbackend.dtos.requests.ApplicationUserRequest;
+import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
+import com.td.wallendarbackend.models.Group;
+import com.td.wallendarbackend.services.ApplicationUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final ApplicationUserRepository applicationUserRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ApplicationUserService applicationUserService;
 
-    public UserController(ApplicationUserRepository applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.applicationUserRepository = applicationUserRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    @Autowired
+    public UserController(ApplicationUserService applicationUserService) {
+        this.applicationUserService = applicationUserService;
     }
 
     @PostMapping("/create")
-    public void signUp(@RequestBody ApplicationUser applicationUser) {
-        applicationUser.setPassword(bCryptPasswordEncoder.encode(applicationUser.getPassword()));
-        applicationUserRepository.save(applicationUser);
+    @ResponseBody
+    public ResponseEntity<?> signUp(@RequestBody ApplicationUserRequest applicationUserRequest) {
+        if(applicationUserService.createUser(applicationUserRequest)){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping(value = "/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        ApplicationUserResponse applicationUserResponse = applicationUserService.findById(id);
+        if(applicationUserResponse != null){
+            return new ResponseEntity<>(applicationUserResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }
