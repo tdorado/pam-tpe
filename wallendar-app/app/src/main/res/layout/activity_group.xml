@@ -72,13 +72,13 @@
         app:layout_constraintTop_toBottomOf="@id/image_group">
 
         <Button
-            android:id="@+id/group_pay_debts"
+            android:id="@+id/group_events"
             style="@style/payable_button_style"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Activity" />
+            android:text="Events" />
 
         <Button
             android:id="@+id/group_balances"

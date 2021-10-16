@@ -15,12 +15,6 @@ public class HomePresenter {
         }
     }
 
-    public void onEventsClicked() {
-        if (homeView.get() != null) {
-            homeView.get().showEvents();
-        }
-    }
-
     public void onBalancesClicked() {
         if (homeView.get() != null) {
             homeView.get().showBalances();

@@ -10,8 +10,6 @@ public interface HomeView {
 
     void showGroups();
 
-    void showEvents();
-
     void showBalances();
 
     void showProfile();

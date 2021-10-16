@@ -62,7 +62,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
         buildPresenter();
 
         Bundle extras = getIntent().getExtras();
-        Long groupId = null;
+        Long groupId;
         if(extras != null){
             groupId = extras.getLong("GROUP_ID");
             addChargePresenter.setGroupId(groupId);

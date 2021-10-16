@@ -31,6 +31,7 @@ public class GroupHistoryViewHolder extends RecyclerView.ViewHolder {
             String amountText = String.valueOf(history.getAmount());
 
             amount.setText(itemView.getContext().getString(R.string.user_paid_amount, userText, amountText));
+            title.setVisibility(View.VISIBLE);
         } else {
             // deuda pagada no tiene titulo entonces lo hago gone
             title.setVisibility(View.GONE);
