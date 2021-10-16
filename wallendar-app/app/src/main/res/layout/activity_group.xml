@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/top_background"
         android:layout_width="match_parent"
         android:layout_height="110dp"
@@ -13,7 +13,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
         android:id="@+id/linear_group_container"
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="75dp"
-        android:text="TITULO DE GRUPO"
+        android:text="@string/group_title"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -78,7 +77,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Events" />
+            android:text="@string/events" />
 
         <Button
             android:id="@+id/group_balances"
@@ -87,7 +86,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="15dp"
             android:layout_weight="1"
-            android:text="Balances" />
+            android:text="@string/balances" />
 
         <Button
             android:id="@+id/group_activity"
@@ -99,7 +98,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:text="Settle Up Debts" />
+            android:text="@string/settle_up_debts" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -119,12 +118,12 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:text="@string/add_charge"
-        android:textSize="14sp"
         android:textColor="@color/white"
+        android:textSize="14sp"
         app:backgroundTint="@color/purple_200"
         app:icon="@drawable/ic_add"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/linear_group_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,82 +4,66 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true"
-    android:background="?android:attr/selectableItemBackground">
+    android:focusable="true">
 
-
-    <LinearLayout
-        android:id="@+id/group_activity_date_container"
+    <TextView
+        android:id="@+id/group_activity_date_month"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Jun"
+        android:textColor="@color/dark_grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/group_activity_date_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jun"
-            android:textColor="@color/dark_grey" />
-
-        <TextView
-            android:id="@+id/group_activity_date_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="05"
-            android:textColor="@color/dark_grey"
-            android:textSize="18sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/group_activity_date_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="05"
+        android:textColor="@color/dark_grey"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_activity_date_month" />
 
     <ImageView
         android:id="@+id/group_activity_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="3dp"
         android:src="@drawable/ic_group_activity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/texts"
-        app:layout_constraintStart_toEndOf="@id/group_activity_date_container"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="30dp" />
+        app:layout_constraintEnd_toStartOf="@id/group_activity_title"
+        app:layout_constraintStart_toEndOf="@id/group_activity_date_month"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/texts"
+    <TextView
+        android:id="@+id/group_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginStart="20dp"
+        android:text="Compras de super"
+        android:textColor="@color/dark_grey"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/group_activity_amount"
+        app:layout_constraintStart_toEndOf="@id/group_activity_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/group_activity_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Tomas D. pago $1324"
+        android:textColor="@color/dark_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/group_activity_icon"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/group_activity_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Compras de super"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="@color/dark_grey"
-            android:layout_marginStart="20dp" />
-
-        <TextView
-            android:id="@+id/group_activity_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tomas D. pago $1324"
-            android:textColor="@color/dark_grey"
-
-            android:layout_marginStart="20dp" />
-    </LinearLayout>
-
-
-
+        app:layout_constraintTop_toBottomOf="@id/group_activity_amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

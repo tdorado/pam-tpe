@@ -25,4 +25,8 @@
     <string name="user_owes_you_amount">%1$s owes you $%2$s</string>
     <string name="you_owe_to_user_amount">You owe to %1$s $%2$s</string>
     <string name="user_owes_to_user_amount">%1$s owes to %2$s $%3$s</string>
+    <string name="group_title">GROUP TITLE</string>
+    <string name="events">Events</string>
+    <string name="balances">Balances</string>
+    <string name="settle_up_debts">Settle Up Debts</string>
 </resources>

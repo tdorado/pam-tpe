@@ -10,13 +10,14 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 public class AddChargePresenter {
 
-    private final AddChargeView view;
+    private final WeakReference<AddChargeView> view;
     private ChargesRepository chargesRepository = new ChargesRepositoryImpl();
     private GroupsRepository groupsRepository = new GroupsRepositoryImpl();
 
@@ -28,7 +29,7 @@ public class AddChargePresenter {
     private Long groupId;
 
     public AddChargePresenter(final AddChargeView view) {
-        this.view = view;
+        this.view = new WeakReference<>(view);
     }
 
     public void setGroupId(Long groupId) {
@@ -47,13 +48,13 @@ public class AddChargePresenter {
     }
 
     private void onGroupsError(Throwable throwable) {
-        view.onGroupsLoadError();
+        view.get().onGroupsLoadError();
     }
 
     private void onGroupsReceived(List<Group> groups) {
-        view.addGroups(groups);
+        view.get().addGroups(groups);
         if(groupId != null){
-            view.setSelectedGroup(groupId);
+            view.get().setSelectedGroup(groupId);
         }
     }
 
@@ -69,13 +70,13 @@ public class AddChargePresenter {
     }
 
     private void onChargeAdded(AddChargeResponse addChargeResponse) {
-        view.chargeAddedOk();
+        view.get().chargeAddedOk();
     }
 
     private void onChargeAddedError(Throwable throwable) {
         // TODO
         System.out.println(throwable);
-        view.chargeError();
+        view.get().chargeError();
     }
 
 }

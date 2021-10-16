@@ -45,8 +45,6 @@ public class BalancesViewImpl extends RecyclerView implements BalancesView {
         buildPresenter();
 
         balancesPresenter.getBalances(getUserId());
-
-
     }
 
     @Override
