@@ -23,8 +23,8 @@ public class GroupController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createGroup(@RequestBody GroupRequest groupRequest) {
-        groupService.createGroup(groupRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Group group = groupService.createGroup(groupRequest);
+        return new ResponseEntity<>(group, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
