@@ -54,7 +54,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
         setUpAddChargeButton(groupId);
 
         // TODO
-        findViewById(R.id.group_pay_debts).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
+        findViewById(R.id.group_events).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
                 .show());
         findViewById(R.id.group_balances).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
                 .show());

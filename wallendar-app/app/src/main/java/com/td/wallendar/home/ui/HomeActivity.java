@@ -28,7 +28,6 @@ import com.td.wallendar.home.profile.ui.ProfileView;
 public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private static final int GROUPS = 0;
-    private static final int EVENTS = 1;
     private static final int BALANCES = 2;
     private static final int PROFILE = 3;
     private int currentView = GROUPS;
@@ -37,7 +36,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private ExtendedFloatingActionButton addChargeFAB;
     private BottomNavigationView bottomNavigationView;
     private GroupsView groupsView;
-    private EventsView eventsView;
     private BalancesView balancesView;
     private ProfileView profileView;
 
@@ -77,20 +75,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        switch (currentView) {
-            case GROUPS:
-                menu.findItem(R.id.add_group).setVisible(true);
-                menu.findItem(R.id.add_event).setVisible(false);
-                return true;
-            case EVENTS:
-                menu.findItem(R.id.add_event).setVisible(true);
-                menu.findItem(R.id.add_group).setVisible(false);
-                return true;
-            default:
-                menu.findItem(R.id.add_group).setVisible(false);
-                menu.findItem(R.id.add_event).setVisible(false);
-                return true;
+        if (currentView == GROUPS) {
+            menu.findItem(R.id.add_group).setVisible(true);
+            menu.findItem(R.id.add_event).setVisible(false);
+            return true;
         }
+        menu.findItem(R.id.add_group).setVisible(false);
+        menu.findItem(R.id.add_event).setVisible(false);
+        return true;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -118,9 +110,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 case R.id.groups:
                     homePresenter.onGroupsClicked();
                     break;
-                case R.id.events:
-                    homePresenter.onEventsClicked();
-                    break;
                 case R.id.balances:
                     homePresenter.onBalancesClicked();
                     break;
@@ -141,7 +130,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
         setUpAddChargeButton();
         setUpGroupsView();
-        setUpEventsView();
         setUpBalancesView();
         setUpProfileView();
     }
@@ -154,11 +142,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
         groupsView.bind(addChargeFAB, this);
-    }
-
-    private void setUpEventsView() {
-        eventsView = findViewById(R.id.view_events);
-        eventsView.bind(addChargeFAB, new EventsAdapter());
     }
 
     private void setUpBalancesView() {
@@ -177,14 +160,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         invalidateOptionsMenu();
         addChargeFAB.show();
         viewFlipper.setDisplayedChild(GROUPS);
-    }
-
-    @Override
-    public void showEvents() {
-        currentView = EVENTS;
-        invalidateOptionsMenu();
-        addChargeFAB.show();
-        viewFlipper.setDisplayedChild(EVENTS);
     }
 
     @Override

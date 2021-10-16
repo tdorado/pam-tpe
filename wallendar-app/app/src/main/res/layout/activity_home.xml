@@ -19,11 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.td.wallendar.home.events.ui.EventsViewImpl
-            android:id="@+id/view_events"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <com.td.wallendar.home.balances.ui.BalancesViewImpl
             android:id="@+id/view_balances"
             android:layout_width="match_parent"

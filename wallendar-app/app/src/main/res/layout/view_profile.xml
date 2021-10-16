@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_name" />
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/profile_separator"
         android:layout_width="match_parent"
         android:layout_height="15dp"

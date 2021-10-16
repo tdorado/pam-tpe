@@ -12,7 +12,6 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class AddChargePresenter {
@@ -30,7 +29,6 @@ public class AddChargePresenter {
 
     public AddChargePresenter(final AddChargeView view) {
         this.view = view;
-        groupId = null;
     }
 
     public void setGroupId(Long groupId) {
