@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GroupRepository  extends JpaRepository<Group, Long> {
+public interface GroupRepository extends JpaRepository<Group, Long> {
     Group findById(long id);
 
     @Query("SELECT g from Group g where :applicationUser member of g.members")

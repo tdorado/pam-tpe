@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -28,4 +29,24 @@ public class Debt {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Group group;
+
+    public Debt(ApplicationUser from, ApplicationUser to, Group group) {
+        this.from = from;
+        this.to = to;
+        this.amount = 0;
+        this.group = group;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Debt debt = (Debt) o;
+        return id == debt.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

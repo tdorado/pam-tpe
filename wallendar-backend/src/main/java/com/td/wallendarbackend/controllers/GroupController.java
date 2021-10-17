@@ -2,6 +2,7 @@ package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
 import com.td.wallendarbackend.dtos.requests.GroupRequest;
+import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.models.Group;
 import com.td.wallendarbackend.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class GroupController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createGroup(@RequestBody @Valid GroupRequest groupRequest) {
-        Group group = groupService.createGroup(groupRequest);
+        GroupResponse group = groupService.createGroup(groupRequest);
         if(group != null) {
             return new ResponseEntity<>(group, HttpStatus.CREATED);
         }
@@ -37,7 +38,7 @@ public class GroupController {
     @GetMapping(value = "/{id}")
     @ResponseBody
     public ResponseEntity<?> getGroupById(@PathVariable Long id) {
-        Group group = groupService.findById(id);
+        GroupResponse group = groupService.findById(id);
         if(group != null){
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
@@ -47,7 +48,7 @@ public class GroupController {
     @GetMapping(value = "/allFromUser/{id}")
     @ResponseBody
     public ResponseEntity<?> getGroupsByApplicationUserId(@PathVariable Long id) {
-        List<Group> groups = groupService.findGroupsByApplicationUserId(id);
+        List<GroupResponse> groups = groupService.findGroupsByApplicationUserId(id);
         if(groups != null) {
             return new ResponseEntity<>(groups, HttpStatus.OK);
         }
@@ -57,7 +58,7 @@ public class GroupController {
     @PostMapping(value = "/{id}/addMembers")
     @ResponseBody
     public ResponseEntity<?> getGroupById(@PathVariable Long id, @RequestBody @Valid AddMembersRequest addMembersRequest) {
-        Group group = groupService.addMembers(id, addMembersRequest);
+        GroupResponse group = groupService.addMembers(id, addMembersRequest);
         if(group != null){
             return new ResponseEntity<>(group, HttpStatus.OK);
         }

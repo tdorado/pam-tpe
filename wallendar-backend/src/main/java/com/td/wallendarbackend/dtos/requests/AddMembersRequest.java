@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,5 +16,5 @@ import java.util.List;
 public class AddMembersRequest {
     @NotNull
     @NotEmpty
-    private List<Long> userIds;
+    private Set<Long> userIds;
 }
