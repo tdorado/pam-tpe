@@ -9,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,8 +27,8 @@ public class Group {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private ApplicationUser owner;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<ApplicationUser> members;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<ApplicationUser> members;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -41,7 +42,7 @@ public class Group {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Payment> payments;
 
-    public Group(String title, ApplicationUser owner, List<ApplicationUser> members) {
+    public Group(String title, ApplicationUser owner, Set<ApplicationUser> members) {
         this.title = title;
         this.owner = owner;
         this.members = members;
