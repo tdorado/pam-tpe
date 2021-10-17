@@ -8,7 +8,9 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,20 +33,30 @@ public class Group {
     private Set<ApplicationUser> members;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Charge> charges;
+    private Set<Charge> charges;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Debt> debts;
+    private Set<Debt> debts;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Payment> payments;
+    private Set<Payment> payments;
 
-    public Group(String title, ApplicationUser owner, Set<ApplicationUser> members) {
+    public Group(String title, ApplicationUser owner) {
         this.title = title;
         this.owner = owner;
-        this.members = members;
+        this.members = Collections.singleton(owner);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
