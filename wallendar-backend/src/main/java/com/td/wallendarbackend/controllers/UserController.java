@@ -2,12 +2,17 @@ package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.ApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
+import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.services.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Validated
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -21,9 +26,10 @@ public class UserController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<?> signUp(@RequestBody ApplicationUserRequest applicationUserRequest) {
-        if(applicationUserService.createUser(applicationUserRequest)){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody @Valid ApplicationUserRequest applicationUserRequest) {
+        ApplicationUserResponse applicationUserResponse = applicationUserService.createUser(applicationUserRequest);
+        if(applicationUserResponse != null){
+            return new ResponseEntity<>(applicationUserResponse, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

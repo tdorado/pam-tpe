@@ -1,5 +1,6 @@
 package com.td.wallendarbackend.services;
 
+import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
 import com.td.wallendarbackend.dtos.requests.GroupRequest;
 import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.models.Group;
@@ -8,9 +9,7 @@ import com.td.wallendarbackend.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class GroupService {
@@ -30,14 +29,38 @@ public class GroupService {
 
     public List<Group> findGroupsByApplicationUserId(long applicationUserId){
         ApplicationUser applicationUser = applicationUserRepository.findById(applicationUserId);
+        if(applicationUser == null){
+            return null;
+        }
         return groupRepository.findGroupsByApplicationUserId(applicationUser);
     }
 
     public Group createGroup(GroupRequest groupRequest){
         ApplicationUser owner = applicationUserRepository.findById(groupRequest.getOwnerId());
-        List<ApplicationUser> members = Collections.singletonList(owner);
+        if(owner == null){
+            return null;
+        }
+        Set<ApplicationUser> members = Collections.singleton(owner);
         Group group = new Group(groupRequest.getTitle(), owner, members);
 
+        groupRepository.save(group);
+        return group;
+    }
+
+    public Group addMembers(long groupId, AddMembersRequest addMembersRequest){
+        Group group = groupRepository.findById(groupId);
+        if(group == null){
+            return null;
+        }
+        Set<ApplicationUser> membersToAdd = new HashSet<>();
+        for(Long userId : addMembersRequest.getUserIds()){
+            ApplicationUser user = applicationUserRepository.findById(userId.longValue());
+            if(user == null){
+                return null;
+            }
+            membersToAdd.add(user);
+        }
+        group.getMembers().addAll(membersToAdd);
         groupRepository.save(group);
         return group;
     }

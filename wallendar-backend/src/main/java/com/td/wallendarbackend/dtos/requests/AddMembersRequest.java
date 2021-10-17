@@ -7,26 +7,14 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationUserRequest {
-
+public class AddMembersRequest {
     @NotNull
     @NotEmpty
-    private String email;
-
-    @NotNull
-    @NotEmpty
-    private String password;
-
-    @NotNull
-    @NotEmpty
-    private String firstName;
-
-    @NotNull
-    @NotEmpty
-    private String lastName;
+    private List<Long> userIds;
 }

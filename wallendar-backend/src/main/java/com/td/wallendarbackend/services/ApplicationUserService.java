@@ -28,15 +28,16 @@ public class ApplicationUserService {
                 applicationUser.getFirstName(), applicationUser.getLastName());
     }
 
-    public boolean createUser(ApplicationUserRequest applicationUserRequest){
+    public ApplicationUserResponse createUser(ApplicationUserRequest applicationUserRequest){
         if(applicationUserRepository.findByEmail(applicationUserRequest.getEmail()) != null){
-            return false;
+            return null;
         }
         ApplicationUser applicationUser = new ApplicationUser(applicationUserRequest.getEmail(),
                 bCryptPasswordEncoder.encode(applicationUserRequest.getPassword()),
                 applicationUserRequest.getFirstName(),
                 applicationUserRequest.getLastName());
         applicationUserRepository.save(applicationUser);
-        return true;
+        return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
+                applicationUser.getFirstName(), applicationUser.getLastName());
     }
 }
