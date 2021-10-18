@@ -10,14 +10,13 @@ import com.td.wallendarbackend.repositories.ApplicationUserRepository;
 import com.td.wallendarbackend.repositories.DebtRepository;
 import com.td.wallendarbackend.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class GroupService {
-
     private final ApplicationUserRepository applicationUserRepository;
     private final GroupRepository groupRepository;
     private final DebtRepository debtRepository;

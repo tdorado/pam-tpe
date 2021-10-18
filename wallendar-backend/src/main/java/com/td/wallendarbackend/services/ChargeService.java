@@ -10,13 +10,13 @@ import com.td.wallendarbackend.repositories.ApplicationUserRepository;
 import com.td.wallendarbackend.repositories.ChargeRepository;
 import com.td.wallendarbackend.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
+@Service
 public class ChargeService {
     private final ChargeRepository chargeRepository;
     private final ApplicationUserRepository applicationUserRepository;

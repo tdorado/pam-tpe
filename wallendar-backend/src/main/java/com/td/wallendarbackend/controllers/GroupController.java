@@ -3,10 +3,11 @@ package com.td.wallendarbackend.controllers;
 import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
 import com.td.wallendarbackend.dtos.requests.ChargeRequest;
 import com.td.wallendarbackend.dtos.requests.GroupRequest;
-import com.td.wallendarbackend.dtos.responses.ChargeResponse;
+import com.td.wallendarbackend.dtos.requests.PaymentRequest;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.services.ChargeService;
 import com.td.wallendarbackend.services.GroupService;
+import com.td.wallendarbackend.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ public class GroupController {
 
     private final GroupService groupService;
     private final ChargeService chargeService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public GroupController(GroupService groupService, ChargeService chargeService) {
+    public GroupController(GroupService groupService, ChargeService chargeService, PaymentService paymentService) {
         this.groupService = groupService;
         this.chargeService = chargeService;
+        this.paymentService = paymentService;
     }
 
     @PostMapping("/create")
@@ -73,6 +76,16 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid ChargeRequest chargeRequest) {
         GroupResponse group = chargeService.addCharge(id, chargeRequest);
+        if(group != null){
+            return new ResponseEntity<>(group, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/{id}/addPayment")
+    @ResponseBody
+    public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid PaymentRequest paymentRequest) {
+        GroupResponse group = paymentService.addPayment(id, paymentRequest);
         if(group != null){
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
