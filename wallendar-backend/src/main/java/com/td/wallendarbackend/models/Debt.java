@@ -27,6 +27,9 @@ public class Debt {
 
     private double amount;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Debt reverseDebt;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Group group;
 

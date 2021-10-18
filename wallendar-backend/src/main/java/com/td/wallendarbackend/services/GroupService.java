@@ -81,6 +81,14 @@ public class GroupService {
                 Debt toDebt = new Debt(memberToAdd, member, group);
                 debtRepository.save(fromDebt);
                 debtRepository.save(toDebt);
+                //Aca me guardo una referencia al balace inverso, esto es solo para hacer mas rapida la carga de gastos
+                fromDebt.setReverseDebt(toDebt);
+                toDebt.setReverseDebt(fromDebt);
+                //Tengo que volver a guardar esto aca, porque recien ahi ya tiene id ambos debt
+                //Solamente es poco performante al agregar miembros, pero como eso se hace solamente 1 vez, es mejor
+                //comparado con buscar el otro debt cada vez que agrego un nuevo gasto
+                debtRepository.save(fromDebt);
+                debtRepository.save(toDebt);
                 groupDebts.add(fromDebt);
                 groupDebts.add(toDebt);
             }

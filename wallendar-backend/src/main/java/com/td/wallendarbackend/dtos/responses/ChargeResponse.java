@@ -19,7 +19,6 @@ public class ChargeResponse {
     private long id;
     private String title;
     private ApplicationUserResponse owner;
-    private Set<ApplicationUserResponse> debtors;
     private double amount;
     private Date date;
 
@@ -27,7 +26,6 @@ public class ChargeResponse {
         this.id = charge.getId();
         this.title = charge.getTitle();
         this.owner = new ApplicationUserResponse(charge.getOwner());
-        this.debtors = charge.getDebtors().stream().map(ApplicationUserResponse::new).collect(Collectors.toSet());
         this.amount = charge.getAmount();
         this.date = charge.getDate();
     }
