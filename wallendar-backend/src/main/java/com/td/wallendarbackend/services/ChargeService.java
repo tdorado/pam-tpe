@@ -40,7 +40,7 @@ public class ChargeService {
             return null;
         }
 
-        Charge charge = new Charge(chargeRequest.getTitle(), owner, chargeRequest.getAmount(),
+        Charge charge = new Charge(chargeRequest.getTitle(), owner, new HashSet<>(group.getMembers()), chargeRequest.getAmount(),
                 Calendar.getInstance().getTime(), group);
         chargeRepository.save(charge);
         if (group.getCharges() == null) {

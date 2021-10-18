@@ -26,6 +26,9 @@ public class Charge {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private ApplicationUser owner;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<ApplicationUser> debtors;
+
     private double amount;
 
     private Date date;
@@ -33,9 +36,10 @@ public class Charge {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Group group;
 
-    public Charge(String title, ApplicationUser owner, double amount, Date date, Group group) {
+    public Charge(String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date, Group group) {
         this.title = title;
         this.owner = owner;
+        this.debtors = debtors;
         this.amount = amount;
         this.date = date;
         this.group = group;
