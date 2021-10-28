@@ -1,35 +1,34 @@
 package com.td.wallendar.dtos.response;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 public class GroupResponse {
-    private Long id;
+    private long id;
     private String title;
-    private String owner;
-    private Date date;
-    private List<String> users;
-    private List<ChargeResponse> charges;
-    private List<BalanceResponse> balances;
+    private ApplicationUserResponse owner;
+    private Set<ApplicationUserResponse> members;
+    private Set<ChargeResponse> charges;
+    private Set<DebtResponse> debts;
+    private Set<PaymentResponse> payments;
 
-    public GroupResponse(Long id, String title, String owner, Date date, List<String> users, List<ChargeResponse> charges, List<BalanceResponse> balances) {
+    public GroupResponse(long id, String title, ApplicationUserResponse owner, Set<ApplicationUserResponse> members, Set<ChargeResponse> charges, Set<DebtResponse> debts, Set<PaymentResponse> payments) {
         this.id = id;
         this.title = title;
         this.owner = owner;
-        this.date = date;
-        this.users = users;
+        this.members = members;
         this.charges = charges;
-        this.balances = balances;
+        this.debts = debts;
+        this.payments = payments;
     }
 
     public GroupResponse() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -41,43 +40,43 @@ public class GroupResponse {
         this.title = title;
     }
 
-    public String getOwner() {
+    public ApplicationUserResponse getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(ApplicationUserResponse owner) {
         this.owner = owner;
     }
 
-    public Date getDate() {
-        return date;
+    public Set<ApplicationUserResponse> getMembers() {
+        return members;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMembers(Set<ApplicationUserResponse> members) {
+        this.members = members;
     }
 
-    public List<String> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<String> users) {
-        this.users = users;
-    }
-
-    public List<ChargeResponse> getCharges() {
+    public Set<ChargeResponse> getCharges() {
         return charges;
     }
 
-    public void setCharges(List<ChargeResponse> charges) {
+    public void setCharges(Set<ChargeResponse> charges) {
         this.charges = charges;
     }
 
-    public List<BalanceResponse> getBalances() {
-        return balances;
+    public Set<DebtResponse> getDebts() {
+        return debts;
     }
 
-    public void setBalances(List<BalanceResponse> balances) {
-        this.balances = balances;
+    public void setDebts(Set<DebtResponse> debts) {
+        this.debts = debts;
+    }
+
+    public Set<PaymentResponse> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Set<PaymentResponse> payments) {
+        this.payments = payments;
     }
 }

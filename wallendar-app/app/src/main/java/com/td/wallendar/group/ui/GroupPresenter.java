@@ -40,7 +40,7 @@ public class GroupPresenter {
     private void onGroupReceived(Group group) {
         if (groupView != null) {
             groupView.get().bindGroup(group);
-            List<GroupHistory> historic = new ArrayList<>(group.getCharges());
+            List<GroupHistory> historic = new ArrayList<GroupHistory>(group.getCharges());
             groupView.get().listGroupHistory(historic);
         }
     }

@@ -1,19 +1,22 @@
 package com.td.wallendar.models;
 
+import java.util.Date;
 import java.util.Objects;
 
-public class Debt {
+
+public class Payment {
     private long id;
     private ApplicationUser from;
     private ApplicationUser to;
     private double amount;
-    private Debt reverseDebt;
+    private Date date;
     private Group group;
 
-    public Debt(ApplicationUser from, ApplicationUser to, Group group) {
+    public Payment(ApplicationUser from, ApplicationUser to, double amount, Date date, Group group) {
         this.from = from;
         this.to = to;
-        this.amount = 0;
+        this.amount = amount;
+        this.date = date;
         this.group = group;
     }
 
@@ -21,8 +24,8 @@ public class Debt {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Debt debt = (Debt) o;
-        return id == debt.id;
+        Payment payment = (Payment) o;
+        return id == payment.id;
     }
 
     @Override
@@ -62,12 +65,12 @@ public class Debt {
         this.amount = amount;
     }
 
-    public Debt getReverseDebt() {
-        return reverseDebt;
+    public Date getDate() {
+        return date;
     }
 
-    public void setReverseDebt(Debt reverseDebt) {
-        this.reverseDebt = reverseDebt;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Group getGroup() {

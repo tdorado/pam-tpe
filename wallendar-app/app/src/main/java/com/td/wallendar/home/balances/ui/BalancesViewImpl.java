@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.home.balances.BalancesAdapter;
-import com.td.wallendar.home.groups.ui.GroupsPresenter;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.repositories.DebtsRepositoryImpl;
-import com.td.wallendar.repositories.GroupsRepositoryImpl;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

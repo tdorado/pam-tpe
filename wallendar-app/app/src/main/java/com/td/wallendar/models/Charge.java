@@ -1,49 +1,51 @@
 package com.td.wallendar.models;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
-public abstract class Charge implements GroupHistory {
-    private Long id;
-    private User owner;
+public class Charge implements GroupHistory {
+    private long id;
     private String title;
-    private ChargeType chargeType;
-    private List<User> debtors;
+    private ApplicationUser owner;
+    private Set<ApplicationUser> debtors;
     private double amount;
     private Date date;
+    private ChargeType chargeType;
+
     private Group group;
 
-    public Charge(final User owner, final String title, final ChargeType chargeType,
-                  final List<User> debtors, final double amount, final Date date, final Group group) {
-        this.owner = owner;
+    public Charge(String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date, Group group) {
         this.title = title;
-        this.chargeType = chargeType;
+        this.owner = owner;
         this.debtors = debtors;
         this.amount = amount;
         this.date = date;
         this.group = group;
     }
 
-    public Charge() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Charge charge = (Charge) o;
+        return id == charge.id;
     }
 
-    public Charge(final Long id, final User owner, final String title, final ChargeType chargeType,
-                  final List<User> debtors, final double amount, final Date date) {
-        this.id = id;
-        this.owner = owner;
-        this.title = title;
-        this.chargeType = chargeType;
-        this.debtors = debtors;
-        this.amount = amount;
-        this.date = date;
-        this.group = group;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
-    public Long getId() {
+    public ChargeType getChargeType() {
+        return chargeType;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,46 +54,32 @@ public abstract class Charge implements GroupHistory {
         return MoneyTransactionType.CHARGE;
     }
 
-    @Override
-    public User getFromUser() {
-        return owner;
-    }
-
-    // If there is no toUser, then this activity belongs to a charge where it generates n to's
-    @Override
-    public User getToUser() {
-        return null;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public ApplicationUser getFromUser() {
+        return getOwner();
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public ChargeType getChargeType() {
-        return chargeType;
+    public ApplicationUser getOwner() {
+        return owner;
     }
 
-    public void setChargeType(ChargeType chargeType) {
-        this.chargeType = chargeType;
+    public void setOwner(ApplicationUser owner) {
+        this.owner = owner;
     }
 
-    public List<User> getDebtors() {
+    public Set<ApplicationUser> getDebtors() {
         return debtors;
     }
 
-    public void setDebtors(List<User> debtors) {
+    public void setDebtors(Set<ApplicationUser> debtors) {
         this.debtors = debtors;
     }
 

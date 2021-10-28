@@ -13,16 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.td.wallendar.R;
-import com.td.wallendar.models.EqualCharge;
+import com.td.wallendar.models.ApplicationUser;
+import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
-import com.td.wallendar.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class AddChargeActivity extends AppCompatActivity implements AddChargeView {
 
@@ -63,7 +65,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
         Bundle extras = getIntent().getExtras();
         Long groupId;
-        if(extras != null){
+        if (extras != null) {
             groupId = extras.getLong("GROUP_ID");
             addChargePresenter.setGroupId(groupId);
         }
@@ -96,8 +98,14 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_charge_done) {
-            addChargePresenter.addCharge(new EqualCharge(new User(),
-                    chargeTitleSelected, new ArrayList<>(), chargeAmountSelected, new Date(), new Group(groupSelected))
+            addChargePresenter.addCharge(new Charge(
+                            chargeTitleSelected,
+                            new ApplicationUser(),
+                            new HashSet<>(),
+                            chargeAmountSelected,
+                            new Date(),
+                            new Group()
+                    )
             );
             return true;
         }
@@ -136,6 +144,6 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
     @Override
     public void setSelectedGroup(Long groupId) {
-        editTextFilledExposedDropdown.setText(adapter.getItem(groupId.intValue()),false);
+        editTextFilledExposedDropdown.setText(adapter.getItem(groupId.intValue()), false);
     }
 }

@@ -1,33 +1,46 @@
 package com.td.wallendar.models;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+
 
 public class Group {
-    private Long id;
+    private long id;
     private String title;
-    private User owner;
-    private List<User> users;
-    private List<Charge> charges;
-    private List<Debt> debts;
+    private ApplicationUser owner;
+    private Set<ApplicationUser> members;
+    private Set<Charge> charges;
+    private Set<Debt> debts;
+    private Set<Payment> payments;
+
+    public Group(String title, ApplicationUser owner) {
+        this.title = title;
+        this.owner = owner;
+        this.members = Collections.singleton(owner);
+    }
 
     public Group() {
     }
 
-    public Group(final String title) {
-        this.title = title;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id;
     }
 
-    public Group(final Long id,
-                 final String title,
-                 final User owner,
-                 final List<User> users,
-                 final List<Charge> charges,
-                 final List<Debt> debts) {
-        this.title = title;
-        this.owner = owner;
-        this.users = users;
-        this.charges = charges;
-        this.debts = debts;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -39,43 +52,43 @@ public class Group {
         this.title = title;
     }
 
-    public User getOwner() {
+    public ApplicationUser getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(ApplicationUser owner) {
         this.owner = owner;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public Set<ApplicationUser> getMembers() {
+        return members;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setMembers(Set<ApplicationUser> members) {
+        this.members = members;
     }
 
-    public List<Charge> getCharges() {
+    public Set<Charge> getCharges() {
         return charges;
     }
 
-    public void setCharges(List<Charge> charges) {
+    public void setCharges(Set<Charge> charges) {
         this.charges = charges;
     }
 
-    public List<Debt> getDebts() {
+    public Set<Debt> getDebts() {
         return debts;
     }
 
-    public void setDebts(List<Debt> debts) {
+    public void setDebts(Set<Debt> debts) {
         this.debts = debts;
     }
 
-    public Long getId() {
-        return id;
+    public Set<Payment> getPayments() {
+        return payments;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
     }
 }
