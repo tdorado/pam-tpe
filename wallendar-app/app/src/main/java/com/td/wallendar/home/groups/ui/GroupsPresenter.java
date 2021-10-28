@@ -1,5 +1,6 @@
 package com.td.wallendar.home.groups.ui;
 
+import com.td.wallendar.dtos.response.GroupResponse;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
@@ -44,6 +45,5 @@ public class GroupsPresenter {
     private void onGroupsError(Throwable throwable) {
         System.out.println(throwable);
     }
-
 
 }

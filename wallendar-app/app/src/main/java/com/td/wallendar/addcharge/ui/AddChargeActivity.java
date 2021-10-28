@@ -103,8 +103,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
                             new ApplicationUser(),
                             new HashSet<>(),
                             chargeAmountSelected,
-                            new Date(),
-                            new Group()
+                            new Date()
                     )
             );
             return true;

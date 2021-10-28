@@ -13,7 +13,7 @@ public interface GroupsRepository {
 
     Observable<Group> getGroup(final Long groupId);
 
-    Observable<GroupResponse> getGroupById(final Long groupId);
+    Observable<Group> getGroupById(final Long groupId);
 
     Observable<String> createGroup(final String groupTitle, final Long ownerId);
 

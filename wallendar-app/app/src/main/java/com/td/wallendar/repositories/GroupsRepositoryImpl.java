@@ -1,11 +1,9 @@
 package com.td.wallendar.repositories;
 
 import com.td.wallendar.ServiceModule;
-import com.td.wallendar.dtos.response.GroupResponse;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.repositories.mappers.GroupMapper;
-import com.td.wallendar.repositories.mappers.GroupsMapper;
 import com.td.wallendar.service.GroupsService;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public class GroupsRepositoryImpl implements GroupsRepository {
 
     @Override
     public Observable<List<Group>> getGroupsByUser(final Long userId) {
-        return groupsService.getGroupsByUserId(userId).map(GroupsMapper::toModel);
+        return groupsService.getGroupsByUserId(userId).map(GroupMapper::toModel);
     }
 
     @Override
@@ -32,7 +30,7 @@ public class GroupsRepositoryImpl implements GroupsRepository {
     }
 
     @Override
-    public Observable<GroupResponse> getGroupById(Long groupId) {
+    public Observable<Group> getGroupById(Long groupId) {
         return null;
     }
 
