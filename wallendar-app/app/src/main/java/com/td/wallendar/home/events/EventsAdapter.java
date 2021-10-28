@@ -11,7 +11,6 @@ import com.td.wallendar.R;
 import com.td.wallendar.models.Event;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsViewHolder> {

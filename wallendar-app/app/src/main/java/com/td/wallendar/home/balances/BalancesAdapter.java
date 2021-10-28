@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 import com.td.wallendar.models.Debt;
-import com.td.wallendar.models.Group;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BalancesAdapter extends RecyclerView.Adapter<BalancesViewHolder> {

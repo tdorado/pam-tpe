@@ -1,7 +1,6 @@
 package com.td.wallendar.home.balances.ui;
 
 import com.td.wallendar.models.Debt;
-import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;

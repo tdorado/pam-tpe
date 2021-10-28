@@ -11,6 +11,8 @@ import com.td.wallendar.R;
 import com.td.wallendar.models.Event;
 import com.td.wallendar.utils.DateFormatter;
 
+import java.util.Date;
+
 public class EventsViewHolder extends RecyclerView.ViewHolder {
     public EventsViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -25,10 +27,10 @@ public class EventsViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final Event event) {
         final TextView eventName = itemView.findViewById(R.id.row_event_name);
-        eventName.setText(event.getTitle());
+        eventName.setText("TITULO DE EVENTO HARDCODEADO");
 
         final TextView eventDate = itemView.findViewById(R.id.row_event_date);
-        eventDate.setText(DateFormatter.formatDateAsString(event.getDate()));
+        eventDate.setText(DateFormatter.formatDateAsString(new Date()));
 
         // FIXME this should be some kind of recycler, or we could choose
         // to only show two lines: user debt with max value, and who use who owes me the max value

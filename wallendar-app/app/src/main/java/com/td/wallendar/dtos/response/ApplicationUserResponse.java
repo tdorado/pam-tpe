@@ -1,20 +1,27 @@
-package com.td.wallendar.models;
+package com.td.wallendar.dtos.response;
 
-public class User {
+public class ApplicationUserResponse {
+    private long id;
     private String email;
     private String firstName;
     private String lastName;
-    private String cellphone;
 
-    public User() {
-
-    }
-
-    public User(String email, String firstName, String lastName, String cellphone) {
+    public ApplicationUserResponse(long id, String email, String firstName, String lastName) {
+        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cellphone = cellphone;
+    }
+
+    public ApplicationUserResponse() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -39,13 +46,5 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getCellphone() {
-        return cellphone;
-    }
-
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
     }
 }
