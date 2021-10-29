@@ -36,7 +36,7 @@ public class GroupController {
     @PostMapping("/create")
     public ResponseEntity<?> createGroup(@RequestBody @Valid GroupRequest groupRequest) {
         GroupResponse group = groupService.createGroup(groupRequest);
-        if(group != null) {
+        if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -46,7 +46,7 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> getGroupById(@PathVariable long id) {
         GroupResponse group = groupService.findById(id);
-        if(group != null){
+        if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,7 +56,7 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> getGroupsByApplicationUserId(@PathVariable long id) {
         List<GroupResponse> groups = groupService.findGroupsByApplicationUserId(id);
-        if(groups != null) {
+        if (groups != null) {
             return new ResponseEntity<>(groups, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,7 +66,7 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> addMembers(@PathVariable long id, @RequestBody @Valid AddMembersRequest addMembersRequest) {
         GroupResponse group = groupService.addMembers(id, addMembersRequest);
-        if(group != null){
+        if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -76,7 +76,7 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid ChargeRequest chargeRequest) {
         GroupResponse group = chargeService.addCharge(id, chargeRequest);
-        if(group != null){
+        if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -86,7 +86,7 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid PaymentRequest paymentRequest) {
         GroupResponse group = paymentService.addPayment(id, paymentRequest);
-        if(group != null){
+        if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

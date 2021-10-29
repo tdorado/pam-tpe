@@ -12,7 +12,9 @@ import com.td.wallendarbackend.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,26 +30,26 @@ public class GroupService {
         this.debtRepository = debtRepository;
     }
 
-    public GroupResponse findById(long id){
+    public GroupResponse findById(long id) {
         Group group = groupRepository.findById(id);
-        if(group == null){
+        if (group == null) {
             return null;
         }
         return new GroupResponse(group);
     }
 
-    public List<GroupResponse> findGroupsByApplicationUserId(long applicationUserId){
+    public List<GroupResponse> findGroupsByApplicationUserId(long applicationUserId) {
         ApplicationUser applicationUser = applicationUserRepository.findById(applicationUserId);
-        if(applicationUser == null){
+        if (applicationUser == null) {
             return null;
         }
         List<Group> groups = groupRepository.findGroupsByApplicationUserId(applicationUser);
         return groups.stream().map(GroupResponse::new).collect(Collectors.toList());
     }
 
-    public GroupResponse createGroup(GroupRequest groupRequest){
+    public GroupResponse createGroup(GroupRequest groupRequest) {
         ApplicationUser owner = applicationUserRepository.findById(groupRequest.getOwnerId());
-        if(owner == null){
+        if (owner == null) {
             return null;
         }
         Group group = new Group(groupRequest.getTitle(), owner);
@@ -56,26 +58,26 @@ public class GroupService {
         return new GroupResponse(group);
     }
 
-    public GroupResponse addMembers(long groupId, AddMembersRequest addMembersRequest){
+    public GroupResponse addMembers(long groupId, AddMembersRequest addMembersRequest) {
         Group group = groupRepository.findById(groupId);
-        if(group == null){
+        if (group == null) {
             return null;
         }
         Set<ApplicationUser> membersToAdd = new HashSet<>();
         Set<ApplicationUser> groupMembers = group.getMembers();
-        for(Long userId : addMembersRequest.getUserIds()){
+        for (Long userId : addMembersRequest.getUserIds()) {
             ApplicationUser user = applicationUserRepository.findById(userId.longValue());
-            if(user == null){
+            if (user == null) {
                 return null;
             }
-            if(!groupMembers.contains(user)) {
+            if (!groupMembers.contains(user)) {
                 membersToAdd.add(user);
             }
         }
 
         Set<Debt> groupDebts = group.getDebts();
-        for(ApplicationUser member: groupMembers){
-            for(ApplicationUser memberToAdd: membersToAdd){
+        for (ApplicationUser member : groupMembers) {
+            for (ApplicationUser memberToAdd : membersToAdd) {
                 Debt fromDebt = new Debt(member, memberToAdd, group);
                 Debt toDebt = new Debt(memberToAdd, member, group);
                 debtRepository.save(fromDebt);

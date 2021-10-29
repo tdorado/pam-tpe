@@ -14,22 +14,22 @@ public class ApplicationUserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public ApplicationUserService(ApplicationUserRepository applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public ApplicationUserService(ApplicationUserRepository applicationUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.applicationUserRepository = applicationUserRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public ApplicationUserResponse findById(long id){
+    public ApplicationUserResponse findById(long id) {
         ApplicationUser applicationUser = applicationUserRepository.findById(id);
-        if(applicationUser == null){
+        if (applicationUser == null) {
             return null;
         }
         return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
                 applicationUser.getFirstName(), applicationUser.getLastName());
     }
 
-    public ApplicationUserResponse createUser(ApplicationUserRequest applicationUserRequest){
-        if(applicationUserRepository.findByEmail(applicationUserRequest.getEmail()) != null){
+    public ApplicationUserResponse createUser(ApplicationUserRequest applicationUserRequest) {
+        if (applicationUserRepository.findByEmail(applicationUserRequest.getEmail()) != null) {
             return null;
         }
         ApplicationUser applicationUser = new ApplicationUser(applicationUserRequest.getEmail(),

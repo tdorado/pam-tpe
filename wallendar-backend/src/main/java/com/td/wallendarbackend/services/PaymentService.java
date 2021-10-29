@@ -2,7 +2,10 @@ package com.td.wallendarbackend.services;
 
 import com.td.wallendarbackend.dtos.requests.PaymentRequest;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
-import com.td.wallendarbackend.models.*;
+import com.td.wallendarbackend.models.ApplicationUser;
+import com.td.wallendarbackend.models.Debt;
+import com.td.wallendarbackend.models.Group;
+import com.td.wallendarbackend.models.Payment;
 import com.td.wallendarbackend.repositories.ApplicationUserRepository;
 import com.td.wallendarbackend.repositories.DebtRepository;
 import com.td.wallendarbackend.repositories.GroupRepository;
@@ -12,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class PaymentService {
@@ -29,24 +31,24 @@ public class PaymentService {
         this.applicationUserRepository = applicationUserRepository;
     }
 
-    public GroupResponse addPayment(long groupId, PaymentRequest paymentRequest){
+    public GroupResponse addPayment(long groupId, PaymentRequest paymentRequest) {
         Group group = groupRepository.findById(groupId);
-        if(group == null){
+        if (group == null) {
             return null;
         }
 
         ApplicationUser fromUser = applicationUserRepository.findById(paymentRequest.getFromUserId());
-        if(fromUser == null){
+        if (fromUser == null) {
             return null;
         }
 
         ApplicationUser toUser = applicationUserRepository.findById(paymentRequest.getToUserId());
-        if(toUser == null){
+        if (toUser == null) {
             return null;
         }
 
         Payment payment = new Payment(fromUser, toUser, paymentRequest.getAmount(),
-                Calendar.getInstance().getTime(),group);
+                Calendar.getInstance().getTime(), group);
         paymentRepository.save(payment);
         if (group.getPayments() == null) {
             group.setPayments(new HashSet<>());

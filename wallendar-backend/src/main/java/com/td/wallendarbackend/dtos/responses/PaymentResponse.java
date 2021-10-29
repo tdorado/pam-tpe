@@ -1,7 +1,5 @@
 package com.td.wallendarbackend.dtos.responses;
 
-import com.td.wallendarbackend.models.ApplicationUser;
-import com.td.wallendarbackend.models.Group;
 import com.td.wallendarbackend.models.Payment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

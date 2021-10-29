@@ -28,22 +28,19 @@ public class GroupResponse {
         this.title = group.getTitle();
         this.owner = new ApplicationUserResponse(group.getOwner());
         this.members = group.getMembers().stream().map(ApplicationUserResponse::new).collect(Collectors.toSet());
-        if(group.getCharges() != null) {
+        if (group.getCharges() != null) {
             this.charges = group.getCharges().stream().map(ChargeResponse::new).collect(Collectors.toSet());
-        }
-        else{
+        } else {
             this.charges = Collections.emptySet();
         }
-        if(group.getDebts() != null) {
+        if (group.getDebts() != null) {
             this.debts = group.getDebts().stream().map(DebtResponse::new).collect(Collectors.toSet());
-        }
-        else{
+        } else {
             this.debts = Collections.emptySet();
         }
-        if(group.getPayments() != null) {
+        if (group.getPayments() != null) {
             this.payments = group.getPayments().stream().map(PaymentResponse::new).collect(Collectors.toSet());
-        }
-        else{
+        } else {
             this.payments = Collections.emptySet();
         }
     }
