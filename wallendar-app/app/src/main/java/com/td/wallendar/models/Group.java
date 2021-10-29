@@ -14,13 +14,17 @@ public class Group {
     private Set<Debt> debts;
     private Set<Payment> payments;
 
-    public Group(String title, ApplicationUser owner) {
-        this.title = title;
-        this.owner = owner;
-        this.members = Collections.singleton(owner);
+    public Group() {
     }
 
-    public Group() {
+    public Group(long id, String title, ApplicationUser owner, Set<ApplicationUser> members, Set<Charge> charges, Set<Debt> debts, Set<Payment> payments) {
+        this.id = id;
+        this.title = title;
+        this.owner = owner;
+        this.members = members;
+        this.charges = charges;
+        this.debts = debts;
+        this.payments = payments;
     }
 
     @Override

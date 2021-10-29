@@ -3,18 +3,16 @@ package com.td.wallendar.models;
 import java.util.Objects;
 
 public class Debt {
-    private long id;
+    private Long id;
     private ApplicationUser from;
     private ApplicationUser to;
     private double amount;
-    private Debt reverseDebt;
-    private Group group;
 
-    public Debt(ApplicationUser from, ApplicationUser to, Group group) {
+    public Debt(Long id, ApplicationUser from, ApplicationUser to, double amount) {
+        this.id = id;
         this.from = from;
         this.to = to;
-        this.amount = 0;
-        this.group = group;
+        this.amount = amount;
     }
 
     @Override
@@ -60,21 +58,5 @@ public class Debt {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public Debt getReverseDebt() {
-        return reverseDebt;
-    }
-
-    public void setReverseDebt(Debt reverseDebt) {
-        this.reverseDebt = reverseDebt;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 }

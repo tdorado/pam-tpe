@@ -10,14 +10,13 @@ public class Payment {
     private ApplicationUser to;
     private double amount;
     private Date date;
-    private Group group;
 
-    public Payment(ApplicationUser from, ApplicationUser to, double amount, Date date, Group group) {
+    public Payment(Long id, ApplicationUser from, ApplicationUser to, double amount, Date date) {
+        this.id = id;
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.date = date;
-        this.group = group;
     }
 
     @Override
@@ -73,11 +72,4 @@ public class Payment {
         this.date = date;
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
 }

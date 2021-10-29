@@ -11,17 +11,14 @@ public class Charge implements GroupHistory {
     private Set<ApplicationUser> debtors;
     private double amount;
     private Date date;
-    private ChargeType chargeType;
+    private ChargeType chargeType = ChargeType.EQUALLY;
 
-    private Group group;
-
-    public Charge(String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date, Group group) {
+    public Charge(String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date) {
         this.title = title;
         this.owner = owner;
         this.debtors = debtors;
         this.amount = amount;
         this.date = date;
-        this.group = group;
     }
 
     @Override
@@ -99,11 +96,4 @@ public class Charge implements GroupHistory {
         this.date = date;
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
 }
