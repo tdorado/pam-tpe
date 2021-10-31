@@ -1,11 +1,13 @@
 package com.td.wallendar.service;
 
+import com.td.wallendar.dtos.request.CreateGroupRequest;
 import com.td.wallendar.dtos.response.GroupResponse;
 import com.td.wallendar.dtos.response.GroupsResponse;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -19,7 +21,7 @@ public interface GroupsService {
     Observable<GroupResponse> getGroupById(@Path("groupId") final Long groupId);
 
     @POST("/api/groups/create")
-    Observable<String> createGroup();
+    Observable<GroupResponse> createGroup(@Body CreateGroupRequest createGroupRequest);
 
     @POST("/api/groups/{id}/addMembers")
     Observable<String> addMembers();

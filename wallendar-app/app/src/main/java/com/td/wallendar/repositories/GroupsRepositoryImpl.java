@@ -1,6 +1,7 @@
 package com.td.wallendar.repositories;
 
 import com.td.wallendar.ServiceModule;
+import com.td.wallendar.dtos.request.CreateGroupRequest;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.repositories.mappers.GroupMapper;
@@ -35,8 +36,8 @@ public class GroupsRepositoryImpl implements GroupsRepository {
     }
 
     @Override
-    public Observable<String> createGroup(String groupTitle, Long ownerId) {
-        return null;
+    public Observable<Group> createGroup(String groupTitle, Long ownerId) {
+        return groupsService.createGroup(new CreateGroupRequest(groupTitle, ownerId)).map(GroupMapper::toModel);
     }
 
     @Override

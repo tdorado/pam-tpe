@@ -12,21 +12,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Wallendar">
+        android:theme="@style/Theme.Wallendar"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".home.ui.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addcharge.ui.AddChargeActivity" />
-        <activity android:name=".addgroup.ui.AddGroupActivity" />
-        <activity android:name=".addevent.ui.AddEventActivity" />
+        <activity
+            android:name=".addcharge.ui.AddChargeActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".addgroup.ui.AddGroupActivity"
+            android:noHistory="true" />
+        <activity
+            android:name=".addevent.ui.AddEventActivity"
+            android:noHistory="true" />
         <activity android:name=".group.ui.GroupActivity" />
 
     </application>

@@ -28,8 +28,8 @@ import com.td.wallendar.home.profile.ui.ProfileView;
 public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private static final int GROUPS = 0;
-    private static final int BALANCES = 2;
-    private static final int PROFILE = 3;
+    private static final int BALANCES = 1;
+    private static final int PROFILE = 2;
     private int currentView = GROUPS;
 
     private ViewFlipper viewFlipper;
@@ -44,11 +44,21 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_home);
+
         createPresenter();
 
         setUpViews();
         setUpBottomNavigation();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.getBooleanExtra("REFRESH_GROUPS", false)) {
+            groupsView.refreshGroups();
+        }
     }
 
     private void createPresenter() {
@@ -176,5 +186,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         invalidateOptionsMenu();
         addChargeFAB.hide();
         viewFlipper.setDisplayedChild(PROFILE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentView == GROUPS) {
+            finishAndRemoveTask();
+        } else {
+            currentView = GROUPS;
+            viewFlipper.setDisplayedChild(currentView);
+        }
     }
 }

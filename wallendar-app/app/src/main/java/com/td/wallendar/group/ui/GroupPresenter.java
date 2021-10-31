@@ -16,9 +16,8 @@ public class GroupPresenter {
 
     private final WeakReference<GroupView> groupView;
     private final GroupsRepository groupsRepository;
-
-    private CompositeDisposable disposable;
-    private SchedulerProvider schedulerProvider;
+    private final CompositeDisposable disposable;
+    private final SchedulerProvider schedulerProvider;
 
     public GroupPresenter(final GroupView groupView,
                           final GroupsRepository groupsRepository) {
@@ -38,11 +37,9 @@ public class GroupPresenter {
     }
 
     private void onGroupReceived(Group group) {
-        if (groupView != null) {
-            groupView.get().bindGroup(group);
-            List<GroupHistory> historic = new ArrayList<GroupHistory>(group.getCharges());
-            groupView.get().listGroupHistory(historic);
-        }
+        groupView.get().bindGroup(group);
+        List<GroupHistory> historic = new ArrayList<GroupHistory>(group.getCharges());
+        groupView.get().listGroupHistory(historic);
     }
 
     private void onGroupError(Throwable throwable) {
