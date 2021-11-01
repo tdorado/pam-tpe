@@ -1,8 +1,6 @@
 package com.td.wallendar.repositories.mappers;
 
-import com.td.wallendar.dtos.response.BalanceResponse;
 import com.td.wallendar.dtos.response.PaymentResponse;
-import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Payment;
 
 import java.util.HashSet;

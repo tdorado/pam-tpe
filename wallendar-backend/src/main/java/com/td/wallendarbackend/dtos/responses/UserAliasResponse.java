@@ -11,9 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserAliasResponse {
+    private long id;
     private String alias;
 
     public UserAliasResponse(UserAlias userAlias) {
+        this.id = userAlias.getId();
         this.alias = userAlias.getAlias();
     }
 }

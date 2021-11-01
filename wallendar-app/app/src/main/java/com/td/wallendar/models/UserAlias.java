@@ -9,7 +9,8 @@ public class UserAlias {
 
     private String alias;
 
-    public UserAlias(ApplicationUser applicationUser, String alias) {
+    public UserAlias(long id, ApplicationUser applicationUser, String alias) {
+        this.id = id;
         this.applicationUser = applicationUser;
         this.alias = alias;
     }

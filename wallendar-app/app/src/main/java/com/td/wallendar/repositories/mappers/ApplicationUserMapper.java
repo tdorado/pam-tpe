@@ -10,6 +10,7 @@ public class ApplicationUserMapper {
 
     public static ApplicationUser toModel(ApplicationUserResponse applicationUserResponse) {
         return new ApplicationUser(
+                applicationUserResponse.getId(),
                 applicationUserResponse.getEmail(),
                 applicationUserResponse.getFirstName(),
                 applicationUserResponse.getLastName()

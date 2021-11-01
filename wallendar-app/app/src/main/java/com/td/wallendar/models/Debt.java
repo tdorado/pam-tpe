@@ -3,12 +3,12 @@ package com.td.wallendar.models;
 import java.util.Objects;
 
 public class Debt {
-    private Long id;
+    private long id;
     private ApplicationUser from;
     private ApplicationUser to;
     private double amount;
 
-    public Debt(Long id, ApplicationUser from, ApplicationUser to, double amount) {
+    public Debt(long id, ApplicationUser from, ApplicationUser to, double amount) {
         this.id = id;
         this.from = from;
         this.to = to;
