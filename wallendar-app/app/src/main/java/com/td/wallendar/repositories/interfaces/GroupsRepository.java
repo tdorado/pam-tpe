@@ -15,7 +15,7 @@ public interface GroupsRepository {
 
     Observable<Group> getGroupById(final Long groupId);
 
-    Observable<String> createGroup(final String groupTitle, final Long ownerId);
+    Observable<Group> createGroup(final String groupTitle, final Long ownerId);
 
     // Members email
     Observable<String> addMembers(final Set<String> members);

@@ -11,7 +11,7 @@ public class Payment {
     private double amount;
     private Date date;
 
-    public Payment(Long id, ApplicationUser from, ApplicationUser to, double amount, Date date) {
+    public Payment(long id, ApplicationUser from, ApplicationUser to, double amount, Date date) {
         this.id = id;
         this.from = from;
         this.to = to;

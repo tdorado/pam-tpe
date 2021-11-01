@@ -9,6 +9,7 @@ import java.util.Set;
 public class ChargeMapper {
     public static Charge toModel(ChargeResponse chargeResponse) {
         return new Charge(
+                chargeResponse.getId(),
                 chargeResponse.getTitle(),
                 ApplicationUserMapper.toModel(chargeResponse.getOwner()),
                 ApplicationUserMapper.toModel(chargeResponse.getDebtors()),

@@ -36,7 +36,6 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
     public GroupsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
     }
 
     @Override
@@ -69,6 +68,10 @@ public class GroupsViewImpl extends RecyclerView implements GroupsView, View.OnC
 
         buildPresenter();
 
+        refreshGroups();
+    }
+
+    public void refreshGroups() {
         groupsPresenter.listGroups(getUserId());
     }
 

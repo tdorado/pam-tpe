@@ -1,15 +1,10 @@
 package com.td.wallendar.repositories.mappers;
 
-import com.td.wallendar.dtos.response.ApplicationUserResponse;
-import com.td.wallendar.dtos.response.DebtResponse;
 import com.td.wallendar.dtos.response.GroupResponse;
-import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Group;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupMapper {
 

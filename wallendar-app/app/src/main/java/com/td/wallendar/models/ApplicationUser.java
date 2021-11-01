@@ -9,7 +9,8 @@ public class ApplicationUser {
     private String firstName;
     private String lastName;
 
-    public ApplicationUser(String email, String firstName, String lastName) {
+    public ApplicationUser(long id, String email, String firstName, String lastName) {
+        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

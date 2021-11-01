@@ -13,6 +13,15 @@ public class Charge implements GroupHistory {
     private Date date;
     private ChargeType chargeType = ChargeType.EQUALLY;
 
+    public Charge(long id, String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date) {
+        this.id = id;
+        this.title = title;
+        this.owner = owner;
+        this.debtors = debtors;
+        this.amount = amount;
+        this.date = date;
+    }
+
     public Charge(String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date) {
         this.title = title;
         this.owner = owner;
