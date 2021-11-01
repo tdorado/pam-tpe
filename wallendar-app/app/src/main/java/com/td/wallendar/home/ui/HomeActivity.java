@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -16,16 +15,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
-import com.td.wallendar.addevent.ui.AddEventActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
-import com.td.wallendar.home.balances.BalancesAdapter;
+import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.balances.ui.BalancesView;
-import com.td.wallendar.home.events.EventsAdapter;
-import com.td.wallendar.home.events.ui.EventsView;
+import com.td.wallendar.home.groups.GroupAdapter;
+import com.td.wallendar.home.groups.OnGroupClickedListener;
 import com.td.wallendar.home.groups.ui.GroupsView;
 import com.td.wallendar.home.profile.ui.ProfileView;
+import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
-public class HomeActivity extends AppCompatActivity implements HomeView {
+import java.util.List;
+
+public class HomeActivity extends AppCompatActivity implements HomeView, OnGroupClickedListener {
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
@@ -41,12 +46,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private HomePresenter homePresenter;
 
+    private GroupAdapter groupAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
-
         createPresenter();
 
         setUpViews();
@@ -57,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent.getBooleanExtra("REFRESH_GROUPS", false)) {
-            groupsView.refreshGroups();
+            homePresenter.onViewAttached();
         }
     }
 
@@ -65,7 +70,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         homePresenter = (HomePresenter) getLastNonConfigurationInstance();
 
         if (homePresenter == null) {
-            homePresenter = new HomePresenter(this);
+            final GroupsRepository groupsRepository = new GroupsRepositoryImpl();
+            final SchedulerProvider schedulerProvider = new AndroidSchedulerProvider();
+            homePresenter = new HomePresenter(this, groupsRepository, schedulerProvider);
         }
     }
 
@@ -87,27 +94,20 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         super.onPrepareOptionsMenu(menu);
         if (currentView == GROUPS) {
             menu.findItem(R.id.add_group).setVisible(true);
-            menu.findItem(R.id.add_event).setVisible(false);
             return true;
         }
         menu.findItem(R.id.add_group).setVisible(false);
-        menu.findItem(R.id.add_event).setVisible(false);
         return true;
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_group:
-                startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
-                return true;
-            case R.id.add_event:
-                startActivity(new Intent(HomeActivity.this, AddEventActivity.class));
-                return true;
-            default:
-                return false;
+        if (item.getItemId() == R.id.add_group) {
+            startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
+            return true;
         }
+        return false;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -124,8 +124,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     homePresenter.onBalancesClicked();
                     break;
                 case R.id.profile:
-                    Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                            .show();
                     homePresenter.onProfileClicked();
                     break;
                 default:
@@ -151,7 +149,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        groupsView.bind(addChargeFAB, this);
+        groupAdapter = new GroupAdapter();
+        groupAdapter.setOnGroupClickedListener(this);
+        groupsView.bind(groupAdapter, addChargeFAB);
     }
 
     private void setUpBalancesView() {
@@ -196,5 +196,29 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             currentView = GROUPS;
             viewFlipper.setDisplayedChild(currentView);
         }
+    }
+
+    @Override
+    public void bindGroups(List<Group> groups){
+        groupAdapter.setDataset(groups);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        homePresenter.onViewAttached();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        homePresenter.onViewDetached();
+    }
+
+    @Override
+    public void onGroupClicked(long groupId) {
+        final Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
+        intent.putExtra("GROUP_ID", groupId);
+        startActivity(intent);
     }
 }
