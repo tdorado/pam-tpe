@@ -1,5 +1,7 @@
 package com.td.wallendar.models;
 
-public enum MoneyTransactionType {
+import java.io.Serializable;
+
+public enum MoneyTransactionType implements Serializable {
     CHARGE, DEBT
 }

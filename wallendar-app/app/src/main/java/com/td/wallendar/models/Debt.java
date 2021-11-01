@@ -1,8 +1,9 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Debt {
+public class Debt implements Serializable {
     private long id;
     private ApplicationUser from;
     private ApplicationUser to;

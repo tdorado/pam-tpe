@@ -1,12 +1,7 @@
 package com.td.wallendar.home.balances.ui;
 
-import com.td.wallendar.AbstractView;
-import com.td.wallendar.models.Debt;
+import com.td.wallendar.home.balances.BalanceAdapter;
 
-import java.util.List;
-
-public interface BalancesView extends AbstractView {
-    void bind();
-
-    void listBalances(final List<Debt> balances);
+public interface BalancesView {
+    void bind(final BalanceAdapter balanceAdapter);
 }

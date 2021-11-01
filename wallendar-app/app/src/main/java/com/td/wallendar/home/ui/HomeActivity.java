@@ -17,25 +17,33 @@ import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
 import com.td.wallendar.group.ui.GroupActivity;
+import com.td.wallendar.home.balances.BalanceAdapter;
+import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener;
 import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.groups.GroupAdapter;
 import com.td.wallendar.home.groups.OnGroupClickedListener;
 import com.td.wallendar.home.groups.ui.GroupsView;
 import com.td.wallendar.home.profile.ui.ProfileView;
+import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.DebtsRepositoryImpl;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, OnGroupClickedListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, OnGroupClickedListener,
+        OnBalanceSettleUpClickedListener {
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
     private static final int PROFILE = 2;
     private int currentView = GROUPS;
+
+    private static final int REQUEST_ADD_GROUP = 1;
 
     private ViewFlipper viewFlipper;
     private ExtendedFloatingActionButton addChargeFAB;
@@ -47,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     private HomePresenter homePresenter;
 
     private GroupAdapter groupAdapter;
+    private BalanceAdapter balanceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +68,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (intent.getBooleanExtra("REFRESH_GROUPS", false)) {
-            homePresenter.onViewAttached();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ADD_GROUP && resultCode == RESULT_OK) {
+            Group group = (Group)data.getExtras().getSerializable("NEW_GROUP");
+            groupAdapter.addToDataset(group);
         }
     }
 
@@ -71,8 +81,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
 
         if (homePresenter == null) {
             final GroupsRepository groupsRepository = new GroupsRepositoryImpl();
+            final DebtsRepository debtsRepository = new DebtsRepositoryImpl();
             final SchedulerProvider schedulerProvider = new AndroidSchedulerProvider();
-            homePresenter = new HomePresenter(this, groupsRepository, schedulerProvider);
+            homePresenter = new HomePresenter(this, groupsRepository, debtsRepository,
+                    schedulerProvider);
         }
     }
 
@@ -104,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_group) {
-            startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
+            startActivityForResult(new Intent(this, AddGroupActivity.class), REQUEST_ADD_GROUP);
             return true;
         }
         return false;
@@ -144,7 +156,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
 
     private void setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab);
-        addChargeFAB.setOnClickListener(view -> startActivity(new Intent(HomeActivity.this, AddChargeActivity.class)));
+        addChargeFAB.setOnClickListener(view -> startActivity(new Intent(this, AddChargeActivity.class)));
     }
 
     private void setUpGroupsView() {
@@ -156,7 +168,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
 
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
-        balancesView.bind();
+        balanceAdapter = new BalanceAdapter();
+        balanceAdapter.setOnBalanceSettleUpClickedListener(this);
+        balancesView.bind(balanceAdapter);
     }
 
     private void setUpProfileView() {
@@ -204,6 +218,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     }
 
     @Override
+    public void bindDebts(List<Debt> debts){
+        balanceAdapter.setDataset(debts);
+    }
+
+    @Override
     public void onStart(){
         super.onStart();
         homePresenter.onViewAttached();
@@ -220,5 +239,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
         final Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
         intent.putExtra("GROUP_ID", groupId);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBalanceSettleUpClick(long groupId, Debt debt) {
+        //TODO settle up call to backend
     }
 }

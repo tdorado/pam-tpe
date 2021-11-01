@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.models.Debt;
 
-public class BalancesViewHolder extends RecyclerView.ViewHolder {
-    public BalancesViewHolder(@NonNull View itemView) {
+public class BalanceViewHolder extends RecyclerView.ViewHolder {
+    private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
+
+    public BalanceViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
@@ -34,6 +36,10 @@ public class BalancesViewHolder extends RecyclerView.ViewHolder {
         } else {
             textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFrom, amount));
         }
+    }
+
+    public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener) {
+        this.onBalanceSettleUpClickedListener = listener;
     }
 
 }

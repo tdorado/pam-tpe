@@ -1,10 +1,11 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class Payment {
+public class Payment implements Serializable {
     private long id;
     private ApplicationUser from;
     private ApplicationUser to;

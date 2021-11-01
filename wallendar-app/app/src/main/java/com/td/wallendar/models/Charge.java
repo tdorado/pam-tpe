@@ -1,10 +1,11 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-public class Charge implements GroupHistory {
+public class Charge implements Serializable, GroupHistory {
     private long id;
     private String title;
     private ApplicationUser owner;

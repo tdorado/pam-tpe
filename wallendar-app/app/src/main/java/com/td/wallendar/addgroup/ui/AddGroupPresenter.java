@@ -31,11 +31,11 @@ public class AddGroupPresenter {
                 .subscribe(this::onGroupCreatedSuccessfully, this::OnGroupCreatedWithError));
     }
 
-    private void onGroupCreatedSuccessfully(Group group) {
-        view.get().onGroupCreated(true);
+    private void onGroupCreatedSuccessfully(final Group group) {
+        view.get().onGroupCreated(group);
     }
 
     private void OnGroupCreatedWithError(Throwable throwable) {
-        view.get().onGroupCreated(false);
+        //TODO error
     }
 }

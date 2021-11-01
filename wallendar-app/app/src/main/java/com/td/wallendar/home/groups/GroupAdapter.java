@@ -53,4 +53,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         }
         notifyDataSetChanged();
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void addToDataset(Group group){
+        this.dataset.add(group);
+        notifyDataSetChanged();
+    }
 }
