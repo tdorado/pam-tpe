@@ -47,7 +47,7 @@ public class HomePresenter {
         }
     }
 
-    public void onViewAttached(long userId){
+    public void onViewAttached(long userId) {
         disposable.add(groupsRepository.getGroupsByUser(userId)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
@@ -78,7 +78,7 @@ public class HomePresenter {
         System.out.println(throwable);
     }
 
-    public void onViewDetached(){
+    public void onViewDetached() {
         disposable.dispose();
     }
 }

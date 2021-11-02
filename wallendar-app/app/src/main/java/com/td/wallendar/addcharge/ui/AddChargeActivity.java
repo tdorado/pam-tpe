@@ -15,18 +15,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
+import com.td.wallendar.di.ApplicationUserModule;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.dtos.request.AddChargeRequest;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
-import com.td.wallendar.repositories.ChargesRepositoryImpl;
-import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.ArrayList;
@@ -137,8 +134,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
                         ApplicationUserModule.getLoggedUserId(getApplicationContext()),
                         chargeAmountValue));
                 return true;
-            }
-            else{
+            } else {
                 //TODO
                 Toast.makeText(getApplicationContext(), "PONELE TITULO", Toast.LENGTH_LONG).show();
             }

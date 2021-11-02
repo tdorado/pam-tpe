@@ -1,4 +1,4 @@
-package com.td.wallendar;
+package com.td.wallendar.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;

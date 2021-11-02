@@ -5,7 +5,6 @@ import static android.view.Gravity.CENTER;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
