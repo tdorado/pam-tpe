@@ -13,10 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
+import com.td.wallendar.di.ApplicationUserModule;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.ui.GroupActivity;
@@ -29,11 +29,8 @@ import com.td.wallendar.home.groups.ui.GroupsView;
 import com.td.wallendar.home.profile.ui.ProfileView;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
-import com.td.wallendar.repositories.DebtsRepositoryImpl;
-import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
@@ -74,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ADD_GROUP && resultCode == RESULT_OK) {
-            Group group = (Group)data.getExtras().getSerializable("NEW_GROUP");
+            Group group = (Group) data.getExtras().getSerializable("NEW_GROUP");
             groupAdapter.addToDataset(group);
         }
     }
@@ -217,23 +214,23 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     }
 
     @Override
-    public void bindGroups(List<Group> groups){
+    public void bindGroups(List<Group> groups) {
         groupAdapter.setDataset(groups);
     }
 
     @Override
-    public void bindDebts(List<Debt> debts){
+    public void bindDebts(List<Debt> debts) {
         balanceAdapter.setDataset(debts);
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         homePresenter.onViewAttached(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         homePresenter.onViewDetached();
     }

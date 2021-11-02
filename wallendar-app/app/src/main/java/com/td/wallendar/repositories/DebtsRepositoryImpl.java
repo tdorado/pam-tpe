@@ -1,25 +1,25 @@
 package com.td.wallendar.repositories;
 
-import com.td.wallendar.ServiceModule;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
+import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.utils.mappers.DebtMapper;
-import com.td.wallendar.service.DebtsServices;
+import com.td.wallendar.utils.networking.RetrofitUtils;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class DebtsRepositoryImpl implements DebtsRepository {
 
-    private DebtsServices debtsServices;
+    private final DebtsService debtsService;
 
-    public DebtsRepositoryImpl() {
-        debtsServices = ServiceModule.getRetrofit().create(DebtsServices.class);
+    public DebtsRepositoryImpl(DebtsService debtsService) {
+        this.debtsService = debtsService;
     }
 
     @Override
-    public Observable<List<Debt>> getTotalDebtsByUserId(Long userId) {
-        return debtsServices.getTotalDebtsByUserId(userId).map(DebtMapper::toModel);
+    public Single<List<Debt>> getTotalDebtsByUserId(Long userId) {
+        return RetrofitUtils.performRequest(debtsService.getTotalDebtsByUserId(userId)).map(DebtMapper::toModel);
     }
 }

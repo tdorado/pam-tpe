@@ -2,7 +2,6 @@ package com.td.wallendar.dtos.response;
 
 import java.util.Date;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ChargeResponse {
     private long id;

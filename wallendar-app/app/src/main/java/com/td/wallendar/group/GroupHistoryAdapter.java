@@ -42,7 +42,7 @@ public class GroupHistoryAdapter extends RecyclerView.Adapter<GroupHistoryViewHo
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addToDataset(final GroupHistory history){
+    public void addToDataset(final GroupHistory history) {
         this.dataset.add(0, history);
         notifyDataSetChanged();
     }

@@ -48,14 +48,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void setDataset(final List<Group> newDataset) {
         this.dataset.clear();
-        if(newDataset != null){
+        if (newDataset != null) {
             this.dataset.addAll(newDataset);
         }
         notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addToDataset(Group group){
+    public void addToDataset(Group group) {
         this.dataset.add(group);
         notifyDataSetChanged();
     }

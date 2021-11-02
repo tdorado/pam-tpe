@@ -38,4 +38,8 @@ public class AddGroupPresenter {
     private void OnGroupCreatedWithError(Throwable throwable) {
         //TODO error
     }
+
+    public void onViewDetached() {
+        disposable.dispose();
+    }
 }

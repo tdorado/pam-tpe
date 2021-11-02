@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
-import com.td.wallendar.home.groups.OnGroupClickedListener;
 import com.td.wallendar.models.Debt;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
 public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
 
     private final List<Debt> dataset;
-    private long loggedUserId;
+    private final long loggedUserId;
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
 
     public BalanceAdapter(final long loggedUserId) {
@@ -51,7 +50,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void setDataset(final List<Debt> newDataset) {
         this.dataset.clear();
-        if(newDataset != null){
+        if (newDataset != null) {
             this.dataset.addAll(newDataset);
         }
         notifyDataSetChanged();

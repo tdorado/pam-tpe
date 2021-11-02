@@ -5,28 +5,26 @@ import com.td.wallendar.models.Group;
 import java.util.List;
 import java.util.Set;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface GroupsRepository {
-    Observable<List<Group>> getGroupsByUser(final Long userId);
+    Single<List<Group>> getGroupsByUser(final Long userId);
 
-    Observable<Group> getGroup(final Long groupId);
+    Single<Group> getGroup(final Long groupId);
 
-    Observable<Group> getGroupById(final Long groupId);
-
-    Observable<Group> createGroup(final String groupTitle, final Long ownerId);
+    Single<Group> createGroup(final String groupTitle, final Long ownerId);
 
     // Members email
-    Observable<String> addMembers(final Set<String> members);
+    Single<String> addMembers(final Set<String> members);
 
-    Observable<String> addCharge(final Long groupId,
-                                 final Long ownerId,
-                                 final String description,
-                                 final double amount
+    Single<String> addCharge(final Long groupId,
+                             final Long ownerId,
+                             final String description,
+                             final double amount
     );
 
-    Observable<String> addPayment(final Long groupId,
-                                  final Long ownerId,
-                                  final double amount
+    Single<String> addPayment(final Long groupId,
+                              final Long ownerId,
+                              final double amount
     );
 }

@@ -20,7 +20,6 @@ import com.td.wallendar.group.GroupHistoryAdapter;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
-import com.td.wallendar.repositories.GroupsRepositoryImpl;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 
 import java.util.List;
@@ -72,7 +71,7 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ADD_CHARGE && resultCode == RESULT_OK) {
-            Charge charge = (Charge)data.getExtras().getSerializable("NEW_CHARGE");
+            Charge charge = (Charge) data.getExtras().getSerializable("NEW_CHARGE");
             groupHistoryAdapter.addToDataset(charge);
         }
     }
@@ -115,6 +114,6 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
             final Intent intent = new Intent(this, AddChargeActivity.class);
             intent.putExtra("GROUP_ID", groupId);
             startActivityForResult(intent, REQUEST_ADD_CHARGE);
-            });
+        });
     }
 }
