@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
+import com.td.wallendar.di.DependenciesContainer;
+import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.dtos.request.AddChargeRequest;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
@@ -86,9 +88,10 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
         addChargePresenter = (AddChargePresenter) getLastNonConfigurationInstance();
 
         if (addChargePresenter == null) {
-            final ChargesRepository chargesRepository = new ChargesRepositoryImpl();
-            final GroupsRepository groupsRepository = new GroupsRepositoryImpl();
-            final SchedulerProvider schedulerProvider = new AndroidSchedulerProvider();
+            final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
+            final ChargesRepository chargesRepository = dependenciesContainer.getChargesRepository();
+            final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
+            final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
             addChargePresenter = new AddChargePresenter(this, chargesRepository,
                     groupsRepository, schedulerProvider);
         }

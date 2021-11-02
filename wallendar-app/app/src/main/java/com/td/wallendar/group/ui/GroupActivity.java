@@ -14,11 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
+import com.td.wallendar.di.DependenciesContainer;
+import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.GroupHistoryAdapter;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.repositories.interfaces.GroupsRepository;
 
 import java.util.List;
 
@@ -78,7 +81,9 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
         groupPresenter = (GroupPresenter) getLastNonConfigurationInstance();
 
         if (groupPresenter == null) {
-            groupPresenter = new GroupPresenter(this, new GroupsRepositoryImpl());
+            final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
+            final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
+            groupPresenter = new GroupPresenter(this, groupsRepository);
         }
     }
 
