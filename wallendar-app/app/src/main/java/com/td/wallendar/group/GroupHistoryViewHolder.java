@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 import com.td.wallendar.models.GroupHistory;
-import com.td.wallendar.models.MoneyTransactionType;
+import com.td.wallendar.models.GroupHistoryType;
 
 import java.text.SimpleDateFormat;
 
@@ -25,7 +25,7 @@ public class GroupHistoryViewHolder extends RecyclerView.ViewHolder {
         final TextView title = itemView.findViewById(R.id.group_activity_title);
         final TextView amount = itemView.findViewById(R.id.group_activity_amount);
 
-        if (history.getMoneyTransactionType() == MoneyTransactionType.CHARGE) {
+        if (history.getGroupHistoryType() == GroupHistoryType.CHARGE) {
             title.setText(history.getTitle());
             String userText = history.getFromUser().getEmail();
             String amountText = String.valueOf(history.getAmount());

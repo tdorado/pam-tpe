@@ -12,7 +12,7 @@ public class Charge implements Serializable, GroupHistory {
     private Set<ApplicationUser> debtors;
     private double amount;
     private Date date;
-    private ChargeType chargeType = ChargeType.EQUALLY;
+    private final ChargeType chargeType = ChargeType.EQUAL;
 
     public Charge(long id, String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date) {
         this.id = id;
@@ -57,8 +57,8 @@ public class Charge implements Serializable, GroupHistory {
     }
 
     @Override
-    public MoneyTransactionType getMoneyTransactionType() {
-        return MoneyTransactionType.CHARGE;
+    public GroupHistoryType getGroupHistoryType() {
+        return GroupHistoryType.CHARGE;
     }
 
     public String getTitle() {
@@ -68,6 +68,11 @@ public class Charge implements Serializable, GroupHistory {
     @Override
     public ApplicationUser getFromUser() {
         return getOwner();
+    }
+
+    @Override
+    public ApplicationUser getToUser() {
+        return null;
     }
 
     public void setTitle(String title) {
