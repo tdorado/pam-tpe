@@ -33,7 +33,7 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
             String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();
             textView.setText(itemView.getContext().getString(R.string.you_owe_to_user_amount, userToText, amount));
         } else {
-            String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName() ;
+            String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName();
             textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFromText, amount));
         }
     }

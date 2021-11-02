@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.models.Group;
 
-public class GroupViewHolder extends RecyclerView.ViewHolder{
+public class GroupViewHolder extends RecyclerView.ViewHolder {
 
     private OnGroupClickedListener listener;
 
@@ -24,7 +24,7 @@ public class GroupViewHolder extends RecyclerView.ViewHolder{
         textView.setText(group.getTitle());
 
         itemView.setOnClickListener(view -> {
-            if (listener != null){
+            if (listener != null) {
                 listener.onGroupClicked(group.getId());
             }
         });

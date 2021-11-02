@@ -3,8 +3,8 @@ package com.td.wallendar.repositories.interfaces;
 import com.td.wallendar.dtos.request.AddChargeRequest;
 import com.td.wallendar.models.Charge;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public interface ChargesRepository {
-    Observable<Charge> addCharge(final long groupId, final AddChargeRequest addChargeRequest);
+    Single<Charge> addCharge(final long groupId, final AddChargeRequest addChargeRequest);
 }

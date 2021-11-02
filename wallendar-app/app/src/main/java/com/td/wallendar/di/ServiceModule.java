@@ -1,4 +1,4 @@
-package com.td.wallendar;
+package com.td.wallendar.di;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

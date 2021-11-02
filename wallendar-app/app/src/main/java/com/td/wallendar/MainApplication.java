@@ -2,6 +2,9 @@ package com.td.wallendar;
 
 import android.app.Application;
 
+import com.td.wallendar.di.ApplicationUserModule;
+import com.td.wallendar.di.ServiceModule;
+
 public class MainApplication extends Application {
 
     @Override

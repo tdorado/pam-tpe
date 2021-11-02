@@ -1,9 +1,7 @@
 package com.td.wallendar.home.groups.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,11 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.groups.GroupAdapter;
-import com.td.wallendar.home.ui.HomeView;
-
-import java.lang.ref.WeakReference;
 
 public class GroupsViewImpl extends RecyclerView implements GroupsView {
 
