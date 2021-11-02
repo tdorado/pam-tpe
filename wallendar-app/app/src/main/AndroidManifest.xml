@@ -30,9 +30,6 @@
         <activity
             android:name=".addgroup.ui.AddGroupActivity"
             android:noHistory="true" />
-        <activity
-            android:name=".addevent.ui.AddEventActivity"
-            android:noHistory="true" />
         <activity android:name=".group.ui.GroupActivity" />
 
     </application>

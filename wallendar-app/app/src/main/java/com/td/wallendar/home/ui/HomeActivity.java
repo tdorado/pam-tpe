@@ -17,6 +17,8 @@ import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
+import com.td.wallendar.di.DependenciesContainer;
+import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.balances.BalanceAdapter;
 import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener;
@@ -81,9 +83,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
         homePresenter = (HomePresenter) getLastNonConfigurationInstance();
 
         if (homePresenter == null) {
-            final GroupsRepository groupsRepository = new GroupsRepositoryImpl();
-            final DebtsRepository debtsRepository = new DebtsRepositoryImpl();
-            final SchedulerProvider schedulerProvider = new AndroidSchedulerProvider();
+            final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
+            final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
+            final DebtsRepository debtsRepository = dependenciesContainer.getDebtsRepository();
+            final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
             homePresenter = new HomePresenter(this, groupsRepository, debtsRepository,
                     schedulerProvider);
         }
@@ -209,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
             finishAndRemoveTask();
         } else {
             currentView = GROUPS;
-            viewFlipper.setDisplayedChild(currentView);
+            bottomNavigationView.setSelectedItemId(R.id.groups);
         }
     }
 
