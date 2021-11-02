@@ -21,12 +21,9 @@ public interface GroupsService {
     @POST("/api/groups/create")
     Observable<GroupResponse> createGroup(@Body AddGroupRequest addGroupRequest);
 
-    @POST("/api/groups/{id}/addMembers")
-    Observable<String> addMembers();
+    @POST("/api/groups/{groupId}/addMembers")
+    Observable<GroupResponse> addMembers(@Path("groupId") final Long groupId);
 
-    @POST("/api/groups/{id}/addCharge")
-    Observable<String> addCharge();
-
-    @POST("/api/groups/{id}/addPayment")
-    Observable<String> addPayment();
+    @POST("/api/groups/{groupId}/addPayment")
+    Observable<GroupResponse> addPayment(@Path("groupId") final Long groupId);
 }

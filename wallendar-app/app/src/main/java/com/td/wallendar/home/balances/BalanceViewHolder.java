@@ -18,23 +18,23 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public void bind(final Debt debt) {
+    public void bind(final Debt debt, final long loggedUserId) {
         final TextView textView = itemView.findViewById(R.id.row_balance_text);
         final Button remindButton = itemView.findViewById(R.id.remind_debt_button);
         // TODO
         remindButton.setOnClickListener(view -> Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
                 .show());
-        itemView.findViewById(R.id.settle_up_debt_button).setOnClickListener(view -> Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                .show());
+        itemView.findViewById(R.id.settle_up_debt_button).setOnClickListener(
+                view -> Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT).show());
 
-        String userFrom = debt.getFrom().getEmail();
-        String userTo = debt.getTo().getEmail();
         String amount = String.valueOf(debt.getAmount());
-        if (userFrom.equals("tdallas@itba.edu.ar")) {
+        if (debt.getFrom().getId() == loggedUserId) {
             remindButton.setVisibility(View.GONE);
-            textView.setText(itemView.getContext().getString(R.string.you_owe_to_user_amount, userTo, amount));
+            String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();
+            textView.setText(itemView.getContext().getString(R.string.you_owe_to_user_amount, userToText, amount));
         } else {
-            textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFrom, amount));
+            String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName() ;
+            textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFromText, amount));
         }
     }
 

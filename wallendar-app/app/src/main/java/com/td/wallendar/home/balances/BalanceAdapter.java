@@ -18,10 +18,12 @@ import java.util.List;
 public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
 
     private final List<Debt> dataset;
+    private long loggedUserId;
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
 
-    public BalanceAdapter() {
+    public BalanceAdapter(final long loggedUserId) {
         this.dataset = new ArrayList<>();
+        this.loggedUserId = loggedUserId;
     }
 
     public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener) {
@@ -37,7 +39,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BalanceViewHolder holder, int position) {
-        holder.bind(dataset.get(position));
+        holder.bind(dataset.get(position), loggedUserId);
         holder.setOnBalanceSettleUpClickedListener(onBalanceSettleUpClickedListener);
     }
 

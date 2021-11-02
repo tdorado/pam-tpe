@@ -3,8 +3,10 @@ package com.td.wallendarbackend.controllers;
 import com.td.wallendarbackend.dtos.requests.AddUserAliasRequest;
 import com.td.wallendarbackend.dtos.requests.AddApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
+import com.td.wallendarbackend.dtos.responses.DebtResponse;
 import com.td.wallendarbackend.dtos.responses.UserAliasResponse;
 import com.td.wallendarbackend.services.ApplicationUserService;
+import com.td.wallendarbackend.services.DebtService;
 import com.td.wallendarbackend.services.UserAliasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,11 +24,13 @@ public class UserController {
 
     private final ApplicationUserService applicationUserService;
     private final UserAliasService userAliasService;
+    private final DebtService debtService;
 
     @Autowired
-    public UserController(ApplicationUserService applicationUserService, UserAliasService userAliasService) {
+    public UserController(ApplicationUserService applicationUserService, UserAliasService userAliasService, DebtService debtService) {
         this.applicationUserService = applicationUserService;
         this.userAliasService = userAliasService;
+        this.debtService = debtService;
     }
 
     @PostMapping("/create")
@@ -66,6 +70,16 @@ public class UserController {
         List<UserAliasResponse> userAliasResponses = userAliasService.getAllUserAliases(id);
         if(userAliasResponses != null) {
             return new ResponseEntity<>(userAliasResponses, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/{id}/getDebts")
+    @ResponseBody
+    public ResponseEntity<?> getDebts(@PathVariable long id){
+        List<DebtResponse> debtResponses = debtService.findAllFromApplicationUserId(id);
+        if(debtResponses != null){
+            return new ResponseEntity<>(debtResponses, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

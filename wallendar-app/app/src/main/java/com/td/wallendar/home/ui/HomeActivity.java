@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
 
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
-        balanceAdapter = new BalanceAdapter();
+        balanceAdapter = new BalanceAdapter(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
         balanceAdapter.setOnBalanceSettleUpClickedListener(this);
         balancesView.bind(balanceAdapter);
     }
