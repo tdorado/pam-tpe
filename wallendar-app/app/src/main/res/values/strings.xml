@@ -4,7 +4,7 @@
     <string name="events">Events</string>
     <string name="balances">Balances</string>
     <string name="profile">Profile</string>
-    <string name="add_charge">Charge</string>
+    <string name="add_charge">Add Charge</string>
     <string name="add_charge_to">Add to</string>
     <string name="enter_description">Enter a description</string>
     <string name="charge_amount">Price</string>

@@ -47,9 +47,7 @@ public class HomePresenter {
         }
     }
 
-    public void onViewAttached(){
-        //TODO hacer esto en storage?
-        long userId = 1;
+    public void onViewAttached(long userId){
         disposable.add(groupsRepository.getGroupsByUser(userId)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())

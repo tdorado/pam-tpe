@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
@@ -225,7 +226,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     @Override
     public void onStart(){
         super.onStart();
-        homePresenter.onViewAttached();
+        homePresenter.onViewAttached(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
     }
 
     @Override

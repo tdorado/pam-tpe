@@ -1,18 +1,18 @@
 package com.td.wallendar.addcharge.ui;
 
-import com.td.wallendar.AbstractView;
 import com.td.wallendar.models.Group;
 
 import java.util.List;
 
-public interface AddChargeView extends AbstractView {
-    void onGroupsLoadError();
+public interface AddChargeView {
 
-    void chargeError();
+    void onGroupsLoadOk(List<Group> groups);
+
+    void onGroupsLoadError();
 
     void chargeAddedOk();
 
-    void addGroups(List<Group> groups);
+    void chargeError();
 
-    void setSelectedGroup(Long groupId);
+    void setSelectedGroup(final Long groupId);
 }

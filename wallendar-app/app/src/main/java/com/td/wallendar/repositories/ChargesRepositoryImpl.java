@@ -17,7 +17,7 @@ public class ChargesRepositoryImpl implements ChargesRepository {
         this.chargesService = ServiceModule.getRetrofit().create(ChargesService.class);
     }
     @Override
-    public Observable<AddChargeResponse> addCharge(Charge charge) {
-        return chargesService.addCharge(AddChargeRequest.from(charge));
+    public Observable<AddChargeResponse> addCharge(final long groupId, final AddChargeRequest addChargeRequest) {
+        return chargesService.addCharge(groupId, addChargeRequest);
     }
 }
