@@ -1,6 +1,7 @@
 package com.td.wallendarbackend.services;
 
 import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
+import com.td.wallendarbackend.dtos.responses.ChargeResponse;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.models.Charge;
@@ -29,7 +30,7 @@ public class ChargeService {
         this.groupRepository = groupRepository;
     }
 
-    public GroupResponse addCharge(long groupId, AddChargeRequest addChargeRequest) {
+    public ChargeResponse addCharge(long groupId, AddChargeRequest addChargeRequest) {
         Group group = groupRepository.findById(groupId);
         if (group == null) {
             return null;
@@ -52,7 +53,7 @@ public class ChargeService {
 
         groupRepository.save(group);
 
-        return new GroupResponse(group);
+        return new ChargeResponse(charge);
     }
 
     private void userPaidAmountToAllMembers(ApplicationUser payer, double amount, Set<Debt> debts, Set<ApplicationUser> members) {

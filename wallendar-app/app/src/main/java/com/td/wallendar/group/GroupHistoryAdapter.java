@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.models.GroupHistory;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryViewHolder> {
+public class GroupHistoryAdapter extends RecyclerView.Adapter<GroupHistoryViewHolder> {
 
-    private List<GroupHistory> historic;
+    private final List<GroupHistory> dataset;
 
-    public GroupActivitiesAdapter() {
+    public GroupHistoryAdapter() {
+        dataset = new ArrayList<>();
     }
 
     @NonNull
@@ -29,17 +31,24 @@ public class GroupActivitiesAdapter extends RecyclerView.Adapter<GroupHistoryVie
 
     @Override
     public void onBindViewHolder(@NonNull GroupHistoryViewHolder holder, int position) {
-        holder.bind(historic.get(position));
+        holder.bind(dataset.get(position));
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(final List<GroupHistory> historic) {
-        this.historic = historic;
+    public void setDataset(final List<GroupHistory> newDataset) {
+        this.dataset.clear();
+        dataset.addAll(newDataset);
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void addToDataset(final GroupHistory history){
+        this.dataset.add(0, history);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return historic == null ? 0 : historic.size();
+        return dataset == null ? 0 : dataset.size();
     }
 }

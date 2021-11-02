@@ -12,6 +12,9 @@ public class ChargeResponse {
     private double amount;
     private Date date;
 
+    public ChargeResponse() {
+    }
+
     public ChargeResponse(long id, String title, ApplicationUserResponse owner, Set<ApplicationUserResponse> debtors, double amount, Date date) {
         this.id = id;
         this.title = title;

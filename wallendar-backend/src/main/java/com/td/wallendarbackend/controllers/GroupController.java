@@ -4,6 +4,7 @@ import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
 import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
 import com.td.wallendarbackend.dtos.requests.AddGroupRequest;
 import com.td.wallendarbackend.dtos.requests.AddPaymentRequest;
+import com.td.wallendarbackend.dtos.responses.ChargeResponse;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.services.ChargeService;
 import com.td.wallendarbackend.services.GroupService;
@@ -75,9 +76,9 @@ public class GroupController {
     @PostMapping(value = "/{id}/addCharge")
     @ResponseBody
     public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid AddChargeRequest addChargeRequest) {
-        GroupResponse group = chargeService.addCharge(id, addChargeRequest);
-        if (group != null) {
-            return new ResponseEntity<>(group, HttpStatus.OK);
+        ChargeResponse charge = chargeService.addCharge(id, addChargeRequest);
+        if (charge != null) {
+            return new ResponseEntity<>(charge, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

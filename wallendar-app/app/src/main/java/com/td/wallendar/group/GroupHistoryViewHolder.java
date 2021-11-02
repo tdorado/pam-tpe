@@ -26,22 +26,22 @@ public class GroupHistoryViewHolder extends RecyclerView.ViewHolder {
         final TextView amount = itemView.findViewById(R.id.group_activity_amount);
 
         if (history.getGroupHistoryType() == GroupHistoryType.CHARGE) {
+            title.setVisibility(View.VISIBLE);
             title.setText(history.getTitle());
-            String userText = history.getFromUser().getEmail();
+            String userText = history.getFromUser().getFirstName() + " " + history.getFromUser().getLastName();
             String amountText = String.valueOf(history.getAmount());
 
             amount.setText(itemView.getContext().getString(R.string.user_paid_amount, userText, amountText));
-            title.setVisibility(View.VISIBLE);
         } else {
-            // deuda pagada no tiene titulo entonces lo hago gone
             title.setVisibility(View.GONE);
+            String userFromText = history.getFromUser().getFirstName() + " " + history.getFromUser().getLastName();
+            String amountText = String.valueOf(history.getAmount());
+            String userToText = history.getToUser().getFirstName() + " " + history.getToUser().getLastName();
 
-            // faltaria poner saber quien pago a quien que cantidad y ponerlo en amount
+            amount.setText(itemView.getContext().getString(R.string.user_paid_amount_to, userFromText, amountText, userToText));
         }
 
-        // fecha va en deuda pagada y charge
         month.setText(new SimpleDateFormat("MMM").format(history.getDate()));
         day.setText(new SimpleDateFormat("dd").format(history.getDate()));
-
     }
 }

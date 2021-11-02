@@ -1,5 +1,6 @@
 package com.td.wallendar.addcharge.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
 import com.td.wallendar.dtos.request.AddChargeRequest;
+import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.ChargesRepositoryImpl;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
@@ -39,7 +41,6 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     private TextInputLayout chargeAmountInput;
 
     private String groupSelected = null;
-    private Long groupId = null;
 
     private AddChargePresenter addChargePresenter;
     private AutoCompleteTextView editTextFilledExposedDropdown;
@@ -61,7 +62,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     private void setupGroupId() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            groupId = extras.getLong("GROUP_ID");
+            long groupId = extras.getLong("GROUP_ID");
             addChargePresenter.setGroupId(groupId);
         }
     }
@@ -145,12 +146,15 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
     @Override
     public void chargeError() {
-        Toast.makeText(getApplicationContext(), "Add charge ends with error", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Error adding charge", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void chargeAddedOk() {
+    public void chargeAddedOk(Charge charge) {
         Toast.makeText(getApplicationContext(), "Charge added ok", Toast.LENGTH_LONG).show();
+        final Intent resultIntent = new Intent();
+        resultIntent.putExtra("NEW_CHARGE", charge);
+        setResult(RESULT_OK, resultIntent);
         finish();
     }
 
@@ -165,13 +169,6 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
         editTextFilledExposedDropdown = findViewById(R.id.group_charge_dropdown);
         editTextFilledExposedDropdown.setAdapter(adapter);
         editTextFilledExposedDropdown.setOnItemClickListener((adapterView, view, i, l) -> groupSelected = adapter.getItem(i));
-        if (groupId != null) {
-            for (Group group : groups) {
-                if (group.getId() == groupId) {
-                    groupSelected = group.getTitle();
-                }
-            }
-        }
     }
 
     @Override
@@ -181,7 +178,12 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
 
     @Override
     public void setSelectedGroup(Long groupId) {
-        editTextFilledExposedDropdown.setText(adapter.getItem(groupId.intValue()), false);
+        for (Group group : stringGroupMap.values()) {
+            if (group.getId() == groupId) {
+                groupSelected = group.getTitle();
+            }
+        }
+        editTextFilledExposedDropdown.setText(groupSelected, false);
     }
 
     @Override

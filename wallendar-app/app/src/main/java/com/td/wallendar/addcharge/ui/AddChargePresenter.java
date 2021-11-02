@@ -1,7 +1,6 @@
 package com.td.wallendar.addcharge.ui;
 
 import com.td.wallendar.dtos.request.AddChargeRequest;
-import com.td.wallendar.dtos.response.AddChargeResponse;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
@@ -67,8 +66,8 @@ public class AddChargePresenter {
                 .subscribe(this::onChargeAdded, this::onChargeAddedError));
     }
 
-    private void onChargeAdded(AddChargeResponse addChargeResponse) {
-        addChargeView.get().chargeAddedOk();
+    private void onChargeAdded(Charge charge) {
+        addChargeView.get().chargeAddedOk(charge);
     }
 
     private void onChargeAddedError(Throwable throwable) {
