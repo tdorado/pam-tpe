@@ -1,6 +1,7 @@
 package com.td.wallendar.addgroup.ui;
 
+import com.td.wallendar.models.Group;
+
 public interface AddGroupView {
-    // could be much much much better
-    void onGroupCreated(final boolean success);
+    void onGroupCreated(final Group group);
 }

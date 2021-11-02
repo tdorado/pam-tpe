@@ -1,17 +1,18 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-public class Charge implements GroupHistory {
+public class Charge implements Serializable, GroupHistory {
     private long id;
     private String title;
     private ApplicationUser owner;
     private Set<ApplicationUser> debtors;
     private double amount;
     private Date date;
-    private ChargeType chargeType = ChargeType.EQUALLY;
+    private final ChargeType chargeType = ChargeType.EQUAL;
 
     public Charge(long id, String title, ApplicationUser owner, Set<ApplicationUser> debtors, double amount, Date date) {
         this.id = id;
@@ -56,8 +57,8 @@ public class Charge implements GroupHistory {
     }
 
     @Override
-    public MoneyTransactionType getMoneyTransactionType() {
-        return MoneyTransactionType.CHARGE;
+    public GroupHistoryType getGroupHistoryType() {
+        return GroupHistoryType.CHARGE;
     }
 
     public String getTitle() {
@@ -67,6 +68,11 @@ public class Charge implements GroupHistory {
     @Override
     public ApplicationUser getFromUser() {
         return getOwner();
+    }
+
+    @Override
+    public ApplicationUser getToUser() {
+        return null;
     }
 
     public void setTitle(String title) {

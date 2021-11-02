@@ -8,11 +8,4 @@
         app:iconTint="@color/white"
         app:showAsAction="always"
         android:title="@string/add_group" />
-    <item
-        android:id="@+id/add_event"
-        android:icon="@drawable/ic_add_event_white"
-        android:orderInCategory="100"
-        app:iconTint="@color/white"
-        app:showAsAction="always"
-        android:title="@string/add_event" />
 </menu>

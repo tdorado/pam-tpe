@@ -1,16 +1,18 @@
 package com.td.wallendar.home.ui;
 
-import android.content.Context;
-import android.content.Intent;
+import com.td.wallendar.models.Debt;
+import com.td.wallendar.models.Group;
+
+import java.util.List;
 
 public interface HomeView {
-    void startActivity(Intent intent);
-
-    Context getApplicationContext();
-
     void showGroups();
 
     void showBalances();
 
     void showProfile();
+
+    void bindGroups(List<Group> groups);
+
+    void bindDebts(List<Debt> debts);
 }

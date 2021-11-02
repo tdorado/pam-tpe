@@ -1,10 +1,11 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 
-public class Payment {
+public class Payment implements Serializable, GroupHistory {
     private long id;
     private ApplicationUser from;
     private ApplicationUser to;
@@ -54,6 +55,26 @@ public class Payment {
 
     public void setTo(ApplicationUser to) {
         this.to = to;
+    }
+
+    @Override
+    public GroupHistoryType getGroupHistoryType() {
+        return GroupHistoryType.PAYMENT;
+    }
+
+    @Override
+    public String getTitle() {
+        return null;
+    }
+
+    @Override
+    public ApplicationUser getFromUser() {
+        return from;
+    }
+
+    @Override
+    public ApplicationUser getToUser() {
+        return to;
     }
 
     public double getAmount() {

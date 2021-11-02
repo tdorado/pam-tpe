@@ -2,7 +2,6 @@ package com.td.wallendar.service;
 
 
 import com.td.wallendar.dtos.response.DebtResponse;
-import com.td.wallendar.dtos.response.TotalDebtsResponse;
 
 import java.util.List;
 
@@ -11,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface DebtsServices {
-    @GET("/users/{user_id}/total_debts")
-    Observable<List<DebtResponse>> getTotalDebtsByUserId(@Path("user_id") final Long userId);
+    @GET("/api/users/{userId}/getDebts")
+    Observable<List<DebtResponse>> getTotalDebtsByUserId(@Path("userId") final Long userId);
 }

@@ -1,6 +1,7 @@
 package com.td.wallendarbackend.services;
 
-import com.td.wallendarbackend.dtos.requests.ChargeRequest;
+import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
+import com.td.wallendarbackend.dtos.responses.ChargeResponse;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.models.Charge;
@@ -29,18 +30,18 @@ public class ChargeService {
         this.groupRepository = groupRepository;
     }
 
-    public GroupResponse addCharge(long groupId, ChargeRequest chargeRequest) {
+    public ChargeResponse addCharge(long groupId, AddChargeRequest addChargeRequest) {
         Group group = groupRepository.findById(groupId);
         if (group == null) {
             return null;
         }
 
-        ApplicationUser owner = applicationUserRepository.findById(chargeRequest.getOwnerId());
+        ApplicationUser owner = applicationUserRepository.findById(addChargeRequest.getOwnerId());
         if (owner == null) {
             return null;
         }
 
-        Charge charge = new Charge(chargeRequest.getTitle(), owner, new HashSet<>(group.getMembers()), chargeRequest.getAmount(),
+        Charge charge = new Charge(addChargeRequest.getTitle(), owner, new HashSet<>(group.getMembers()), addChargeRequest.getAmount(),
                 Calendar.getInstance().getTime(), group);
         chargeRepository.save(charge);
         if (group.getCharges() == null) {
@@ -48,11 +49,11 @@ public class ChargeService {
         }
         group.getCharges().add(charge);
 
-        userPaidAmountToAllMembers(owner, chargeRequest.getAmount(), group.getDebts(), group.getMembers());
+        userPaidAmountToAllMembers(owner, addChargeRequest.getAmount(), group.getDebts(), group.getMembers());
 
         groupRepository.save(group);
 
-        return new GroupResponse(group);
+        return new ChargeResponse(charge);
     }
 
     private void userPaidAmountToAllMembers(ApplicationUser payer, double amount, Set<Debt> debts, Set<ApplicationUser> members) {

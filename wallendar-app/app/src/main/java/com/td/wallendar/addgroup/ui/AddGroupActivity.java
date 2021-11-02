@@ -12,13 +12,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.td.wallendar.AbstractActivity;
+import com.td.wallendar.ApplicationUserModule;
 import com.td.wallendar.R;
-import com.td.wallendar.home.ui.HomeActivity;
-import com.td.wallendar.home.ui.HomePresenter;
+import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
 
-public class AddGroupActivity extends AbstractActivity implements AddGroupView {
+public class AddGroupActivity extends AppCompatActivity implements AddGroupView {
 
     private AddGroupPresenter addGroupPresenter;
 
@@ -77,7 +76,7 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
             final Editable editableGroupTitle = groupTitleInput.getEditText().getText();
             if (editableGroupTitle != null) {
                 final String groupTitle = editableGroupTitle.toString();
-                addGroupPresenter.createGroup(groupTitle, getUserId());
+                addGroupPresenter.createGroup(groupTitle, ApplicationUserModule.getLoggedUserId(getApplicationContext()));
             } else {
                 // TODO
                 Toast.makeText(getApplicationContext(), "PONELE UN TITULO", Toast.LENGTH_LONG).show();
@@ -88,19 +87,10 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
 
     // TODO
     @Override
-    public void onGroupCreated(boolean success) {
-        if (success) {
-            final Intent intent = new Intent(AddGroupActivity.this, HomeActivity.class);
-            intent.putExtra("REFRESH_GROUPS", true);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "GROUP CREATION ERROR", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // TODO
-    @Override
-    protected Long getUserId() {
-        return 1L;
+    public void onGroupCreated(final Group group) {
+        final Intent resultIntent = new Intent();
+        resultIntent.putExtra("NEW_GROUP", group);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 }

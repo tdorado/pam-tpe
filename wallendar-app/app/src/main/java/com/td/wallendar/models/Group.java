@@ -1,11 +1,11 @@
 package com.td.wallendar.models;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 
-public class Group {
+public class Group implements Serializable {
     private long id;
     private String title;
     private ApplicationUser owner;

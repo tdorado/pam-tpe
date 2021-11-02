@@ -1,5 +1,7 @@
 package com.td.wallendar.models;
 
-public enum ChargeType {
-    EQUALLY
+import java.io.Serializable;
+
+public enum ChargeType implements Serializable {
+    EQUAL, UNEQUAL, PERCENTAGE
 }

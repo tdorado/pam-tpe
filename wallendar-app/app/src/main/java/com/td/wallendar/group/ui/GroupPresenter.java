@@ -8,11 +8,15 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import io.reactivex.disposables.CompositeDisposable;
 
 public class GroupPresenter {
+
+    private static final Comparator<GroupHistory> groupHistoryComparator = (gh1, gh2) -> gh2.getDate().compareTo(gh1.getDate());
 
     private final WeakReference<GroupView> groupView;
     private final GroupsRepository groupsRepository;
@@ -38,8 +42,12 @@ public class GroupPresenter {
 
     private void onGroupReceived(Group group) {
         groupView.get().bindGroup(group);
-        List<GroupHistory> historic = new ArrayList<GroupHistory>(group.getCharges());
-        groupView.get().listGroupHistory(historic);
+
+        Set<GroupHistory> historic = new TreeSet<>(groupHistoryComparator);
+        historic.addAll(group.getCharges());
+        historic.addAll(group.getPayments());
+
+        groupView.get().bindGroupHistory(new ArrayList<>(historic));
     }
 
     private void onGroupError(Throwable throwable) {

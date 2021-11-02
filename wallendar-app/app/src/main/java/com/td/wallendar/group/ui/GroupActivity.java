@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
-import com.td.wallendar.group.GroupActivitiesAdapter;
+import com.td.wallendar.group.GroupHistoryAdapter;
+import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
@@ -23,8 +24,10 @@ import java.util.List;
 
 public class GroupActivity extends AppCompatActivity implements GroupView {
 
+    private static final int REQUEST_ADD_CHARGE = 1;
+
     private GroupPresenter groupPresenter;
-    private GroupActivitiesAdapter groupActivitiesAdapter;
+    private GroupHistoryAdapter groupHistoryAdapter;
     private RecyclerView recycler;
 
     private ExtendedFloatingActionButton addChargeFAB;
@@ -34,12 +37,12 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
-        groupActivitiesAdapter = new GroupActivitiesAdapter();
+        groupHistoryAdapter = new GroupHistoryAdapter();
 
         recycler = findViewById(R.id.group_activity_recycler);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        recycler.setAdapter(groupActivitiesAdapter);
+        recycler.setAdapter(groupHistoryAdapter);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -60,6 +63,15 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
                 .show());
         findViewById(R.id.group_activity).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
                 .show());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ADD_CHARGE && resultCode == RESULT_OK) {
+            Charge charge = (Charge)data.getExtras().getSerializable("NEW_CHARGE");
+            groupHistoryAdapter.addToDataset(charge);
+        }
     }
 
     private void createPresenter() {
@@ -88,16 +100,16 @@ public class GroupActivity extends AppCompatActivity implements GroupView {
     }
 
     @Override
-    public void listGroupHistory(List<GroupHistory> historic) {
-        groupActivitiesAdapter.setData(historic);
+    public void bindGroupHistory(List<GroupHistory> historic) {
+        groupHistoryAdapter.setDataset(historic);
     }
 
     private void setUpAddChargeButton(Long groupId) {
         addChargeFAB = findViewById(R.id.add_charge_fab);
         addChargeFAB.setOnClickListener(view -> {
-            final Intent intent = new Intent(GroupActivity.this, AddChargeActivity.class);
+            final Intent intent = new Intent(this, AddChargeActivity.class);
             intent.putExtra("GROUP_ID", groupId);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_ADD_CHARGE);
             });
     }
 }

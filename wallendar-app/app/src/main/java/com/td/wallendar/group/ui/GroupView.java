@@ -9,6 +9,6 @@ public interface GroupView {
 
     void bindGroup(Group group);
 
-    void listGroupHistory(List<GroupHistory> historic);
+    void bindGroupHistory(List<GroupHistory> historic);
 
 }

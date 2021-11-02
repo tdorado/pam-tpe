@@ -1,9 +1,10 @@
 package com.td.wallendar.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 
-public class UserAlias {
+public class UserAlias implements Serializable {
     private long id;
     private ApplicationUser applicationUser;
 

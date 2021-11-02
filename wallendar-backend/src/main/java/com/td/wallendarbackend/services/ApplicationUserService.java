@@ -1,6 +1,6 @@
 package com.td.wallendarbackend.services;
 
-import com.td.wallendarbackend.dtos.requests.ApplicationUserRequest;
+import com.td.wallendarbackend.dtos.requests.AddApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
 import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.repositories.ApplicationUserRepository;
@@ -28,14 +28,14 @@ public class ApplicationUserService {
                 applicationUser.getFirstName(), applicationUser.getLastName());
     }
 
-    public ApplicationUserResponse createUser(ApplicationUserRequest applicationUserRequest) {
-        if (applicationUserRepository.findByEmail(applicationUserRequest.getEmail()) != null) {
+    public ApplicationUserResponse createUser(AddApplicationUserRequest addApplicationUserRequest) {
+        if (applicationUserRepository.findByEmail(addApplicationUserRequest.getEmail()) != null) {
             return null;
         }
-        ApplicationUser applicationUser = new ApplicationUser(applicationUserRequest.getEmail(),
-                bCryptPasswordEncoder.encode(applicationUserRequest.getPassword()),
-                applicationUserRequest.getFirstName(),
-                applicationUserRequest.getLastName());
+        ApplicationUser applicationUser = new ApplicationUser(addApplicationUserRequest.getEmail(),
+                bCryptPasswordEncoder.encode(addApplicationUserRequest.getPassword()),
+                addApplicationUserRequest.getFirstName(),
+                addApplicationUserRequest.getLastName());
         applicationUserRepository.save(applicationUser);
         return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
                 applicationUser.getFirstName(), applicationUser.getLastName());
