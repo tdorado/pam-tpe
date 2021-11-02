@@ -12,21 +12,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationUserRequest {
+public class AddGroupRequest {
 
     @NotNull
     @NotEmpty
-    private String email;
+    private String title;
 
-    @NotNull
-    @NotEmpty
-    private String password;
-
-    @NotNull
-    @NotEmpty
-    private String firstName;
-
-    @NotNull
-    @NotEmpty
-    private String lastName;
+    private long ownerId;
 }

@@ -1,8 +1,6 @@
-package com.td.wallendar.repositories.mappers;
+package com.td.wallendar.utils.mappers;
 
 import com.td.wallendar.dtos.response.DebtResponse;
-import com.td.wallendar.dtos.response.TotalDebtsResponse;
-import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Debt;
 
 import java.util.ArrayList;

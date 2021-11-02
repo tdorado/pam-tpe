@@ -1,4 +1,4 @@
-package com.td.wallendar.repositories.mappers;
+package com.td.wallendar.utils.mappers;
 
 import com.td.wallendar.dtos.response.ChargeResponse;
 import com.td.wallendar.models.Charge;

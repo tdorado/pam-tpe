@@ -3,7 +3,7 @@ package com.td.wallendar.repositories;
 import com.td.wallendar.ServiceModule;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
-import com.td.wallendar.repositories.mappers.DebtMapper;
+import com.td.wallendar.utils.mappers.DebtMapper;
 import com.td.wallendar.service.DebtsServices;
 
 import java.util.List;

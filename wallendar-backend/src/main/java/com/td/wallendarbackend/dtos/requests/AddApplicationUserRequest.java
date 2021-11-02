@@ -12,13 +12,21 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChargeRequest {
+public class AddApplicationUserRequest {
 
     @NotNull
     @NotEmpty
-    private String title;
+    private String email;
 
-    private long ownerId;
+    @NotNull
+    @NotEmpty
+    private String password;
 
-    private double amount;
+    @NotNull
+    @NotEmpty
+    private String firstName;
+
+    @NotNull
+    @NotEmpty
+    private String lastName;
 }

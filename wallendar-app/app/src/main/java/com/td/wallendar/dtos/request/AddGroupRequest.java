@@ -1,14 +1,14 @@
 package com.td.wallendar.dtos.request;
 
-public class CreateGroupRequest {
+public class AddGroupRequest {
 
     private String title;
     private Long ownerId;
 
-    public CreateGroupRequest() {
+    public AddGroupRequest() {
     }
 
-    public CreateGroupRequest(String title, Long ownerId) {
+    public AddGroupRequest(String title, Long ownerId) {
         this.title = title;
         this.ownerId = ownerId;
     }

@@ -1,7 +1,7 @@
 package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.AddUserAliasRequest;
-import com.td.wallendarbackend.dtos.requests.ApplicationUserRequest;
+import com.td.wallendarbackend.dtos.requests.AddApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
 import com.td.wallendarbackend.dtos.responses.UserAliasResponse;
 import com.td.wallendarbackend.services.ApplicationUserService;
@@ -31,8 +31,8 @@ public class UserController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<?> create(@RequestBody @Valid ApplicationUserRequest applicationUserRequest) {
-        ApplicationUserResponse applicationUserResponse = applicationUserService.createUser(applicationUserRequest);
+    public ResponseEntity<?> create(@RequestBody @Valid AddApplicationUserRequest addApplicationUserRequest) {
+        ApplicationUserResponse applicationUserResponse = applicationUserService.createUser(addApplicationUserRequest);
         if (applicationUserResponse != null) {
             return new ResponseEntity<>(applicationUserResponse, HttpStatus.CREATED);
         }

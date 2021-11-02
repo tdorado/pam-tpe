@@ -1,8 +1,7 @@
 package com.td.wallendar.service;
 
-import com.td.wallendar.dtos.request.CreateGroupRequest;
+import com.td.wallendar.dtos.request.AddGroupRequest;
 import com.td.wallendar.dtos.response.GroupResponse;
-import com.td.wallendar.dtos.response.GroupsResponse;
 
 import java.util.List;
 
@@ -11,7 +10,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface GroupsService {
     @GET("/api/groups/allFromUser/{userId}")
@@ -21,7 +19,7 @@ public interface GroupsService {
     Observable<GroupResponse> getGroupById(@Path("groupId") final Long groupId);
 
     @POST("/api/groups/create")
-    Observable<GroupResponse> createGroup(@Body CreateGroupRequest createGroupRequest);
+    Observable<GroupResponse> createGroup(@Body AddGroupRequest addGroupRequest);
 
     @POST("/api/groups/{id}/addMembers")
     Observable<String> addMembers();

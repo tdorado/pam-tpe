@@ -1,7 +1,7 @@
 package com.td.wallendarbackend.services;
 
 import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
-import com.td.wallendarbackend.dtos.requests.GroupRequest;
+import com.td.wallendarbackend.dtos.requests.AddGroupRequest;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.models.ApplicationUser;
 import com.td.wallendarbackend.models.Debt;
@@ -47,12 +47,12 @@ public class GroupService {
         return groups.stream().map(GroupResponse::new).collect(Collectors.toList());
     }
 
-    public GroupResponse createGroup(GroupRequest groupRequest) {
-        ApplicationUser owner = applicationUserRepository.findById(groupRequest.getOwnerId());
+    public GroupResponse createGroup(AddGroupRequest addGroupRequest) {
+        ApplicationUser owner = applicationUserRepository.findById(addGroupRequest.getOwnerId());
         if (owner == null) {
             return null;
         }
-        Group group = new Group(groupRequest.getTitle(), owner);
+        Group group = new Group(addGroupRequest.getTitle(), owner);
 
         groupRepository.save(group);
         return new GroupResponse(group);

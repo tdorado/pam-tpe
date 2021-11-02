@@ -2,7 +2,6 @@ package com.td.wallendar.service;
 
 
 import com.td.wallendar.dtos.response.DebtResponse;
-import com.td.wallendar.dtos.response.TotalDebtsResponse;
 
 import java.util.List;
 

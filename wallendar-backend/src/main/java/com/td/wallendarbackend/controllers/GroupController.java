@@ -1,9 +1,9 @@
 package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
-import com.td.wallendarbackend.dtos.requests.ChargeRequest;
-import com.td.wallendarbackend.dtos.requests.GroupRequest;
-import com.td.wallendarbackend.dtos.requests.PaymentRequest;
+import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
+import com.td.wallendarbackend.dtos.requests.AddGroupRequest;
+import com.td.wallendarbackend.dtos.requests.AddPaymentRequest;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.services.ChargeService;
 import com.td.wallendarbackend.services.GroupService;
@@ -34,8 +34,8 @@ public class GroupController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createGroup(@RequestBody @Valid GroupRequest groupRequest) {
-        GroupResponse group = groupService.createGroup(groupRequest);
+    public ResponseEntity<?> createGroup(@RequestBody @Valid AddGroupRequest addGroupRequest) {
+        GroupResponse group = groupService.createGroup(addGroupRequest);
         if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.CREATED);
         }
@@ -74,8 +74,8 @@ public class GroupController {
 
     @PostMapping(value = "/{id}/addCharge")
     @ResponseBody
-    public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid ChargeRequest chargeRequest) {
-        GroupResponse group = chargeService.addCharge(id, chargeRequest);
+    public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid AddChargeRequest addChargeRequest) {
+        GroupResponse group = chargeService.addCharge(id, addChargeRequest);
         if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }
@@ -84,8 +84,8 @@ public class GroupController {
 
     @PostMapping(value = "/{id}/addPayment")
     @ResponseBody
-    public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid PaymentRequest paymentRequest) {
-        GroupResponse group = paymentService.addPayment(id, paymentRequest);
+    public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid AddPaymentRequest addPaymentRequest) {
+        GroupResponse group = paymentService.addPayment(id, addPaymentRequest);
         if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }

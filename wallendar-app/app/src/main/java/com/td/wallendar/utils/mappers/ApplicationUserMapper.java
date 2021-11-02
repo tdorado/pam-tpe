@@ -1,4 +1,4 @@
-package com.td.wallendar.repositories.mappers;
+package com.td.wallendar.utils.mappers;
 
 import com.td.wallendar.dtos.response.ApplicationUserResponse;
 import com.td.wallendar.models.ApplicationUser;
