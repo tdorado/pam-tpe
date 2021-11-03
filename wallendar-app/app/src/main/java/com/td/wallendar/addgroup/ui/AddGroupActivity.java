@@ -9,17 +9,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
-import com.td.wallendar.di.ApplicationUserModule;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 
-public class AddGroupActivity extends AppCompatActivity implements AddGroupView {
+public class AddGroupActivity extends AbstractActivity implements AddGroupView {
 
     private AddGroupPresenter addGroupPresenter;
 
@@ -80,7 +79,7 @@ public class AddGroupActivity extends AppCompatActivity implements AddGroupView 
             final Editable editableGroupTitle = groupTitleInput.getEditText().getText();
             if (editableGroupTitle != null) {
                 final String groupTitle = editableGroupTitle.toString();
-                addGroupPresenter.createGroup(groupTitle, ApplicationUserModule.getLoggedUserId(getApplicationContext()));
+                addGroupPresenter.createGroup(groupTitle, getLoggedUserId());
             } else {
                 // TODO
                 Toast.makeText(getApplicationContext(), "PONELE UN TITULO", Toast.LENGTH_LONG).show();

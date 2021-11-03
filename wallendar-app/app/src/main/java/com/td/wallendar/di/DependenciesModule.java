@@ -1,6 +1,9 @@
 package com.td.wallendar.di;
 
+import static com.td.wallendar.utils.login.LoginUtils.LOGGED_USER_ID_SHARED_PREFERENCES;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.td.wallendar.repositories.ChargesRepositoryImpl;
 import com.td.wallendar.repositories.DebtsRepositoryImpl;
@@ -11,14 +14,17 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
+import com.td.wallendar.utils.login.LoginUtils;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DependenciesModule {
+
     private final Context applicationContext;
-    private final Retrofit retrofit = ServiceModule.getRetrofit();
 
     /* default */ DependenciesModule(Context context) {
         applicationContext = context.getApplicationContext();
@@ -32,15 +38,44 @@ public class DependenciesModule {
         return new AndroidSchedulerProvider();
     }
 
-    public GroupsRepository provideGroupsRepository() {
-        return new GroupsRepositoryImpl(retrofit.create(GroupsService.class));
+    /* default */ SharedPreferences provideLoginSharedPreferences() {
+        return applicationContext.getSharedPreferences(LOGGED_USER_ID_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 
-    public ChargesRepository provideChargesRepository() {
-        return new ChargesRepositoryImpl(retrofit.create(ChargesService.class));
+    /* default */ Retrofit provideRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 
-    public DebtsRepository provideDebtsRepository() {
-        return new DebtsRepositoryImpl(retrofit.create(DebtsService.class));
+    public GroupsService provideGroupsService(Retrofit retrofit) {
+        return retrofit.create(GroupsService.class);
     }
+
+    public DebtsService provideDebtsService(Retrofit retrofit) {
+        return retrofit.create(DebtsService.class);
+    }
+
+    public ChargesService provideChargesService(Retrofit retrofit) {
+        return retrofit.create(ChargesService.class);
+    }
+
+    public GroupsRepository provideGroupsRepository(GroupsService groupsService) {
+        return new GroupsRepositoryImpl(groupsService);
+    }
+
+    public ChargesRepository provideChargesRepository(ChargesService chargesService) {
+        return new ChargesRepositoryImpl(chargesService);
+    }
+
+    public DebtsRepository provideDebtsRepository(DebtsService debtsService) {
+        return new DebtsRepositoryImpl(debtsService);
+    }
+
+    public LoginUtils provideLoginUtils(SharedPreferences loginSharedPreferences) {
+        return new LoginUtils(loginSharedPreferences);
+    }
+
 }

@@ -12,11 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
-import com.td.wallendar.di.ApplicationUserModule;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.dtos.request.AddChargeRequest;
@@ -31,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddChargeActivity extends AppCompatActivity implements AddChargeView {
+public class AddChargeActivity extends AbstractActivity implements AddChargeView {
 
     private ArrayAdapter<String> adapter;
     private final Map<String, Group> stringGroupMap = new HashMap<>();
@@ -131,8 +130,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
                 }
                 final long groupId = stringGroupMap.get(groupSelected).getId();
                 addChargePresenter.addCharge(groupId, new AddChargeRequest(chargeTitle,
-                        ApplicationUserModule.getLoggedUserId(getApplicationContext()),
-                        chargeAmountValue));
+                        getLoggedUserId(), chargeAmountValue));
                 return true;
             } else {
                 //TODO
@@ -188,7 +186,7 @@ public class AddChargeActivity extends AppCompatActivity implements AddChargeVie
     @Override
     public void onStart() {
         super.onStart();
-        addChargePresenter.onViewAttached(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
+        addChargePresenter.onViewAttached(getLoggedUserId());
     }
 
     @Override
