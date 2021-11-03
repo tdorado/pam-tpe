@@ -27,5 +27,5 @@ public interface ApplicationUsersService {
     Single<Response<UserAliasResponse>> createAlias(@Path("id") long userId, @Body AddUserAliasRequest addUserAliasRequest);
 
     @GET("/api/users/{id}/getAliases")
-    Single<Response<List<UserAlias>>> getUserAliases(@Path("id") long userId);
+    Single<Response<List<UserAliasResponse>>> getUserAliases(@Path("id") long userId);
 }
