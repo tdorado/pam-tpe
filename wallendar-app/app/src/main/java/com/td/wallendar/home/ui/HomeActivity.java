@@ -9,14 +9,13 @@ import android.view.MenuItem;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.addgroup.ui.AddGroupActivity;
-import com.td.wallendar.di.ApplicationUserModule;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.ui.GroupActivity;
@@ -35,7 +34,7 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, OnGroupClickedListener,
+public class HomeActivity extends AbstractActivity implements HomeView, OnGroupClickedListener,
         OnBalanceSettleUpClickedListener {
 
     private static final int GROUPS = 0;
@@ -169,7 +168,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
 
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
-        balanceAdapter = new BalanceAdapter(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
+        balanceAdapter = new BalanceAdapter(getLoggedUserId());
         balanceAdapter.setOnBalanceSettleUpClickedListener(this);
         balancesView.bind(balanceAdapter);
     }
@@ -226,7 +225,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnGroup
     @Override
     public void onStart() {
         super.onStart();
-        homePresenter.onViewAttached(ApplicationUserModule.getLoggedUserId(getApplicationContext()));
+        homePresenter.onViewAttached(getLoggedUserId());
     }
 
     @Override

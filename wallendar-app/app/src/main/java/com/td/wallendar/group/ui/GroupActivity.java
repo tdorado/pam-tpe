@@ -7,11 +7,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
 import com.td.wallendar.di.DependenciesContainer;
@@ -24,7 +24,7 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 
 import java.util.List;
 
-public class GroupActivity extends AppCompatActivity implements GroupView {
+public class GroupActivity extends AbstractActivity implements GroupView {
 
     private static final int REQUEST_ADD_CHARGE = 1;
 
