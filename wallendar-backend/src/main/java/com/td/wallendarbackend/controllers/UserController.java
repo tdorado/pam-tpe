@@ -2,6 +2,7 @@ package com.td.wallendarbackend.controllers;
 
 import com.td.wallendarbackend.dtos.requests.AddUserAliasRequest;
 import com.td.wallendarbackend.dtos.requests.AddApplicationUserRequest;
+import com.td.wallendarbackend.dtos.requests.FindByEmailRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
 import com.td.wallendarbackend.dtos.responses.DebtResponse;
 import com.td.wallendarbackend.dtos.responses.UserAliasResponse;
@@ -41,6 +42,16 @@ public class UserController {
             return new ResponseEntity<>(applicationUserResponse, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/findByEmail")
+    @ResponseBody
+    public ResponseEntity<?> getUserByEmail(@RequestBody @Valid FindByEmailRequest findByEmailRequest) {
+        ApplicationUserResponse applicationUserResponse = applicationUserService.findByEmail(findByEmailRequest.getEmail());
+        if (applicationUserResponse != null) {
+            return new ResponseEntity<>(applicationUserResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{id}")
