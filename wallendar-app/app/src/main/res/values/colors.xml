@@ -6,6 +6,7 @@
     <color name="teal_200">#5E49CF</color>
     <color name="teal_700">#46379C</color>
     <color name="light_teal">#9F94DD</color>
+    <color name="colorTextInputBackground">#F7F7F7</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

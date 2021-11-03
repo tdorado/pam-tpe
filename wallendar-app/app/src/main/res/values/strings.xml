@@ -29,4 +29,18 @@
     <string name="user_owes_to_user_amount">%1$s owes to %2$s $%3$s</string>
     <string name="group_title">GROUP TITLE</string>
     <string name="members">Members</string>
+
+    <string name="hint_firstname">Firstname</string>
+    <string name="hint_lastname">Lastname</string>
+    <string name="hint_password">Password</string>
+    <string name="button_sign_in">Sign in</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="button_send">Send</string>
+    <string name="text_signin_message">Hello, sign in to your account</string>
+    <string name="text_signin_signup">Don\'t have an account? <b>Sign up</b></string>
+    <string name="text_signup_terms">By signing up, you agree to our <b>terms and conditions</b></string>
+    <string name="text_signup_message">Hello, let\'s set up your account</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_confirm_password">Confirm Password</string>
 </resources>
