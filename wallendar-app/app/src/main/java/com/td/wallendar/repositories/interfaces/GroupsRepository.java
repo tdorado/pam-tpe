@@ -1,5 +1,9 @@
 package com.td.wallendar.repositories.interfaces;
 
+import com.td.wallendar.dtos.request.AddGroupRequest;
+import com.td.wallendar.dtos.request.AddMemberByEmailRequest;
+import com.td.wallendar.dtos.request.AddMembersRequest;
+import com.td.wallendar.dtos.request.AddPaymentRequest;
 import com.td.wallendar.models.Group;
 
 import java.util.List;
@@ -8,23 +12,15 @@ import java.util.Set;
 import io.reactivex.Single;
 
 public interface GroupsRepository {
-    Single<List<Group>> getGroupsByUser(final Long userId);
+    Single<List<Group>> getGroupsByUser(final long userId);
 
-    Single<Group> getGroup(final Long groupId);
+    Single<Group> getGroup(final long groupId);
 
-    Single<Group> createGroup(final String groupTitle, final Long ownerId);
+    Single<Group> createGroup(AddGroupRequest addGroupRequest);
 
-    // Members email
-    Single<String> addMembers(final Set<String> members);
+    Single<Group> addMemberByEmail(final long groupId, AddMemberByEmailRequest addMemberByEmailRequest);
 
-    Single<String> addCharge(final Long groupId,
-                             final Long ownerId,
-                             final String description,
-                             final double amount
-    );
+    Single<Group> addMembers(final long groupId, AddMembersRequest addMembersRequest);
 
-    Single<String> addPayment(final Long groupId,
-                              final Long ownerId,
-                              final double amount
-    );
+    Single<Group> addPayment(final long groupId, AddPaymentRequest addPaymentRequest);
 }

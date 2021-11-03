@@ -2,6 +2,9 @@ package com.td.wallendar.repositories;
 
 import com.td.wallendar.dtos.request.AddApplicationUserRequest;
 import com.td.wallendar.dtos.request.AddUserAliasRequest;
+import com.td.wallendar.dtos.request.FindApplicationUserByEmailRequest;
+import com.td.wallendar.dtos.request.LoginRequest;
+import com.td.wallendar.dtos.response.LoginResponse;
 import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.UserAlias;
 import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
@@ -23,6 +26,11 @@ public class ApplicationUsersRepositoryImpl implements ApplicationUsersRepositor
     }
 
     @Override
+    public Single<LoginResponse> authenticateUser(LoginRequest loginRequest) {
+        return RetrofitUtils.performRequest(applicationUsersService.authenticateUser(loginRequest));
+    }
+
+    @Override
     public Single<ApplicationUser> createUser(AddApplicationUserRequest addApplicationUserRequest) {
         return RetrofitUtils.performRequest(applicationUsersService.createUser(addApplicationUserRequest)).map(ApplicationUserMapper::toModel);
     }
@@ -30,6 +38,12 @@ public class ApplicationUsersRepositoryImpl implements ApplicationUsersRepositor
     @Override
     public Single<ApplicationUser> getUser(long userId) {
         return RetrofitUtils.performRequest(applicationUsersService.getUser(userId)).map(ApplicationUserMapper::toModel);
+    }
+
+    @Override
+    public Single<ApplicationUser> getUserByEmail(FindApplicationUserByEmailRequest findApplicationUserByEmailRequest) {
+        return RetrofitUtils.performRequest(applicationUsersService.getUserByEmail(findApplicationUserByEmailRequest))
+                .map(ApplicationUserMapper::toModel);
     }
 
     @Override
