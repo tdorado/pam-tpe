@@ -1,6 +1,6 @@
 package com.td.wallendar.di;
 
-import static com.td.wallendar.utils.login.LoginUtils.LOGGED_USER_ID_SHARED_PREFERENCES;
+import static com.td.wallendar.AbstractActivity.LOGIN_SHARED_PREFERENCES;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,6 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
-import com.td.wallendar.utils.login.LoginUtils;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
@@ -39,7 +38,7 @@ public class DependenciesModule {
     }
 
     /* default */ SharedPreferences provideLoginSharedPreferences() {
-        return applicationContext.getSharedPreferences(LOGGED_USER_ID_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        return applicationContext.getSharedPreferences(LOGIN_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     /* default */ Retrofit provideRetrofit() {
@@ -72,10 +71,6 @@ public class DependenciesModule {
 
     public DebtsRepository provideDebtsRepository(DebtsService debtsService) {
         return new DebtsRepositoryImpl(debtsService);
-    }
-
-    public LoginUtils provideLoginUtils(SharedPreferences loginSharedPreferences) {
-        return new LoginUtils(loginSharedPreferences);
     }
 
 }

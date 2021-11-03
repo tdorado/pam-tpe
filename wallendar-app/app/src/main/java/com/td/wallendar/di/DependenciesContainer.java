@@ -9,7 +9,6 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
-import com.td.wallendar.utils.login.LoginUtils;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import retrofit2.Retrofit;
@@ -34,6 +33,4 @@ public interface DependenciesContainer {
     ChargesService getChargesService();
 
     DebtsService getDebtsService();
-
-    LoginUtils getLoginUtils();
 }

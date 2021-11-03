@@ -9,7 +9,6 @@ import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
-import com.td.wallendar.utils.login.LoginUtils;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import retrofit2.Retrofit;
@@ -27,7 +26,6 @@ public class ProductionDependenciesContainer implements DependenciesContainer {
     private GroupsService groupsService;
     private ChargesService chargesService;
     private DebtsService debtsService;
-    private LoginUtils loginUtils;
 
     public ProductionDependenciesContainer(final Context context) {
         dependenciesModule = new DependenciesModule(context);
@@ -109,13 +107,5 @@ public class ProductionDependenciesContainer implements DependenciesContainer {
             debtsService = dependenciesModule.provideDebtsService(getRetrofit());
         }
         return debtsService;
-    }
-
-    @Override
-    public LoginUtils getLoginUtils() {
-        if (loginUtils == null) {
-            loginUtils = dependenciesModule.provideLoginUtils(getLoginSharedPreferences());
-        }
-        return loginUtils;
     }
 }
