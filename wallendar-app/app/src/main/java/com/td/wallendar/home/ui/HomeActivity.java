@@ -43,6 +43,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     private int currentView = GROUPS;
 
     private static final int REQUEST_ADD_GROUP = 1;
+    private static final int REFRESH = 2;
 
     private ViewFlipper viewFlipper;
     private ExtendedFloatingActionButton addChargeFAB;
@@ -72,6 +73,10 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
         if (requestCode == REQUEST_ADD_GROUP && resultCode == RESULT_OK) {
             Group group = (Group) data.getExtras().getSerializable("NEW_GROUP");
             groupAdapter.addToDataset(group);
+        }
+        if (requestCode == REFRESH && resultCode == RESULT_OK) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
         }
     }
 
