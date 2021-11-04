@@ -63,7 +63,6 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
     }
 
     private void setupTick() {
-        // FIXME This is not a button :(
         tickToAddMember = findViewById(R.id.add_member_button);
         tickToAddMember.setOnClickListener(view -> {
             final String currentMember = Objects.requireNonNull(memberInputLayout.getEditText()).getText().toString();
