@@ -3,9 +3,11 @@ package com.td.wallendar.di;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.service.ApplicationUsersService;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
@@ -23,14 +25,15 @@ public class ProductionDependenciesContainer implements DependenciesContainer {
     private GroupsRepository groupsRepository;
     private ChargesRepository chargesRepository;
     private DebtsRepository debtsRepository;
+    private ApplicationUsersRepository applicationUsersRepository;
     private GroupsService groupsService;
     private ChargesService chargesService;
     private DebtsService debtsService;
+    private ApplicationUsersService applicationUsersService;
 
     public ProductionDependenciesContainer(final Context context) {
         dependenciesModule = new DependenciesModule(context);
     }
-
 
     @Override
     public Context getApplicationContext() {
@@ -78,6 +81,14 @@ public class ProductionDependenciesContainer implements DependenciesContainer {
     }
 
     @Override
+    public ApplicationUsersRepository getApplicationUsersRepository() {
+        if (applicationUsersRepository == null) {
+            applicationUsersRepository = dependenciesModule.provideApplicationUsersRepository(getApplicationUsersService());
+        }
+        return applicationUsersRepository;
+    }
+
+    @Override
     public Retrofit getRetrofit() {
         if (retrofit == null) {
             retrofit = dependenciesModule.provideRetrofit();
@@ -107,5 +118,13 @@ public class ProductionDependenciesContainer implements DependenciesContainer {
             debtsService = dependenciesModule.provideDebtsService(getRetrofit());
         }
         return debtsService;
+    }
+
+    @Override
+    public ApplicationUsersService getApplicationUsersService() {
+        if (applicationUsersService == null) {
+            applicationUsersService = dependenciesModule.provideApplicationUsersService(getRetrofit());
+        }
+        return applicationUsersService;
     }
 }

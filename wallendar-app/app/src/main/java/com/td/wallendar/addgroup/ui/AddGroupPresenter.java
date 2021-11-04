@@ -1,5 +1,6 @@
 package com.td.wallendar.addgroup.ui;
 
+import com.td.wallendar.dtos.request.AddGroupRequest;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
@@ -25,7 +26,7 @@ public class AddGroupPresenter {
     }
 
     public void createGroup(final String groupTitle, final Long ownerId) {
-        disposable.add(groupsRepository.createGroup(groupTitle, ownerId)
+        disposable.add(groupsRepository.createGroup(new AddGroupRequest(groupTitle, ownerId))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(this::onGroupCreatedSuccessfully, this::OnGroupCreatedWithError));

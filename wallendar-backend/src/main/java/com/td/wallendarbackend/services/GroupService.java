@@ -58,6 +58,19 @@ public class GroupService {
         return new GroupResponse(group);
     }
 
+    public GroupResponse addMemberByEmail(long groupId, String email){
+        ApplicationUser applicationUser = applicationUserRepository.findByEmail(email);
+        if(applicationUser == null){
+            return null;
+        }
+
+        Set<Long> userIdsToAdd = new HashSet<>();
+        userIdsToAdd.add(applicationUser.getId());
+        AddMembersRequest addMembersRequest = new AddMembersRequest(userIdsToAdd);
+
+        return addMembers(groupId, addMembersRequest);
+    }
+
     public GroupResponse addMembers(long groupId, AddMembersRequest addMembersRequest) {
         Group group = groupRepository.findById(groupId);
         if (group == null) {
@@ -73,6 +86,10 @@ public class GroupService {
             if (!groupMembers.contains(user)) {
                 membersToAdd.add(user);
             }
+        }
+
+        if(membersToAdd.size() == 0){
+            return new GroupResponse(group);
         }
 
         Set<Debt> groupDebts = group.getDebts();

@@ -6,13 +6,10 @@ import java.util.Objects;
 
 public class UserAlias implements Serializable {
     private long id;
-    private ApplicationUser applicationUser;
-
     private String alias;
 
-    public UserAlias(long id, ApplicationUser applicationUser, String alias) {
+    public UserAlias(long id, String alias) {
         this.id = id;
-        this.applicationUser = applicationUser;
         this.alias = alias;
     }
 
@@ -35,14 +32,6 @@ public class UserAlias implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public ApplicationUser getApplicationUser() {
-        return applicationUser;
-    }
-
-    public void setApplicationUser(ApplicationUser applicationUser) {
-        this.applicationUser = applicationUser;
     }
 
     public String getAlias() {

@@ -19,6 +19,15 @@ public class ApplicationUserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    public ApplicationUserResponse findByEmail(String email) {
+        ApplicationUser applicationUser = applicationUserRepository.findByEmail(email);
+        if (applicationUser == null) {
+            return null;
+        }
+        return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
+                applicationUser.getFirstName(), applicationUser.getLastName());
+    }
+
     public ApplicationUserResponse findById(long id) {
         ApplicationUser applicationUser = applicationUserRepository.findById(id);
         if (applicationUser == null) {

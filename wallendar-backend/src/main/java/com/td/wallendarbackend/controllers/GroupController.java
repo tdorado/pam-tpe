@@ -1,9 +1,6 @@
 package com.td.wallendarbackend.controllers;
 
-import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
-import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
-import com.td.wallendarbackend.dtos.requests.AddGroupRequest;
-import com.td.wallendarbackend.dtos.requests.AddPaymentRequest;
+import com.td.wallendarbackend.dtos.requests.*;
 import com.td.wallendarbackend.dtos.responses.ChargeResponse;
 import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.services.ChargeService;
@@ -67,6 +64,16 @@ public class GroupController {
     @ResponseBody
     public ResponseEntity<?> addMembers(@PathVariable long id, @RequestBody @Valid AddMembersRequest addMembersRequest) {
         GroupResponse group = groupService.addMembers(id, addMembersRequest);
+        if (group != null) {
+            return new ResponseEntity<>(group, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/{id}/addMemberByEmail")
+    @ResponseBody
+    public ResponseEntity<?> addMembers(@PathVariable long id, @RequestBody @Valid AddMemberByEmailRequest addMemberByEmailRequest) {
+        GroupResponse group = groupService.addMemberByEmail(id, addMemberByEmailRequest.getEmail());
         if (group != null) {
             return new ResponseEntity<>(group, HttpStatus.OK);
         }

@@ -5,12 +5,15 @@ import static com.td.wallendar.AbstractActivity.LOGIN_SHARED_PREFERENCES;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.td.wallendar.repositories.ApplicationUsersRepositoryImpl;
 import com.td.wallendar.repositories.ChargesRepositoryImpl;
 import com.td.wallendar.repositories.DebtsRepositoryImpl;
 import com.td.wallendar.repositories.GroupsRepositoryImpl;
+import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.repositories.interfaces.ChargesRepository;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.service.ApplicationUsersService;
 import com.td.wallendar.service.ChargesService;
 import com.td.wallendar.service.DebtsService;
 import com.td.wallendar.service.GroupsService;
@@ -61,6 +64,10 @@ public class DependenciesModule {
         return retrofit.create(ChargesService.class);
     }
 
+    public ApplicationUsersService provideApplicationUsersService(Retrofit retrofit) {
+        return retrofit.create(ApplicationUsersService.class);
+    }
+
     public GroupsRepository provideGroupsRepository(GroupsService groupsService) {
         return new GroupsRepositoryImpl(groupsService);
     }
@@ -71,6 +78,10 @@ public class DependenciesModule {
 
     public DebtsRepository provideDebtsRepository(DebtsService debtsService) {
         return new DebtsRepositoryImpl(debtsService);
+    }
+
+    public ApplicationUsersRepository provideApplicationUsersRepository(ApplicationUsersService applicationUsersService) {
+        return new ApplicationUsersRepositoryImpl(applicationUsersService);
     }
 
 }
