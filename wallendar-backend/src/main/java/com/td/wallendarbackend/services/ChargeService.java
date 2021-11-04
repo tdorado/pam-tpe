@@ -49,18 +49,20 @@ public class ChargeService {
         }
         group.getCharges().add(charge);
 
-        userPaidAmountToAllMembers(owner, addChargeRequest.getAmount(), group.getDebts(), group.getMembers());
+        group.setDebts(userPaidAmountToAllMembers(owner, addChargeRequest.getAmount(), group.getDebts(), group.getMembers()));
 
         groupRepository.save(group);
 
         return new ChargeResponse(charge);
     }
 
-    private void userPaidAmountToAllMembers(ApplicationUser payer, double amount, Set<Debt> debts, Set<ApplicationUser> members) {
+    private Set<Debt> userPaidAmountToAllMembers(final ApplicationUser payer, final double amount,
+                                                 final Set<Debt> debts, final Set<ApplicationUser> members) {
         double amountPerMember = amount / members.size();
 
         for (Debt debt : debts) {
             if (debt.getFrom().equals(payer)) {
+                // FIXME duplicate code and function must return something, this should be a map or something like this
                 double amountPayerOwes = debt.getAmount() - amountPerMember;
                 if (amountPayerOwes < 0) {
                     debt.setAmount(0);
@@ -71,5 +73,6 @@ public class ChargeService {
                 }
             }
         }
+        return debts;
     }
 }
