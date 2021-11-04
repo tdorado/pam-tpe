@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/add_members"
+        android:icon="@drawable/ic_add_group_white"
+        android:orderInCategory="100"
+        app:iconTint="@color/white"
+        app:showAsAction="always"
+        android:title="@string/add_members" />
+</menu>
