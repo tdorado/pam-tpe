@@ -41,8 +41,8 @@ public class ApplicationUsersRepositoryImpl implements ApplicationUsersRepositor
     }
 
     @Override
-    public Single<ApplicationUser> getUserByEmail(FindApplicationUserByEmailRequest findApplicationUserByEmailRequest) {
-        return RetrofitUtils.performRequest(applicationUsersService.getUserByEmail(findApplicationUserByEmailRequest))
+    public Single<ApplicationUser> getUserByEmail(String email) {
+        return RetrofitUtils.performRequest(applicationUsersService.getUserByEmail(email))
                 .map(ApplicationUserMapper::toModel);
     }
 

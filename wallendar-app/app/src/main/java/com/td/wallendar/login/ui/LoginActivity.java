@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
 import com.td.wallendar.di.DependenciesContainer;
@@ -30,9 +29,9 @@ public class LoginActivity extends AbstractActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //createPresenter();
+        createPresenter();
 
-        //setUpLogin();
+        setUpLogin();
     }
 
     @Override

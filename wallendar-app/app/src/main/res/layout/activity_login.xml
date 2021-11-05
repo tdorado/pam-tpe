@@ -105,13 +105,13 @@
         android:layout_marginTop="50dp"
         android:text="@string/button_sign_in" />
 
-    <Button
+    <TextView
         android:id="@+id/button_signup"
-        style="@style/TextyButton"
+        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:padding="20dp"
         android:text="@string/text_signin_signup"
         android:textColor="@color/black" />

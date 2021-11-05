@@ -24,16 +24,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
         loginSharedPreferences = dependenciesContainer.getLoginSharedPreferences();
-
-        //TODO hacer el seteo de esto con un login, ahora lo dejo fijo
-        setLoggedUserId(loggedOutValue);
-        long value = loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue);
-
-        if(value == loggedOutValue){
-            //si no esta logeado, llevame al login
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-        }
     }
 
     public void setLoggedUserId(long value) {

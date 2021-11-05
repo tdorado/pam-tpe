@@ -20,7 +20,7 @@ public interface ApplicationUsersRepository {
 
     Single<ApplicationUser> getUser(long userId);
 
-    Single<ApplicationUser> getUserByEmail(FindApplicationUserByEmailRequest findApplicationUserByEmailRequest);
+    Single<ApplicationUser> getUserByEmail(String email);
 
     Single<UserAlias> createAlias(long userId, AddUserAliasRequest addUserAliasRequest);
 

@@ -40,7 +40,7 @@ public class LoginPresenter {
     }
 
     private void getApplicationUser(final String email) {
-        disposable.add(applicationUsersRepository.getUserByEmail(new FindApplicationUserByEmailRequest(email))
+        disposable.add(applicationUsersRepository.getUserByEmail(email)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(this::onFindUserSuccessful, this::onFindUserFailed));
