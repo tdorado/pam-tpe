@@ -43,4 +43,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
+
+    <string name="enter_email_and_password">Please enter email and password.</string>
+    <string name="email_or_password_incorrect">Incorrect email or password.</string>
 </resources>

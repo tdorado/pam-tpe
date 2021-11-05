@@ -116,4 +116,10 @@ public class GroupActivity extends AbstractActivity implements GroupView {
             startActivityForResult(intent, REQUEST_ADD_CHARGE);
         });
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        groupPresenter.onViewDetached();
+    }
 }

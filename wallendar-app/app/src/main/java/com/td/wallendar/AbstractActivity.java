@@ -1,5 +1,6 @@
 package com.td.wallendar;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
+import com.td.wallendar.login.ui.LoginActivity;
 
 public abstract class AbstractActivity extends AppCompatActivity {
     public final static String LOGIN_SHARED_PREFERENCES = "LOGIN_SHARED_PREFERENCES";
@@ -24,7 +26,14 @@ public abstract class AbstractActivity extends AppCompatActivity {
         loginSharedPreferences = dependenciesContainer.getLoginSharedPreferences();
 
         //TODO hacer el seteo de esto con un login, ahora lo dejo fijo
-        setLoggedUserId(1L);
+        setLoggedUserId(loggedOutValue);
+        long value = loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue);
+
+        if(value == loggedOutValue){
+            //si no esta logeado, llevame al login
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
     }
 
     public void setLoggedUserId(long value) {
@@ -37,18 +46,19 @@ public abstract class AbstractActivity extends AppCompatActivity {
         Editor editor = loginSharedPreferences.edit();
         editor.putLong(LOGGED_USER_ID, loggedOutValue);
         editor.apply();
-        //TODO cuando deslogea llevame al login
-//        startActivity(new Intent(this, LoginActivity.class));
-//        finish();
+
+        //cuando deslogea llevame al login
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     public long getLoggedUserId() {
         long value = loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue);
 
         if(value == loggedOutValue){
-            //TODO si no esta logeado, llevame al login
-//            startActivity(new Intent(this, LoginActivity.class));
-//            finish();
+            //si no esta logeado, llevame al login
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         return value;
