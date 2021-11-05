@@ -2,7 +2,6 @@ package com.td.wallendar.service;
 
 import com.td.wallendar.dtos.request.AddApplicationUserRequest;
 import com.td.wallendar.dtos.request.AddUserAliasRequest;
-import com.td.wallendar.dtos.request.FindApplicationUserByEmailRequest;
 import com.td.wallendar.dtos.request.LoginRequest;
 import com.td.wallendar.dtos.response.ApplicationUserResponse;
 import com.td.wallendar.dtos.response.LoginResponse;

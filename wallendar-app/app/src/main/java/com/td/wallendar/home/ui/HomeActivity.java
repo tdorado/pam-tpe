@@ -61,6 +61,9 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        if(!checkIfUserLogged()) {
+            return;
+        }
         createPresenter();
 
         setUpViews();

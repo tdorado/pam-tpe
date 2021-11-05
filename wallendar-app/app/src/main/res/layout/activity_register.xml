@@ -34,7 +34,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
+                android:id="@+id/register_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,7 +68,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_firstname"
+                android:id="@+id/register_firstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -101,7 +101,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_lastname"
+                android:id="@+id/register_lastname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -135,7 +135,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/et_password"
+                android:id="@+id/register_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -169,7 +169,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/et_confirm_password"
+                android:id="@+id/register_confirm_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -187,7 +187,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button_signin"
+        android:id="@+id/register_button_signin"
         style="@style/Button1"
         android:layout_width="342dp"
         android:layout_height="wrap_content"

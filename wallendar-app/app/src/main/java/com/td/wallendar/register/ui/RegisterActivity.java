@@ -1,4 +1,4 @@
-package com.td.wallendar.login.ui;
+package com.td.wallendar.register.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,23 +14,24 @@ import com.td.wallendar.R;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.home.ui.HomeActivity;
-import com.td.wallendar.register.ui.RegisterActivity;
 import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
-public class LoginActivity extends AbstractActivity implements LoginView {
+public class RegisterActivity extends AbstractActivity implements RegisterView {
 
-    private LoginPresenter loginPresenter;
+    private RegisterPresenter registerPresenter;
 
-    private Button signInButton;
     private Button signUpButton;
     private TextInputEditText emailInput;
+    private TextInputEditText firstnameInput;
+    private TextInputEditText lastnameInput;
     private EditText passwordInput;
+    private EditText repeatPasswordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         createPresenter();
 
         setUpView();
@@ -39,17 +40,17 @@ public class LoginActivity extends AbstractActivity implements LoginView {
     @Override
     public void onStop() {
         super.onStop();
-        loginPresenter.onViewDetached();
+        registerPresenter.onViewDetached();
     }
 
     @Nullable
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
-        return loginPresenter;
+        return registerPresenter;
     }
 
     @Override
-    public void loginSuccessful(long userId) {
+    public void registerSuccessful(long userId) {
         setLoggedUserId(userId);
         finishAffinity();
         startActivity(new Intent(this, HomeActivity.class));
@@ -57,45 +58,31 @@ public class LoginActivity extends AbstractActivity implements LoginView {
     }
 
     @Override
-    public void loginFailed() {
+    public void registerFailed() {
         Toast.makeText(getApplicationContext(),
-                getString(R.string.email_or_password_incorrect),
+                getString(R.string.register_failed),
                 Toast.LENGTH_LONG).show();
     }
 
     private void createPresenter() {
-        loginPresenter = (LoginPresenter) getLastNonConfigurationInstance();
+        registerPresenter = (RegisterPresenter) getLastNonConfigurationInstance();
 
-        if (loginPresenter == null) {
+        if (registerPresenter == null) {
             final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
             final ApplicationUsersRepository applicationUsersRepository = dependenciesContainer.getApplicationUsersRepository();
             final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
-            loginPresenter = new LoginPresenter(this, applicationUsersRepository, schedulerProvider);
+            registerPresenter = new RegisterPresenter(this, applicationUsersRepository, schedulerProvider);
         }
     }
 
     private void setUpView() {
-        signInButton = findViewById(R.id.login_button_signin);
-        signUpButton = findViewById(R.id.login_button_signup);
-        emailInput = findViewById(R.id.login_email);
-        passwordInput = findViewById(R.id.login_password);
+        signUpButton = findViewById(R.id.register_button_signin);
+        emailInput = findViewById(R.id.register_email);
+        firstnameInput = findViewById(R.id.register_firstname);
+        lastnameInput = findViewById(R.id.register_lastname);
+        passwordInput = findViewById(R.id.register_password);
+        repeatPasswordInput = findViewById(R.id.register_confirm_password);
 
-        signInButton.setOnClickListener(v -> {
-            String email = emailInput.getText().toString();
-            String password = passwordInput.getText().toString();
-
-            if (!email.isEmpty() && !password.isEmpty()) {
-                loginPresenter.attemptLogin(email, password);
-            } else {
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.enter_email_and_password),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
-        signUpButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        
     }
-
 }
