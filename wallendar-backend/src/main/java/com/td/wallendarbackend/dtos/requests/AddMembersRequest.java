@@ -16,5 +16,5 @@ import java.util.Set;
 public class AddMembersRequest {
     @NotNull
     @NotEmpty
-    private Set<Long> userIds;
+    private Set<String> userEmails;
 }

@@ -58,19 +58,6 @@ public class GroupService {
         return new GroupResponse(group);
     }
 
-    public GroupResponse addMemberByEmail(long groupId, String email){
-        ApplicationUser applicationUser = applicationUserRepository.findByEmail(email);
-        if(applicationUser == null){
-            return null;
-        }
-
-        Set<Long> userIdsToAdd = new HashSet<>();
-        userIdsToAdd.add(applicationUser.getId());
-        AddMembersRequest addMembersRequest = new AddMembersRequest(userIdsToAdd);
-
-        return addMembers(groupId, addMembersRequest);
-    }
-
     public GroupResponse addMembers(long groupId, AddMembersRequest addMembersRequest) {
         Group group = groupRepository.findById(groupId);
         if (group == null) {
@@ -78,8 +65,8 @@ public class GroupService {
         }
         Set<ApplicationUser> membersToAdd = new HashSet<>();
         Set<ApplicationUser> groupMembers = group.getMembers();
-        for (Long userId : addMembersRequest.getUserIds()) {
-            ApplicationUser user = applicationUserRepository.findById(userId.longValue());
+        for (String userEmail : addMembersRequest.getUserEmails()) {
+            ApplicationUser user = applicationUserRepository.findByEmail(userEmail);
             if (user == null) {
                 return null;
             }
