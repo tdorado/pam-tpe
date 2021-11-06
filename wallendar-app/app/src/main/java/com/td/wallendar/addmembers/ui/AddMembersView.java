@@ -4,5 +4,7 @@ import java.lang.reflect.Member;
 import java.util.Set;
 
 public interface AddMembersView {
-    void onMembersAdded(final Set<Member> members);
+    void onMembersAddedSuccessfully(long groupId);
+
+    void onMembersAddedWithError();
 }

@@ -70,16 +70,6 @@ public class GroupController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping(value = "/{id}/addMemberByEmail")
-    @ResponseBody
-    public ResponseEntity<?> addMembers(@PathVariable long id, @RequestBody @Valid AddMemberByEmailRequest addMemberByEmailRequest) {
-        GroupResponse group = groupService.addMemberByEmail(id, addMemberByEmailRequest.getEmail());
-        if (group != null) {
-            return new ResponseEntity<>(group, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
     @PostMapping(value = "/{id}/addCharge")
     @ResponseBody
     public ResponseEntity<?> addCharge(@PathVariable long id, @RequestBody @Valid AddChargeRequest addChargeRequest) {

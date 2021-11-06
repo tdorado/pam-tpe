@@ -41,10 +41,14 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
     private ExtendedFloatingActionButton addChargeFAB;
     private TextView groupTitle;
+    // Intended to be nullable
+    private Long groupId;
 
+    private final String GROUP_ID = "GROUP_ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_group);
         groupHistoryAdapter = new GroupHistoryAdapter();
 
@@ -58,7 +62,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
         groupTitle = findViewById(R.id.group_title);
 
-        Long groupId = getIntent().getExtras().getLong("GROUP_ID");
+        this.groupId = getIntent().getExtras().getLong(GROUP_ID);
 
         createPresenter();
         groupPresenter.getGroup(groupId);
@@ -81,7 +85,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
             Charge charge = (Charge) data.getExtras().getSerializable("NEW_CHARGE");
             groupHistoryAdapter.addToDataset(charge);
         } else if (requestCode == REQUEST_ADD_MEMBERS && resultCode == RESULT_OK) {
-
+            Toast.makeText(getApplicationContext(), "Members added successfully", Toast.LENGTH_SHORT);
         }
     }
 
@@ -103,7 +107,9 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_members) {
-            startActivityForResult(new Intent(this, AddMembersActivity.class), REQUEST_ADD_MEMBERS);
+            final Intent addMembersIntent = new Intent(this, AddMembersActivity.class);
+            addMembersIntent.putExtra(GROUP_ID, groupId);
+            startActivityForResult(addMembersIntent, REQUEST_ADD_MEMBERS);
             return true;
         }
         return false;
