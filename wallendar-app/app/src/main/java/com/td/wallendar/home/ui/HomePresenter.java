@@ -113,7 +113,10 @@ public class HomePresenter {
 
     private void onPaymentReceived(Group group) {
         if (homeView.get() != null) {
-            homeView.get().removeDebt(debtToSettleUp);
+            if (debtToSettleUp != null) {
+                homeView.get().removeDebt(debtToSettleUp);
+                debtToSettleUp = null;
+            }
             homeView.get().updateGroup(group);
         }
     }

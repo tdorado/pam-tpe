@@ -17,6 +17,7 @@ import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 public class AddGroupActivity extends AbstractActivity implements AddGroupView {
 
@@ -46,7 +47,8 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
         if (addGroupPresenter == null) {
             final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
             final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
-            addGroupPresenter = new AddGroupPresenter(this, groupsRepository);
+            final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
+            addGroupPresenter = new AddGroupPresenter(this, groupsRepository, schedulerProvider);
         }
     }
 

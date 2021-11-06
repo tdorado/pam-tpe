@@ -11,7 +11,6 @@ import com.td.wallendar.utils.mappers.GroupMapper;
 import com.td.wallendar.utils.networking.RetrofitUtils;
 
 import java.util.List;
-import java.util.Set;
 
 import io.reactivex.Single;
 

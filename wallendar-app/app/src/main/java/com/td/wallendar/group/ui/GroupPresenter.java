@@ -3,7 +3,6 @@ package com.td.wallendar.group.ui;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
@@ -24,10 +23,11 @@ public class GroupPresenter {
     private final SchedulerProvider schedulerProvider;
 
     public GroupPresenter(final GroupView groupView,
-                          final GroupsRepository groupsRepository) {
+                          final GroupsRepository groupsRepository,
+                          final SchedulerProvider schedulerProvider) {
         this.groupView = new WeakReference<>(groupView);
         this.groupsRepository = groupsRepository;
-        this.schedulerProvider = new AndroidSchedulerProvider();
+        this.schedulerProvider = schedulerProvider;
         this.disposable = new CompositeDisposable();
     }
 

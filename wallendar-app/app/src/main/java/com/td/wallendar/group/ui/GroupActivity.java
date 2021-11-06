@@ -18,7 +18,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
-import com.td.wallendar.addgroup.ui.AddGroupActivity;
 import com.td.wallendar.addmembers.ui.AddMembersActivity;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
@@ -27,6 +26,7 @@ import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.util.List;
 
@@ -47,6 +47,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     private boolean needsToRefresh = false;
 
     private final String GROUP_ID = "GROUP_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +125,8 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         if (groupPresenter == null) {
             final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
             final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
-            groupPresenter = new GroupPresenter(this, groupsRepository);
+            final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
+            groupPresenter = new GroupPresenter(this, groupsRepository, schedulerProvider);
         }
     }
 
@@ -167,7 +169,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
     @Override
     public void onBackPressed() {
-        if(needsToRefresh) {
+        if (needsToRefresh) {
             final Intent resultIntent = new Intent();
             setResult(RESULT_OK, resultIntent);
         }
