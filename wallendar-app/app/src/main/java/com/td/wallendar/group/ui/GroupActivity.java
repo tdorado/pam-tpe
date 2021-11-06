@@ -1,7 +1,11 @@
 package com.td.wallendar.group.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +18,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.td.wallendar.AbstractActivity;
 import com.td.wallendar.R;
 import com.td.wallendar.addcharge.ui.AddChargeActivity;
+import com.td.wallendar.addgroup.ui.AddGroupActivity;
+import com.td.wallendar.addmembers.ui.AddMembersActivity;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.GroupHistoryAdapter;
@@ -27,6 +33,7 @@ import java.util.List;
 public class GroupActivity extends AbstractActivity implements GroupView {
 
     private static final int REQUEST_ADD_CHARGE = 1;
+    private static final int REQUEST_ADD_MEMBERS = 2;
 
     private GroupPresenter groupPresenter;
     private GroupHistoryAdapter groupHistoryAdapter;
@@ -34,10 +41,14 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
     private ExtendedFloatingActionButton addChargeFAB;
     private TextView groupTitle;
+    // Intended to be nullable
+    private Long groupId;
 
+    private final String GROUP_ID = "GROUP_ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_group);
         groupHistoryAdapter = new GroupHistoryAdapter();
 
@@ -51,7 +62,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
         groupTitle = findViewById(R.id.group_title);
 
-        Long groupId = getIntent().getExtras().getLong("GROUP_ID");
+        this.groupId = getIntent().getExtras().getLong(GROUP_ID);
 
         createPresenter();
         groupPresenter.getGroup(groupId);
@@ -73,7 +84,35 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         if (requestCode == REQUEST_ADD_CHARGE && resultCode == RESULT_OK) {
             Charge charge = (Charge) data.getExtras().getSerializable("NEW_CHARGE");
             groupHistoryAdapter.addToDataset(charge);
+        } else if (requestCode == REQUEST_ADD_MEMBERS && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "Members added successfully", Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_members_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.add_members).setVisible(true);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add_members) {
+            final Intent addMembersIntent = new Intent(this, AddMembersActivity.class);
+            addMembersIntent.putExtra(GROUP_ID, groupId);
+            startActivityForResult(addMembersIntent, REQUEST_ADD_MEMBERS);
+            return true;
+        }
+        return false;
     }
 
     private void createPresenter() {

@@ -50,4 +50,10 @@
 
     <string name="fill_all_inputs">Please fill all the fields.</string>
     <string name="passwords_must_match">Passwords must match.</string>
+
+    <string name="add_members">Add members</string>
+    <string name="member_email">Member email</string>
+    <string name="hint_email_member">Member email</string>
+    <string name="submit_add_members_button">ADD MEMBERS</string>
+
 </resources>
