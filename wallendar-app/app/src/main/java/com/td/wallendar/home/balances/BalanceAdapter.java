@@ -55,4 +55,10 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
         }
         notifyDataSetChanged();
     }
+
+    public void removeFromDataset(Debt debt) {
+        int position = this.dataset.indexOf(debt);
+        this.dataset.remove(position);
+        notifyItemRemoved(position);
+    }
 }

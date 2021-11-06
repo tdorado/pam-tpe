@@ -14,7 +14,8 @@ public class DebtMapper {
                 debtResponse.getId(),
                 ApplicationUserMapper.toModel(debtResponse.getFrom()),
                 ApplicationUserMapper.toModel(debtResponse.getTo()),
-                debtResponse.getAmount()
+                debtResponse.getAmount(),
+                debtResponse.getGroupId()
         );
     }
 

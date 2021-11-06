@@ -65,4 +65,11 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="cancel">Cancel</string>
 
+    <string name="feature_not_ready">This feature is a work in progress.</string>
+
+    <string name="settle_up_debt">Settle up debt</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

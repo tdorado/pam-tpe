@@ -8,12 +8,14 @@ public class Debt implements Serializable {
     private ApplicationUser from;
     private ApplicationUser to;
     private double amount;
+    private long groupId;
 
-    public Debt(long id, ApplicationUser from, ApplicationUser to, double amount) {
+    public Debt(long id, ApplicationUser from, ApplicationUser to, double amount, long groupId) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.amount = amount;
+        this.groupId = groupId;
     }
 
     @Override
@@ -59,5 +61,13 @@ public class Debt implements Serializable {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
     }
 }

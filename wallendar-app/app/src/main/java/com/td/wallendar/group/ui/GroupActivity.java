@@ -44,6 +44,8 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     // Intended to be nullable
     private Long groupId;
 
+    private boolean needsToRefresh = false;
+
     private final String GROUP_ID = "GROUP_ID";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         if (requestCode == REQUEST_ADD_CHARGE && resultCode == RESULT_OK) {
             Charge charge = (Charge) data.getExtras().getSerializable("NEW_CHARGE");
             groupHistoryAdapter.addToDataset(charge);
+            needsToRefresh = true;
         } else if (requestCode == REQUEST_ADD_MEMBERS && resultCode == RESULT_OK) {
             Toast.makeText(getApplicationContext(), "Members added successfully", Toast.LENGTH_SHORT);
         }
@@ -133,7 +136,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        onBackPressed();
         return true;
     }
 
@@ -160,5 +163,14 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     public void onStop() {
         super.onStop();
         groupPresenter.onViewDetached();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(needsToRefresh) {
+            final Intent resultIntent = new Intent();
+            setResult(RESULT_OK, resultIntent);
+        }
+        finish();
     }
 }

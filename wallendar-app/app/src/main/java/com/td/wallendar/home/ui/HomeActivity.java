@@ -171,7 +171,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
 
     private void setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab);
-        addChargeFAB.setOnClickListener(view -> startActivity(new Intent(this, AddChargeActivity.class)));
+        addChargeFAB.setOnClickListener(view -> startActivityForResult(new Intent(this, AddChargeActivity.class), REFRESH));
     }
 
     private void setUpGroupsView() {
@@ -242,6 +242,16 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     }
 
     @Override
+    public void updateGroup(Group group) {
+        groupAdapter.updateInDataset(group);
+    }
+
+    @Override
+    public void removeDebt(Debt debt) {
+        balanceAdapter.removeFromDataset(debt);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         homePresenter.onViewAttached(getLoggedUserId());
@@ -257,12 +267,24 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     public void onGroupClicked(long groupId) {
         final Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
         intent.putExtra("GROUP_ID", groupId);
-        startActivity(intent);
+        startActivityForResult(intent, REFRESH);
     }
 
     @Override
-    public void onBalanceSettleUpClick(long groupId, Debt debt) {
-        //TODO settle up call to backend
+    public void onBalanceSettleUpClick(Debt debt) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(getString(R.string.settle_up_debt));
+        builder.setMessage(getString(R.string.are_you_sure));
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+            homePresenter.onSettleUpDebtClicked(debt);
+            dialog.dismiss();
+        });
+        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
     @Override
