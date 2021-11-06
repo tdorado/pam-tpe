@@ -1,6 +1,7 @@
 package com.td.wallendar.home.ui;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -25,9 +27,13 @@ import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.groups.GroupAdapter;
 import com.td.wallendar.home.groups.OnGroupClickedListener;
 import com.td.wallendar.home.groups.ui.GroupsView;
+import com.td.wallendar.home.profile.OnLogoutClickedListener;
+import com.td.wallendar.home.profile.OnShowAliasesClickedListener;
 import com.td.wallendar.home.profile.ui.ProfileView;
+import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
@@ -35,7 +41,7 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider;
 import java.util.List;
 
 public class HomeActivity extends AbstractActivity implements HomeView, OnGroupClickedListener,
-        OnBalanceSettleUpClickedListener {
+        OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener {
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
@@ -61,6 +67,9 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        if (!checkIfUserLogged()) {
+            return;
+        }
         createPresenter();
 
         setUpViews();
@@ -87,9 +96,10 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
             final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
             final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
             final DebtsRepository debtsRepository = dependenciesContainer.getDebtsRepository();
+            final ApplicationUsersRepository applicationUsersRepository = dependenciesContainer.getApplicationUsersRepository();
             final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
             homePresenter = new HomePresenter(this, groupsRepository, debtsRepository,
-                    schedulerProvider);
+                    applicationUsersRepository, schedulerProvider);
         }
     }
 
@@ -180,7 +190,6 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
 
     private void setUpProfileView() {
         profileView = findViewById(R.id.view_profile);
-        profileView.bind();
     }
 
     @Override
@@ -228,6 +237,11 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     }
 
     @Override
+    public void bindProfile(ApplicationUser applicationUser) {
+        profileView.bind(applicationUser, this, this);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         homePresenter.onViewAttached(getLoggedUserId());
@@ -249,5 +263,26 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     @Override
     public void onBalanceSettleUpClick(long groupId, Debt debt) {
         //TODO settle up call to backend
+    }
+
+    @Override
+    public void onLogoutClicked() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(getString(R.string.are_you_sure));
+        builder.setPositiveButton(getString(R.string.logout), (dialog, which) -> {
+            logout();
+            dialog.dismiss();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
+    @Override
+    public void onShowAliasesClicked() {
+        //TODO make show aliases activity
     }
 }

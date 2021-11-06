@@ -30,9 +30,12 @@
             android:name=".addgroup.ui.AddGroupActivity"
             android:noHistory="true" />
         <activity android:name=".group.ui.GroupActivity" />
+        <activity android:name=".login.ui.LoginActivity" />
+        <activity android:name=".register.ui.RegisterActivity" />
         <activity
             android:name=".addmembers.ui.AddMembersActivity"
             android:noHistory="true" />
+
     </application>
 
 

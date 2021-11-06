@@ -1,6 +1,7 @@
 package com.td.wallendarbackend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
 import com.td.wallendarbackend.dtos.responses.TokenResponse;
 import com.td.wallendarbackend.models.ApplicationUser;
 import io.jsonwebtoken.Claims;
@@ -58,7 +59,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder().setClaims(claims).signWith(key, SignatureAlgorithm.HS512).setExpiration(exp).compact();
         res.addHeader("token", token);
 
-        TokenResponse tokenResponse = new TokenResponse(token);
+        String email = ((User) auth.getPrincipal()).getUsername();
+        TokenResponse tokenResponse = new TokenResponse(token, email);
         res.setStatus(HttpStatus.OK.value());
         String json = new ObjectMapper().writeValueAsString(tokenResponse);
         res.getWriter().write(json);

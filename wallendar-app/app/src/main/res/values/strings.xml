@@ -43,8 +43,26 @@
     <string name="hint_email">Email</string>
     <string name="hint_phone">Phone</string>
     <string name="hint_confirm_password">Confirm Password</string>
+
+    <string name="enter_email_and_password">Please enter email and password.</string>
+    <string name="email_or_password_incorrect">Incorrect email or password.</string>
+    <string name="register_failed">Sign Up failed.</string>
+
+    <string name="fill_all_inputs">Please fill all the fields.</string>
+    <string name="passwords_must_match">Passwords must match.</string>
+
     <string name="add_members">Add members</string>
     <string name="member_email">Member email</string>
     <string name="hint_email_member">Member email</string>
     <string name="submit_add_members_button">ADD MEMBERS</string>
+
+    <string name="your_aliases">Your payments data</string>
+    <string name="logout">Sign out</string>
+
+    <string name="example_name">John Doe</string>
+    <string name="example_email">johndoe@gmail.com</string>
+
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

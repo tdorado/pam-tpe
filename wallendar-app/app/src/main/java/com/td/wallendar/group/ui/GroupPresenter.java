@@ -53,4 +53,8 @@ public class GroupPresenter {
     private void onGroupError(Throwable throwable) {
         System.out.println(throwable);
     }
+
+    public void onViewDetached() {
+        disposable.dispose();
+    }
 }
