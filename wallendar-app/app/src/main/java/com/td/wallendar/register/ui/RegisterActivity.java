@@ -3,7 +3,6 @@ package com.td.wallendar.register.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -25,8 +24,8 @@ public class RegisterActivity extends AbstractActivity implements RegisterView {
     private TextInputEditText emailInput;
     private TextInputEditText firstnameInput;
     private TextInputEditText lastnameInput;
-    private EditText passwordInput;
-    private EditText repeatPasswordInput;
+    private TextInputEditText passwordInput;
+    private TextInputEditText repeatPasswordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +82,34 @@ public class RegisterActivity extends AbstractActivity implements RegisterView {
         passwordInput = findViewById(R.id.register_password);
         repeatPasswordInput = findViewById(R.id.register_confirm_password);
 
-        
+        signUpButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString();
+            String password = passwordInput.getText().toString();
+            String passwordRepeat = repeatPasswordInput.getText().toString();
+            String firstname = firstnameInput.getText().toString();
+            String lastname = lastnameInput.getText().toString();
+
+            if (validateRegisterInput(email, firstname, lastname, password, passwordRepeat)) {
+                registerPresenter.attemptRegister(email, firstname, lastname, password);
+            }
+        });
+    }
+
+    private boolean validateRegisterInput(String email, String firstname, String lastname,
+                                          String password, String passwordRepeat) {
+        if (email.isEmpty() || firstname.isEmpty() || lastname.isEmpty() || password.isEmpty()
+                || passwordRepeat.isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.fill_all_inputs),
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (!password.equals(passwordRepeat)) {
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.passwords_must_match),
+                    Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

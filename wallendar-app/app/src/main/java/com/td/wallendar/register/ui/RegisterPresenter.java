@@ -1,5 +1,7 @@
 package com.td.wallendar.register.ui;
 
+import com.td.wallendar.dtos.request.AddApplicationUserRequest;
+import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
@@ -23,5 +25,20 @@ public class RegisterPresenter {
 
     public void onViewDetached() {
         disposable.dispose();
+    }
+
+    public void attemptRegister(String email, String firstname, String lastname, String password) {
+        disposable.add(applicationUsersRepository.createUser(new AddApplicationUserRequest(email, password, firstname, lastname))
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(this::onRegisterAttemptSuccessful, this::onRegisterAttemptError));
+    }
+
+    private void onRegisterAttemptSuccessful(ApplicationUser applicationUser) {
+        registerView.get().registerSuccessful(applicationUser.getId());
+    }
+
+    private void onRegisterAttemptError(Throwable throwable) {
+        registerView.get().registerFailed();
     }
 }

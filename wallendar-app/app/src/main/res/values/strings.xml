@@ -47,4 +47,7 @@
     <string name="enter_email_and_password">Please enter email and password.</string>
     <string name="email_or_password_incorrect">Incorrect email or password.</string>
     <string name="register_failed">Sign Up failed.</string>
+
+    <string name="fill_all_inputs">Please fill all the fields.</string>
+    <string name="passwords_must_match">Passwords must match.</string>
 </resources>
