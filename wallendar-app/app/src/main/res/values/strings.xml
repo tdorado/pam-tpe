@@ -56,4 +56,13 @@
     <string name="hint_email_member">Member email</string>
     <string name="submit_add_members_button">ADD MEMBERS</string>
 
+    <string name="your_aliases">Your payments data</string>
+    <string name="logout">Sign out</string>
+
+    <string name="example_name">John Doe</string>
+    <string name="example_email">johndoe@gmail.com</string>
+
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

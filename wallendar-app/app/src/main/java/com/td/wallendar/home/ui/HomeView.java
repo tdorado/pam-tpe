@@ -1,5 +1,6 @@
 package com.td.wallendar.home.ui;
 
+import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
 
@@ -15,4 +16,6 @@ public interface HomeView {
     void bindGroups(List<Group> groups);
 
     void bindDebts(List<Debt> debts);
+
+    void bindProfile(ApplicationUser applicationUser);
 }

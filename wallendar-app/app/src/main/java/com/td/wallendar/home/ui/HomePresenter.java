@@ -1,7 +1,9 @@
 package com.td.wallendar.home.ui;
 
+import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
+import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
@@ -15,16 +17,19 @@ public class HomePresenter {
     private final WeakReference<HomeView> homeView;
     private final GroupsRepository groupsRepository;
     private final DebtsRepository debtsRepository;
+    private final ApplicationUsersRepository applicationUsersRepository;
     private final SchedulerProvider schedulerProvider;
     private final CompositeDisposable disposable;
 
 
     public HomePresenter(final HomeView homeView, final GroupsRepository groupsRepository,
                          final DebtsRepository debtsRepository,
+                         final ApplicationUsersRepository applicationUsersRepository,
                          final SchedulerProvider schedulerProvider) {
         this.homeView = new WeakReference<>(homeView);
         this.groupsRepository = groupsRepository;
         this.debtsRepository = debtsRepository;
+        this.applicationUsersRepository = applicationUsersRepository;
         this.schedulerProvider = schedulerProvider;
         this.disposable = new CompositeDisposable();
     }
@@ -56,6 +61,11 @@ public class HomePresenter {
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(this::onDebtsReceived, this::onDebtsError));
+        disposable.add(applicationUsersRepository.getUser(userId)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(this::onLoggedUserReceived, this::onLoggedUserError));
+
     }
 
     private void onGroupsReceived(List<Group> groups) {
@@ -75,6 +85,16 @@ public class HomePresenter {
     }
 
     private void onDebtsError(Throwable throwable) {
+        System.out.println(throwable);
+    }
+
+    private void onLoggedUserReceived(ApplicationUser applicationUser) {
+        if (homeView.get() != null) {
+            homeView.get().bindProfile(applicationUser);
+        }
+    }
+
+    private void onLoggedUserError(Throwable throwable) {
         System.out.println(throwable);
     }
 
