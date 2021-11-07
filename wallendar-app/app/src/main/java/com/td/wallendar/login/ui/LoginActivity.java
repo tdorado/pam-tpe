@@ -50,9 +50,8 @@ public class LoginActivity extends AbstractActivity implements LoginView {
     }
 
     @Override
-    public void loginSuccessful(long userId, String phoneNumber) {
+    public void loginSuccessful(long userId) {
         setLoggedUserId(userId);
-        setPhoneNumber(phoneNumber);
         finishAffinity();
         startActivity(new Intent(this, HomeActivity.class));
         finish();

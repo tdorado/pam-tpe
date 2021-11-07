@@ -1,6 +1,7 @@
 package com.td.wallendar.home.ui;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -330,10 +331,15 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     public void onRemindButtonClick(Debt debt) {
         Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
         whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        String deeplink = "http://api.whatsapp.com/send?phone=" + getLoggedPhoneNumber() + "&text=Pay%20me%20what%20you%20owe%20me:%20" + df.format(debt.getAmount());
+        String phoneNumber = debt.getTo().getPhoneNumber();
+        String messageText = getString(R.string.pay_me_what_you_owe_me, df.format(debt.getAmount()));
+        String deeplink = "http://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + messageText;
         whatsAppIntent.setPackage("com.whatsapp");
         whatsAppIntent.setData(Uri.parse(deeplink));
-        startActivity(whatsAppIntent);
-
+        try{
+            startActivity(whatsAppIntent);
+        }catch (ActivityNotFoundException ex){
+            Toast.makeText(getApplicationContext(), getString(R.string.whatsapp_not_installed), Toast.LENGTH_SHORT).show();
+        }
     }
 }

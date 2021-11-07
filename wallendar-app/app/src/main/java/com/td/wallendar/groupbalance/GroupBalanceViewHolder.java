@@ -17,6 +17,7 @@ public class GroupBalanceViewHolder extends RecyclerView.ViewHolder {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private OnGroupSettleUpClickedListener onGroupSettleUpClickedListener;
+    private OnGroupRemindClickedListener onGroupRemindClickedListener;
 
     public GroupBalanceViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -41,8 +42,7 @@ public class GroupBalanceViewHolder extends RecyclerView.ViewHolder {
             textView.setText(itemView.getContext().getString(R.string.user_owes_to_user_amount, userFromText, userToText, amount));
         }
 
-        remindButton.setOnClickListener(view ->
-                Toast.makeText(view.getContext(), view.getContext().getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+        remindButton.setOnClickListener(view -> onGroupRemindClickedListener.onGroupRemindClick(debt));
 
         settleUpButton.setOnClickListener(view -> onGroupSettleUpClickedListener.onGroupSettleUpClick(debt));
     }
@@ -51,4 +51,7 @@ public class GroupBalanceViewHolder extends RecyclerView.ViewHolder {
         this.onGroupSettleUpClickedListener = listener;
     }
 
+    public void setOnGroupRemindClickedListener(OnGroupRemindClickedListener listener) {
+        this.onGroupRemindClickedListener = listener;
+    }
 }

@@ -46,7 +46,7 @@ public class DependenciesModule {
 
     /* default */ Retrofit provideRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("https://wallendar-backend.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

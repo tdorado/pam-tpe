@@ -14,7 +14,6 @@ import com.td.wallendar.login.ui.LoginActivity;
 public abstract class AbstractActivity extends AppCompatActivity {
     public final static String LOGIN_SHARED_PREFERENCES = "LOGIN_SHARED_PREFERENCES";
     private final static String LOGGED_USER_ID = "LOGGED_USER_ID";
-    private final static String LOGGED_USER_PHONE = "LOGGED_USER_PHONE";
 
     private final static long loggedOutValue = -1;
 
@@ -43,12 +42,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        SharedPreferences.Editor editor = loginSharedPreferences.edit();
-        editor.putString(LOGGED_USER_PHONE, phoneNumber);
-        editor.apply();
-    }
-
     public void logout() {
         Editor editor = loginSharedPreferences.edit();
         editor.putLong(LOGGED_USER_ID, loggedOutValue);
@@ -69,9 +62,5 @@ public abstract class AbstractActivity extends AppCompatActivity {
         }
 
         return value;
-    }
-
-    public String getLoggedPhoneNumber() {
-        return "54" + loginSharedPreferences.getString(LOGGED_USER_PHONE, "");
     }
 }

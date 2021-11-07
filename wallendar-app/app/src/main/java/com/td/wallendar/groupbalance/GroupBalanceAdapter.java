@@ -19,6 +19,7 @@ public class GroupBalanceAdapter extends RecyclerView.Adapter<GroupBalanceViewHo
     private final List<Debt> dataset;
     private final long loggedUserId;
     private OnGroupSettleUpClickedListener onGroupSettleUpClickedListener;
+    private OnGroupRemindClickedListener onGroupRemindClickedListener;
 
     public GroupBalanceAdapter(final long loggedUserId) {
         this.dataset = new ArrayList<>();
@@ -27,6 +28,10 @@ public class GroupBalanceAdapter extends RecyclerView.Adapter<GroupBalanceViewHo
 
     public void setOnGroupSettleUpClickedListener(OnGroupSettleUpClickedListener listener) {
         this.onGroupSettleUpClickedListener = listener;
+    }
+
+    public void setOnGroupRemindClickedListener(OnGroupRemindClickedListener listener) {
+        this.onGroupRemindClickedListener = listener;
     }
 
     @NonNull
@@ -40,6 +45,7 @@ public class GroupBalanceAdapter extends RecyclerView.Adapter<GroupBalanceViewHo
     public void onBindViewHolder(@NonNull GroupBalanceViewHolder holder, int position) {
         holder.bind(dataset.get(position), loggedUserId);
         holder.setOnGroupSettleUpClickedListener(onGroupSettleUpClickedListener);
+        holder.setOnGroupRemindClickedListener(onGroupRemindClickedListener);
     }
 
     @Override

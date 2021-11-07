@@ -1,6 +1,8 @@
 package com.td.wallendar.groupbalance.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,14 +17,19 @@ import com.td.wallendar.R;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.groupbalance.GroupBalanceAdapter;
+import com.td.wallendar.groupbalance.OnGroupRemindClickedListener;
 import com.td.wallendar.groupbalance.OnGroupSettleUpClickedListener;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
-public class GroupBalanceActivity extends AbstractActivity implements GroupBalanceView, OnGroupSettleUpClickedListener {
+public class GroupBalanceActivity extends AbstractActivity implements GroupBalanceView,
+        OnGroupSettleUpClickedListener, OnGroupRemindClickedListener {
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private final String GROUP_ID = "GROUP_ID";
 
@@ -85,6 +92,23 @@ public class GroupBalanceActivity extends AbstractActivity implements GroupBalan
         alert.show();
     }
 
+
+    @Override
+    public void onGroupRemindClick(Debt debt) {
+        Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
+        whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String phoneNumber = debt.getTo().getPhoneNumber();
+        String messageText = getString(R.string.pay_me_what_you_owe_me, df.format(debt.getAmount()));
+        String deeplink = "http://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + messageText;
+        whatsAppIntent.setPackage("com.whatsapp");
+        whatsAppIntent.setData(Uri.parse(deeplink));
+        try{
+            startActivity(whatsAppIntent);
+        }catch (ActivityNotFoundException ex){
+            Toast.makeText(getApplicationContext(), getString(R.string.whatsapp_not_installed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void bind(List<Debt> debts) {
         groupBalanceAdapter.setDataset(debts);
@@ -119,6 +143,7 @@ public class GroupBalanceActivity extends AbstractActivity implements GroupBalan
     private void setUpView() {
         groupBalanceAdapter = new GroupBalanceAdapter(getLoggedUserId());
         groupBalanceAdapter.setOnGroupSettleUpClickedListener(this);
+        groupBalanceAdapter.setOnGroupRemindClickedListener(this);
         RecyclerView recycler = findViewById(R.id.group_balance_recycler);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
