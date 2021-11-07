@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -324,22 +325,11 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
 
     @Override
     public void onRemindButtonClick(Debt debt) {
-        PackageManager pm = getApplicationContext().getPackageManager();
-        try {
+        Intent whatsAppIntent = new Intent(Intent.ACTION_SEND);
+        String text = "https://wa.me/54" + getLoggedPhoneNumber() + "?text=Pay%20me%20what%20you%20owe%20me:%20" + debt.getAmount();
+        whatsAppIntent.setPackage("com.whatsapp");
+        whatsAppIntent.setData(Uri.parse(text));
+        getApplicationContext().startActivity(whatsAppIntent);
 
-            Intent whatsAppIntent = new Intent(Intent.ACTION_SEND);
-            whatsAppIntent.setType("text/plain");
-
-            String text = "myapp://openapp?type=banner&id=10&phone=" + getLoggedPhoneNumber();
-
-            PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-            whatsAppIntent.setPackage("com.whatsapp");
-
-            whatsAppIntent.putExtra(Intent.EXTRA_TEXT, text);
-            getApplicationContext().startActivity(Intent.createChooser(whatsAppIntent, getApplicationContext().getString(R.string.remind_with)));
-
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(getApplicationContext(), "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
-        }
     }
 }

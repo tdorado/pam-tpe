@@ -46,7 +46,7 @@ public class DependenciesModule {
 
     /* default */ Retrofit provideRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8080/")
+                .baseUrl("http://192.168.1.120:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
