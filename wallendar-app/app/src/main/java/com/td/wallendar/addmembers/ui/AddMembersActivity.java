@@ -17,12 +17,11 @@ import com.td.wallendar.addmembers.MembersAdapter;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class AddMembersActivity extends AbstractActivity implements AddMembersView {
     private AddMembersPresenter addMembersPresenter;
@@ -32,7 +31,7 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
     private RecyclerView recyclerView;
 
     private MembersAdapter membersAdapter;
-    private List<String> members = new ArrayList<>();
+    private final List<String> members = new ArrayList<>();
 
     private final long NO_GROUP_ID = -1;
     private final String GROUP_ID = "GROUP_ID";
@@ -97,7 +96,8 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         if (addMembersPresenter == null) {
             final DependenciesContainer dependenciesContainer = DependenciesContainerLocator.locateComponent(this);
             final GroupsRepository groupsRepository = dependenciesContainer.getGroupsRepository();
-            addMembersPresenter = new AddMembersPresenter(this, groupsRepository);
+            final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
+            addMembersPresenter = new AddMembersPresenter(this, groupsRepository, schedulerProvider);
         }
     }
 
@@ -112,6 +112,12 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         actionBar.setTitle(R.string.add_members);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     // TODO we are not using the groupId param right now, may be useful in some borders cases
     @Override
     public void onMembersAddedSuccessfully(long groupId) {
@@ -124,5 +130,11 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
     public void onMembersAddedWithError() {
         Toast.makeText(getApplicationContext(), "There was an error adding members", Toast.LENGTH_LONG).show();
         onBackPressed();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        addMembersPresenter.onViewDetached();
     }
 }

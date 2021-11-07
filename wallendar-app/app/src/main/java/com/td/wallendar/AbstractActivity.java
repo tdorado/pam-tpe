@@ -27,7 +27,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
     }
 
     public boolean checkIfUserLogged() {
-        if(loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue) == loggedOutValue){
+        if (loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue) == loggedOutValue) {
             //si no esta logeado, llevame al login
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -42,7 +42,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void logout(){
+    public void logout() {
         Editor editor = loginSharedPreferences.edit();
         editor.putLong(LOGGED_USER_ID, loggedOutValue);
         editor.apply();
@@ -55,7 +55,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
     public long getLoggedUserId() {
         long value = loginSharedPreferences.getLong(LOGGED_USER_ID, loggedOutValue);
 
-        if(value == loggedOutValue){
+        if (value == loggedOutValue) {
             //si no esta logeado, llevame al login
             startActivity(new Intent(this, LoginActivity.class));
             finish();

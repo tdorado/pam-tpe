@@ -3,7 +3,6 @@ package com.td.wallendar.addgroup.ui;
 import com.td.wallendar.dtos.request.AddGroupRequest;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
-import com.td.wallendar.utils.scheduler.AndroidSchedulerProvider;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
@@ -18,11 +17,11 @@ public class AddGroupPresenter {
     private final SchedulerProvider schedulerProvider;
 
 
-    public AddGroupPresenter(final AddGroupView addGroupView, final GroupsRepository groupsRepository) {
+    public AddGroupPresenter(final AddGroupView addGroupView, final GroupsRepository groupsRepository, final SchedulerProvider schedulerProvider) {
         view = new WeakReference<>(addGroupView);
         this.groupsRepository = groupsRepository;
         this.disposable = new CompositeDisposable();
-        this.schedulerProvider = new AndroidSchedulerProvider();
+        this.schedulerProvider = schedulerProvider;
     }
 
     public void createGroup(final String groupTitle, final Long ownerId) {

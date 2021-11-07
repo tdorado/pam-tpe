@@ -17,10 +17,13 @@ import java.util.List;
 public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 
     private final List<Group> dataset;
+    private final long loggedUserId;
     private OnGroupClickedListener listener;
 
-    public GroupAdapter() {
+    public GroupAdapter(final long loggedUserId) {
         this.dataset = new ArrayList<>();
+        this.loggedUserId = loggedUserId;
+
     }
 
     public void setOnGroupClickedListener(OnGroupClickedListener listener) {
@@ -36,7 +39,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
-        holder.bind(dataset.get(position));
+        holder.bind(dataset.get(position), loggedUserId);
         holder.setOnGroupClickedListener(listener);
     }
 
@@ -54,9 +57,14 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupViewHolder> {
         notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void addToDataset(Group group) {
         this.dataset.add(group);
-        notifyDataSetChanged();
+        notifyItemInserted(dataset.size() - 1);
+    }
+
+    public void updateInDataset(Group group) {
+        int position = this.dataset.indexOf(group);
+        this.dataset.set(position, group);
+        notifyItemChanged(position);
     }
 }

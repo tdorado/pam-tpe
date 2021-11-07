@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.td.wallendar.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MembersAdapter extends RecyclerView.Adapter<MembersViewHolder> {
 
-    private List<String> members;
+    private final List<String> members;
 
     public MembersAdapter(List<String> members) {
         this.members = members;

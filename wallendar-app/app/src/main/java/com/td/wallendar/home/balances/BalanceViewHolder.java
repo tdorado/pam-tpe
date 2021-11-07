@@ -11,7 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.models.Debt;
 
+import java.text.DecimalFormat;
+
 public class BalanceViewHolder extends RecyclerView.ViewHolder {
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
 
     public BalanceViewHolder(@NonNull View itemView) {
@@ -21,13 +25,9 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
     public void bind(final Debt debt, final long loggedUserId) {
         final TextView textView = itemView.findViewById(R.id.row_balance_text);
         final Button remindButton = itemView.findViewById(R.id.remind_debt_button);
-        // TODO
-        remindButton.setOnClickListener(view -> Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                .show());
-        itemView.findViewById(R.id.settle_up_debt_button).setOnClickListener(
-                view -> Toast.makeText(view.getContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT).show());
+        final Button settleUpButton = itemView.findViewById(R.id.settle_up_debt_button);
 
-        String amount = String.valueOf(debt.getAmount());
+        String amount = df.format(debt.getAmount());
         if (debt.getFrom().getId() == loggedUserId) {
             remindButton.setVisibility(View.GONE);
             String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();
@@ -36,6 +36,11 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
             String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName();
             textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFromText, amount));
         }
+
+        remindButton.setOnClickListener(view ->
+                Toast.makeText(view.getContext(), view.getContext().getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+
+        settleUpButton.setOnClickListener(view -> onBalanceSettleUpClickedListener.onBalanceSettleUpClick(debt));
     }
 
     public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener) {

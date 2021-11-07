@@ -4,12 +4,10 @@ import static android.view.Gravity.CENTER;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import com.td.wallendar.R;
 import com.td.wallendar.home.profile.OnLogoutClickedListener;

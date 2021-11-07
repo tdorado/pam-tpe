@@ -7,7 +7,6 @@ import com.td.wallendar.dtos.request.AddPaymentRequest;
 import com.td.wallendar.models.Group;
 
 import java.util.List;
-import java.util.Set;
 
 import io.reactivex.Single;
 

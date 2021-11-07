@@ -65,4 +65,19 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="cancel">Cancel</string>
 
+    <string name="feature_not_ready">This feature is a work in progress.</string>
+
+    <string name="settle_up_debt">Settle up debt</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="members_added_successful">Members added successfully.</string>
+
+    <string name="group_name_template">Group name</string>
+    <string name="you_are_owed_template">You are owed $1500.00</string>
+    <string name="you_owe_template">You owe $1500.00</string>
+    <string name="you_are_owed">You are owed $%1$s</string>
+    <string name="you_owe">You owe $%1$s</string>
+
 </resources>

@@ -18,4 +18,8 @@ public interface HomeView {
     void bindDebts(List<Debt> debts);
 
     void bindProfile(ApplicationUser applicationUser);
+
+    void updateGroup(Group group);
+
+    void removeDebt(Debt debt);
 }

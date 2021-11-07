@@ -1,5 +1,6 @@
 package com.td.wallendar.home.ui;
 
+import com.td.wallendar.dtos.request.AddPaymentRequest;
 import com.td.wallendar.models.ApplicationUser;
 import com.td.wallendar.models.Debt;
 import com.td.wallendar.models.Group;
@@ -21,6 +22,7 @@ public class HomePresenter {
     private final SchedulerProvider schedulerProvider;
     private final CompositeDisposable disposable;
 
+    private Debt debtToSettleUp;
 
     public HomePresenter(final HomeView homeView, final GroupsRepository groupsRepository,
                          final DebtsRepository debtsRepository,
@@ -68,6 +70,17 @@ public class HomePresenter {
 
     }
 
+    public void onSettleUpDebtClicked(Debt debt) {
+        AddPaymentRequest addPaymentRequest = new AddPaymentRequest(debt.getFrom().getId(),
+                debt.getTo().getId(),
+                debt.getAmount());
+        debtToSettleUp = debt;
+        disposable.add(groupsRepository.addPayment(debt.getGroupId(), addPaymentRequest)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(this::onPaymentReceived, this::onPaymentError));
+    }
+
     private void onGroupsReceived(List<Group> groups) {
         if (homeView.get() != null) {
             homeView.get().bindGroups(groups);
@@ -95,6 +108,20 @@ public class HomePresenter {
     }
 
     private void onLoggedUserError(Throwable throwable) {
+        System.out.println(throwable);
+    }
+
+    private void onPaymentReceived(Group group) {
+        if (homeView.get() != null) {
+            if (debtToSettleUp != null) {
+                homeView.get().removeDebt(debtToSettleUp);
+                debtToSettleUp = null;
+            }
+            homeView.get().updateGroup(group);
+        }
+    }
+
+    private void onPaymentError(Throwable throwable) {
         System.out.println(throwable);
     }
 
