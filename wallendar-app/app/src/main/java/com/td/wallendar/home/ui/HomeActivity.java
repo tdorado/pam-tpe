@@ -42,10 +42,13 @@ import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class HomeActivity extends AbstractActivity implements HomeView, OnGroupClickedListener,
         OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener, OnRemindButtonClickedListener {
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
@@ -327,7 +330,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     public void onRemindButtonClick(Debt debt) {
         Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
         whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        String deeplink = "http://api.whatsapp.com/send?phone=" + getLoggedPhoneNumber() + "&text=Pay%20me%20what%20you%20owe%20me:%20" + debt.getAmount();
+        String deeplink = "http://api.whatsapp.com/send?phone=" + getLoggedPhoneNumber() + "&text=Pay%20me%20what%20you%20owe%20me:%20" + df.format(debt.getAmount());
         whatsAppIntent.setPackage("com.whatsapp");
         whatsAppIntent.setData(Uri.parse(deeplink));
         startActivity(whatsAppIntent);

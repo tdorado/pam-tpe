@@ -56,7 +56,7 @@ public class Debt implements Serializable {
     }
 
     public double getAmount() {
-        return Double.parseDouble(String.format("%.2f", amount));
+        return amount;
     }
 
     public void setAmount(double amount) {
