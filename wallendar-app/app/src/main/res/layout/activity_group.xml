@@ -32,6 +32,7 @@
         android:layout_height="90dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="70dp"
+        android:src="@drawable/group_img_placeholder"
         android:background="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
