@@ -32,18 +32,13 @@ public class GroupBalanceViewHolder extends RecyclerView.ViewHolder {
             remindButton.setVisibility(View.GONE);
             String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();
             textView.setText(itemView.getContext().getString(R.string.you_owe_to_user_amount, userToText, amount));
-        } else if (debt.getTo().getId() == loggedUserId){
+        } else if (debt.getTo().getId() == loggedUserId) {
             String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName();
             textView.setText(itemView.getContext().getString(R.string.user_owes_you_amount, userFromText, amount));
         } else {
             String userFromText = debt.getFrom().getFirstName() + " " + debt.getFrom().getLastName();
             String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();
             textView.setText(itemView.getContext().getString(R.string.user_owes_to_user_amount, userFromText, userToText, amount));
-        }
-
-        if(debt.getAmount() == 0){
-            remindButton.setVisibility(View.GONE);
-            settleUpButton.setVisibility(View.GONE);
         }
 
         remindButton.setOnClickListener(view ->
