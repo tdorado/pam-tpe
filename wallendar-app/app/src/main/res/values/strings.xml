@@ -80,4 +80,7 @@
     <string name="you_are_owed">You are owed $%1$s</string>
     <string name="you_owe">You owe $%1$s</string>
 
+    <string name="failed_to_settle_up">Failed to settle up.</string>
+    <string name="failed_to_load_debts">Failed to load debts.</string>
+
 </resources>

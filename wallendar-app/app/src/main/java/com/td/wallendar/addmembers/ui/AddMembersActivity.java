@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -101,6 +102,11 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         }
     }
 
+    @Nullable
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return addMembersPresenter;
+    }
 
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();

@@ -23,6 +23,7 @@ import com.td.wallendar.addmembers.ui.AddMembersActivity;
 import com.td.wallendar.di.DependenciesContainer;
 import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.GroupHistoryAdapter;
+import com.td.wallendar.groupbalance.ui.GroupBalanceActivity;
 import com.td.wallendar.models.Charge;
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
@@ -35,6 +36,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
 
     private static final int REQUEST_ADD_CHARGE = 1;
     private static final int REQUEST_ADD_MEMBERS = 2;
+    private static final int REFRESH = 3;
 
     private GroupPresenter groupPresenter;
     private GroupHistoryAdapter groupHistoryAdapter;
@@ -76,8 +78,11 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         // TODO
         findViewById(R.id.group_events).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
                 getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
-        findViewById(R.id.group_balances).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
-                getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+        findViewById(R.id.group_balances).setOnClickListener(view -> {
+            final Intent intent = new Intent(this, GroupBalanceActivity.class);
+            intent.putExtra("GROUP_ID", groupId);
+            startActivityForResult(intent, REFRESH);
+        });
         findViewById(R.id.group_activity).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
                 getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
     }
@@ -91,6 +96,8 @@ public class GroupActivity extends AbstractActivity implements GroupView {
             needsToRefresh = true;
         } else if (requestCode == REQUEST_ADD_MEMBERS && resultCode == RESULT_OK) {
             Toast.makeText(getApplicationContext(), getString(R.string.members_added_successful), Toast.LENGTH_SHORT).show();
+        } else if (requestCode == REFRESH && resultCode == RESULT_OK) {
+
         }
     }
 
@@ -189,6 +196,12 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     public void onStop() {
         super.onStop();
         groupPresenter.onViewDetached();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        groupPresenter.onViewDestroyed();
     }
 
     @Override
