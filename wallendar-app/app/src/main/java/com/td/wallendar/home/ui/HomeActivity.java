@@ -252,19 +252,25 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     @Override
     public void onStart() {
         super.onStart();
-        homePresenter.onViewAttached(getLoggedUserId());
+        if (homePresenter != null) {
+            homePresenter.onViewAttached(getLoggedUserId());
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        homePresenter.onViewDetached();
+        if (homePresenter != null) {
+            homePresenter.onViewDetached();
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        homePresenter.onViewDestroyed();
+        if (homePresenter != null) {
+            homePresenter.onViewDestroyed();
+        }
     }
 
     @Override
