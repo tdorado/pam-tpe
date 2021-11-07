@@ -27,8 +27,8 @@ public class RegisterPresenter {
         disposable.dispose();
     }
 
-    public void attemptRegister(String email, String firstname, String lastname, String password) {
-        disposable.add(applicationUsersRepository.createUser(new AddApplicationUserRequest(email, password, firstname, lastname))
+    public void attemptRegister(String email, String firstname, String lastname, String password, String phoneNumber) {
+        disposable.add(applicationUsersRepository.createUser(new AddApplicationUserRequest(email, password, firstname, lastname, phoneNumber))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(this::onRegisterAttemptSuccessful, this::onRegisterAttemptError));

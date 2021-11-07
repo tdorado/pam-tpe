@@ -2,10 +2,13 @@ package com.td.wallendar.home.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -22,6 +25,7 @@ import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.balances.BalanceAdapter;
 import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener;
+import com.td.wallendar.home.balances.OnRemindButtonClickedListener;
 import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.groups.GroupAdapter;
 import com.td.wallendar.home.groups.OnGroupClickedListener;
@@ -40,7 +44,7 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider;
 import java.util.List;
 
 public class HomeActivity extends AbstractActivity implements HomeView, OnGroupClickedListener,
-        OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener {
+        OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener, OnRemindButtonClickedListener {
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
@@ -182,7 +186,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
         balanceAdapter = new BalanceAdapter(getLoggedUserId());
-        balanceAdapter.setOnBalanceSettleUpClickedListener(this);
+        balanceAdapter.setOnBalanceSettleUpClickedListener(this, this);
         balancesView.bind(balanceAdapter);
     }
 
@@ -316,5 +320,26 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     @Override
     public void onShowAliasesClicked() {
         //TODO make show aliases activity
+    }
+
+    @Override
+    public void onRemindButtonClick(Debt debt) {
+        PackageManager pm = getApplicationContext().getPackageManager();
+        try {
+
+            Intent whatsAppIntent = new Intent(Intent.ACTION_SEND);
+            whatsAppIntent.setType("text/plain");
+
+            String text = "myapp://openapp?type=banner&id=10&phone=" + getLoggedPhoneNumber();
+
+            PackageInfo info = pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+            whatsAppIntent.setPackage("com.whatsapp");
+
+            whatsAppIntent.putExtra(Intent.EXTRA_TEXT, text);
+            getApplicationContext().startActivity(Intent.createChooser(whatsAppIntent, getApplicationContext().getString(R.string.remind_with)));
+
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -19,14 +19,16 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
     private final List<Debt> dataset;
     private final long loggedUserId;
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
+    private OnRemindButtonClickedListener onRemindButtonClickedListener;
 
     public BalanceAdapter(final long loggedUserId) {
         this.dataset = new ArrayList<>();
         this.loggedUserId = loggedUserId;
     }
 
-    public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener) {
+    public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener, OnRemindButtonClickedListener onRemindButtonClickedListener) {
         this.onBalanceSettleUpClickedListener = listener;
+        this.onRemindButtonClickedListener = onRemindButtonClickedListener;
     }
 
     @NonNull
@@ -40,6 +42,7 @@ public class BalanceAdapter extends RecyclerView.Adapter<BalanceViewHolder> {
     public void onBindViewHolder(@NonNull BalanceViewHolder holder, int position) {
         holder.bind(dataset.get(position), loggedUserId);
         holder.setOnBalanceSettleUpClickedListener(onBalanceSettleUpClickedListener);
+        holder.setOnRemindButtonClickedListener(onRemindButtonClickedListener);
     }
 
     @Override

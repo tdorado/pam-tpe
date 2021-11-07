@@ -83,5 +83,7 @@
     <string name="failed_to_settle_up">Failed to settle up.</string>
     <string name="failed_to_load_debts">Failed to load debts.</string>
     <string name="failed_to_load_members">Failed to load members.</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="remind_with">Remind</string>
 
 </resources>

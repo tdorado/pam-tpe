@@ -5,12 +5,14 @@ public class AddApplicationUserRequest {
     private String password;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
 
-    public AddApplicationUserRequest(String email, String password, String firstName, String lastName) {
+    public AddApplicationUserRequest(String email, String password, String firstName, String lastName, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {

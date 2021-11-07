@@ -26,6 +26,7 @@ public class RegisterActivity extends AbstractActivity implements RegisterView {
     private TextInputEditText lastnameInput;
     private TextInputEditText passwordInput;
     private TextInputEditText repeatPasswordInput;
+    private TextInputEditText phoneNumberInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,16 +82,17 @@ public class RegisterActivity extends AbstractActivity implements RegisterView {
         lastnameInput = findViewById(R.id.register_lastname);
         passwordInput = findViewById(R.id.register_password);
         repeatPasswordInput = findViewById(R.id.register_confirm_password);
-
+        phoneNumberInput = findViewById(R.id.register_phone_number);
         signUpButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
             String passwordRepeat = repeatPasswordInput.getText().toString();
             String firstname = firstnameInput.getText().toString();
             String lastname = lastnameInput.getText().toString();
+            String phoneNumber = phoneNumberInput.getText().toString();
 
             if (validateRegisterInput(email, firstname, lastname, password, passwordRepeat)) {
-                registerPresenter.attemptRegister(email, firstname, lastname, password);
+                registerPresenter.attemptRegister(email, firstname, lastname, password, phoneNumber);
             }
         });
     }

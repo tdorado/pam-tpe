@@ -29,4 +29,8 @@ public class AddApplicationUserRequest {
     @NotNull
     @NotEmpty
     private String lastName;
+
+    @NotNull
+    @NotEmpty
+    private String phoneNumber;
 }

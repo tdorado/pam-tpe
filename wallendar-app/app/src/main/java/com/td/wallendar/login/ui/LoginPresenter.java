@@ -46,7 +46,7 @@ public class LoginPresenter {
     }
 
     private void onFindUserSuccessful(ApplicationUser applicationUser) {
-        loginView.get().loginSuccessful(applicationUser.getId());
+        loginView.get().loginSuccessful(applicationUser.getId(), applicationUser.getPhoneNumber());
     }
 
     private void onFindUserFailed(Throwable throwable) {
