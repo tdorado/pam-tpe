@@ -45,7 +45,7 @@ public abstract class AbstractActivity extends AppCompatActivity {
 
     public void setPhoneNumber(String phoneNumber) {
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
-        editor.putString(LOGGED_USER_ID, phoneNumber);
+        editor.putString(LOGGED_USER_PHONE, phoneNumber);
         editor.apply();
     }
 
