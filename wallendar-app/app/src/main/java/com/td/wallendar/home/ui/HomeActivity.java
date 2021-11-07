@@ -83,8 +83,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
             groupAdapter.addToDataset(group);
         }
         if (requestCode == REFRESH && resultCode == RESULT_OK) {
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
+            homePresenter.onViewAttached(getLoggedUserId());
         }
     }
 
@@ -260,6 +259,12 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     public void onStop() {
         super.onStop();
         homePresenter.onViewDetached();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        homePresenter.onViewDestroyed();
     }
 
     @Override

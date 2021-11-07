@@ -17,7 +17,8 @@
 
         <activity
             android:name=".home.ui.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,7 +35,10 @@
         <activity android:name=".register.ui.RegisterActivity" />
         <activity
             android:name=".addmembers.ui.AddMembersActivity"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".groupbalance.ui.GroupBalanceActivity" />
+        <activity android:name=".groupmembers.ui.GroupMembersActivity" />
 
     </application>
 

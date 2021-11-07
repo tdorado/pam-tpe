@@ -2,10 +2,10 @@ package com.td.wallendar.addmembers.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,16 +54,11 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
     }
 
     private void setupSubmitMembers() {
-        final long groupId = getIntent().getLongExtra("GROUP_ID", -1);
+        final long groupId = getIntent().getLongExtra(GROUP_ID, -1);
         if (groupId == NO_GROUP_ID) {
             // TODO error
         } else {
-            findViewById(R.id.submit_members).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addMembersPresenter.submitMembers(groupId, members);
-                }
-            });
+            findViewById(R.id.submit_members).setOnClickListener(view -> addMembersPresenter.submitMembers(groupId, members));
         }
     }
 
@@ -81,8 +76,12 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         checkToAddMember = findViewById(R.id.add_member_button);
         checkToAddMember.setOnClickListener(view -> {
             final String currentMember = Objects.requireNonNull(memberInputLayout.getEditText()).getText().toString();
-            memberInputLayout.getEditText().getText().clear();
-            membersAdapter.addToDataset(currentMember);
+            if (!currentMember.isEmpty()) {
+                memberInputLayout.getEditText().getText().clear();
+                membersAdapter.addToDataset(currentMember);
+            } else {
+                Toast.makeText(getApplicationContext(), "You must write an email.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -101,6 +100,11 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         }
     }
 
+    @Nullable
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return addMembersPresenter;
+    }
 
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -128,7 +132,7 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
 
     @Override
     public void onMembersAddedWithError() {
-        Toast.makeText(getApplicationContext(), "There was an error adding members", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "There was an error adding members", Toast.LENGTH_SHORT).show();
         onBackPressed();
     }
 

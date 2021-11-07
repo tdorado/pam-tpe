@@ -30,11 +30,11 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         double amountOwed = 0;
         double amountYouOwe = 0;
 
-        for(Debt debt : group.getDebts()){
-            if(debt.getFrom().getId() == loggedUserId) {
+        for (Debt debt : group.getDebts()) {
+            if (debt.getFrom().getId() == loggedUserId) {
                 amountYouOwe += debt.getAmount();
             }
-            if(debt.getTo().getId() == loggedUserId) {
+            if (debt.getTo().getId() == loggedUserId) {
                 amountOwed += debt.getAmount();
             }
         }

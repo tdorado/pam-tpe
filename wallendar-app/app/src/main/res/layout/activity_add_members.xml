@@ -24,6 +24,7 @@
             android:drawableStart="@drawable/ic_person"
             android:drawablePadding="12dp"
             android:hint="@string/hint_email_member"
+            android:inputType="textEmailAddress"
             android:imeOptions="actionDone"
             android:minWidth="320dp"
             android:minHeight="50dp"
@@ -39,12 +40,13 @@
         android:layout_marginTop="43dp"
         android:drawableStart="@drawable/ic_check_black"
         app:layout_constraintStart_toEndOf="@+id/member_layout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/current_members_added"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         android:layout_marginTop="40dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/submit_members"

@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,6 +36,12 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
         setupGroupTitleInput();
 
         createPresenter();
+    }
+
+    @Nullable
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return addGroupPresenter;
     }
 
     private void setupGroupTitleInput() {

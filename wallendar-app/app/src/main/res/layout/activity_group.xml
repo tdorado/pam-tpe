@@ -79,7 +79,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="@string/activity" />
+            android:text="@string/events" />
 
         <Button
             android:id="@+id/group_balances"
@@ -91,7 +91,7 @@
             android:text="@string/balances" />
 
         <Button
-            android:id="@+id/group_activity"
+            android:id="@+id/group_members"
             style="@style/group_button_style"
             android:layout_width="wrap_content"
             android:layout_height="50dp"

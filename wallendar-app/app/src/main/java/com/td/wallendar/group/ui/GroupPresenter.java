@@ -55,6 +55,10 @@ public class GroupPresenter {
     }
 
     public void onViewDetached() {
+        disposable.clear();
+    }
+
+    public void onViewDestroyed() {
         disposable.dispose();
     }
 }
