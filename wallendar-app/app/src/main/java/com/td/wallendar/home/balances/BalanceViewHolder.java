@@ -11,7 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.td.wallendar.R;
 import com.td.wallendar.models.Debt;
 
+import java.text.DecimalFormat;
+
 public class BalanceViewHolder extends RecyclerView.ViewHolder {
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
 
     public BalanceViewHolder(@NonNull View itemView) {
@@ -23,7 +27,7 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
         final Button remindButton = itemView.findViewById(R.id.remind_debt_button);
         final Button settleUpButton = itemView.findViewById(R.id.settle_up_debt_button);
 
-        String amount = String.valueOf(debt.getAmount());
+        String amount = df.format(debt.getAmount());
         if (debt.getFrom().getId() == loggedUserId) {
             remindButton.setVisibility(View.GONE);
             String userToText = debt.getTo().getFirstName() + " " + debt.getTo().getLastName();

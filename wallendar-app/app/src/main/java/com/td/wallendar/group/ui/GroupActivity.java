@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,8 +52,13 @@ public class GroupActivity extends AbstractActivity implements GroupView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_group);
+        groupId = getIntent().getExtras().getLong(GROUP_ID);
+        setUpView();
+        createPresenter();
+    }
+
+    private void setUpView() {
         groupHistoryAdapter = new GroupHistoryAdapter();
 
         recycler = findViewById(R.id.group_activity_recycler);
@@ -60,25 +66,20 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         recycler.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recycler.setAdapter(groupHistoryAdapter);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        setUpAddChargeButton(groupId);
 
         groupTitle = findViewById(R.id.group_title);
 
-        this.groupId = getIntent().getExtras().getLong(GROUP_ID);
-
-        createPresenter();
-        groupPresenter.getGroup(groupId);
-
-        setUpAddChargeButton(groupId);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // TODO
-        findViewById(R.id.group_events).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                .show());
-        findViewById(R.id.group_balances).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                .show());
-        findViewById(R.id.group_activity).setOnClickListener(view -> Toast.makeText(getApplicationContext(), "Esta funcionalidad está en desarrollo todavía :)", Toast.LENGTH_SHORT)
-                .show());
+        findViewById(R.id.group_events).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
+                getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+        findViewById(R.id.group_balances).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
+                getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+        findViewById(R.id.group_activity).setOnClickListener(view -> Toast.makeText(getApplicationContext(),
+                getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -89,7 +90,7 @@ public class GroupActivity extends AbstractActivity implements GroupView {
             groupHistoryAdapter.addToDataset(charge);
             needsToRefresh = true;
         } else if (requestCode == REQUEST_ADD_MEMBERS && resultCode == RESULT_OK) {
-            Toast.makeText(getApplicationContext(), "Members added successfully", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), getString(R.string.members_added_successful), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -159,6 +160,29 @@ public class GroupActivity extends AbstractActivity implements GroupView {
             intent.putExtra("GROUP_ID", groupId);
             startActivityForResult(intent, REQUEST_ADD_CHARGE);
         });
+        // Shrink floating button when scrolling, extend at the top. Just fancy fab
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    addChargeFAB.extend();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0 || dy < 0 && addChargeFAB.isExtended()) {
+                    addChargeFAB.shrink();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        groupPresenter.onViewAttached(groupId);
     }
 
     @Override

@@ -112,6 +112,12 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
         actionBar.setTitle(R.string.add_members);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     // TODO we are not using the groupId param right now, may be useful in some borders cases
     @Override
     public void onMembersAddedSuccessfully(long groupId) {

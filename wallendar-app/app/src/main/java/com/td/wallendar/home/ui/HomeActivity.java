@@ -175,7 +175,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
 
     private void setUpGroupsView() {
         groupsView = findViewById(R.id.view_groups);
-        groupAdapter = new GroupAdapter();
+        groupAdapter = new GroupAdapter(getLoggedUserId());
         groupAdapter.setOnGroupClickedListener(this);
         groupsView.bind(groupAdapter, addChargeFAB);
     }

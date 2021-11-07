@@ -31,7 +31,7 @@ public class GroupPresenter {
         this.disposable = new CompositeDisposable();
     }
 
-    void getGroup(final Long groupId) {
+    public void onViewAttached(final Long groupId) {
         if (groupsRepository != null) {
             disposable.add(groupsRepository.getGroup(groupId)
                     .subscribeOn(schedulerProvider.io())

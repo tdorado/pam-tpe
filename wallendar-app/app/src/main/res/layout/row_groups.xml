@@ -28,27 +28,24 @@
             android:id="@+id/row_group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Group name"
+            android:text="@string/group_name_template"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/row_you_owe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You owe U$D 1500"
+            android:text="@string/you_owe_template"
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/row_you_are_owed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You owe John Doe U$D 1000"
-            android:textSize="12sp" />
+            android:text="@string/you_are_owed_template"
+            android:textSize="15sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="You owe John Doe 2 U$D 500"
-            android:textSize="12sp" />
 
     </LinearLayout>
 
