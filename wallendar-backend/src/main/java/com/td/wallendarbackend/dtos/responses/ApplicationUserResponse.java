@@ -15,11 +15,13 @@ public class ApplicationUserResponse {
     private String email;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
 
     public ApplicationUserResponse(ApplicationUser applicationUser) {
         this.id = applicationUser.getId();
         this.email = applicationUser.getEmail();
         this.firstName = applicationUser.getFirstName();
         this.lastName = applicationUser.getLastName();
+        this.phoneNumber = applicationUser.getPhoneNumber();
     }
 }

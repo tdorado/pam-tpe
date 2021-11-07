@@ -5,15 +5,25 @@ public class ApplicationUserResponse {
     private String email;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
 
-    public ApplicationUserResponse(long id, String email, String firstName, String lastName) {
+    public ApplicationUserResponse(long id, String email, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public ApplicationUserResponse() {
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public long getId() {

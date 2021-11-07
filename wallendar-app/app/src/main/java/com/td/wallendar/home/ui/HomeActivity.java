@@ -1,11 +1,16 @@
 package com.td.wallendar.home.ui;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -22,6 +27,7 @@ import com.td.wallendar.di.DependenciesContainerLocator;
 import com.td.wallendar.group.ui.GroupActivity;
 import com.td.wallendar.home.balances.BalanceAdapter;
 import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener;
+import com.td.wallendar.home.balances.OnRemindButtonClickedListener;
 import com.td.wallendar.home.balances.ui.BalancesView;
 import com.td.wallendar.home.groups.GroupAdapter;
 import com.td.wallendar.home.groups.OnGroupClickedListener;
@@ -37,10 +43,13 @@ import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class HomeActivity extends AbstractActivity implements HomeView, OnGroupClickedListener,
-        OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener {
+        OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener, OnRemindButtonClickedListener {
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private static final int GROUPS = 0;
     private static final int BALANCES = 1;
@@ -182,7 +191,7 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     private void setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances);
         balanceAdapter = new BalanceAdapter(getLoggedUserId());
-        balanceAdapter.setOnBalanceSettleUpClickedListener(this);
+        balanceAdapter.setOnBalanceSettleUpClickedListener(this, this);
         balancesView.bind(balanceAdapter);
     }
 
@@ -316,5 +325,21 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     @Override
     public void onShowAliasesClicked() {
         //TODO make show aliases activity
+    }
+
+    @Override
+    public void onRemindButtonClick(Debt debt) {
+        Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
+        whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String phoneNumber = debt.getTo().getPhoneNumber();
+        String messageText = getString(R.string.pay_me_what_you_owe_me, df.format(debt.getAmount()));
+        String deeplink = "http://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + messageText;
+        whatsAppIntent.setPackage("com.whatsapp");
+        whatsAppIntent.setData(Uri.parse(deeplink));
+        try{
+            startActivity(whatsAppIntent);
+        }catch (ActivityNotFoundException ex){
+            Toast.makeText(getApplicationContext(), getString(R.string.whatsapp_not_installed), Toast.LENGTH_SHORT).show();
+        }
     }
 }

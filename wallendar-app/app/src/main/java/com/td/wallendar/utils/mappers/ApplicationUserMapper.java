@@ -13,7 +13,8 @@ public class ApplicationUserMapper {
                 applicationUserResponse.getId(),
                 applicationUserResponse.getEmail(),
                 applicationUserResponse.getFirstName(),
-                applicationUserResponse.getLastName()
+                applicationUserResponse.getLastName(),
+                applicationUserResponse.getPhoneNumber()
         );
     }
 

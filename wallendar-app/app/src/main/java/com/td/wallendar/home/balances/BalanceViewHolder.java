@@ -17,6 +17,7 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     private OnBalanceSettleUpClickedListener onBalanceSettleUpClickedListener;
+    private OnRemindButtonClickedListener onRemindButtonClickedListener;
 
     public BalanceViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,13 +39,17 @@ public class BalanceViewHolder extends RecyclerView.ViewHolder {
         }
 
         remindButton.setOnClickListener(view ->
-                Toast.makeText(view.getContext(), view.getContext().getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show());
+                onRemindButtonClickedListener.onRemindButtonClick(debt));
 
         settleUpButton.setOnClickListener(view -> onBalanceSettleUpClickedListener.onBalanceSettleUpClick(debt));
     }
 
     public void setOnBalanceSettleUpClickedListener(OnBalanceSettleUpClickedListener listener) {
         this.onBalanceSettleUpClickedListener = listener;
+    }
+
+    public void setOnRemindButtonClickedListener(OnRemindButtonClickedListener listener) {
+        this.onRemindButtonClickedListener = listener;
     }
 
 }

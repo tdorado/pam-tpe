@@ -25,7 +25,7 @@ public class ApplicationUserService {
             return null;
         }
         return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
-                applicationUser.getFirstName(), applicationUser.getLastName());
+                applicationUser.getFirstName(), applicationUser.getLastName(), applicationUser.getPhoneNumber());
     }
 
     public ApplicationUserResponse findById(long id) {
@@ -34,7 +34,7 @@ public class ApplicationUserService {
             return null;
         }
         return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
-                applicationUser.getFirstName(), applicationUser.getLastName());
+                applicationUser.getFirstName(), applicationUser.getLastName(), applicationUser.getPhoneNumber());
     }
 
     public ApplicationUserResponse createUser(AddApplicationUserRequest addApplicationUserRequest) {
@@ -44,9 +44,9 @@ public class ApplicationUserService {
         ApplicationUser applicationUser = new ApplicationUser(addApplicationUserRequest.getEmail(),
                 bCryptPasswordEncoder.encode(addApplicationUserRequest.getPassword()),
                 addApplicationUserRequest.getFirstName(),
-                addApplicationUserRequest.getLastName());
+                addApplicationUserRequest.getLastName(), addApplicationUserRequest.getPhoneNumber());
         applicationUserRepository.save(applicationUser);
         return new ApplicationUserResponse(applicationUser.getId(), applicationUser.getEmail(),
-                applicationUser.getFirstName(), applicationUser.getLastName());
+                applicationUser.getFirstName(), applicationUser.getLastName(), applicationUser.getPhoneNumber());
     }
 }

@@ -9,12 +9,14 @@ public class ApplicationUser implements Serializable {
     private String password;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
 
-    public ApplicationUser(long id, String email, String firstName, String lastName) {
+    public ApplicationUser(long id, String email, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
 
     public ApplicationUser() {
@@ -26,6 +28,15 @@ public class ApplicationUser implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         ApplicationUser that = (ApplicationUser) o;
         return id == that.id;
+    }
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

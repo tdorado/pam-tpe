@@ -1,6 +1,7 @@
 package com.td.wallendar.login.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +56,7 @@ public class LoginActivity extends AbstractActivity implements LoginView {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
+
 
     @Override
     public void loginFailed() {
