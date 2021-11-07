@@ -325,11 +325,12 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
 
     @Override
     public void onRemindButtonClick(Debt debt) {
-        Intent whatsAppIntent = new Intent(Intent.ACTION_SEND);
-        String text = "https://wa.me/54" + getLoggedPhoneNumber() + "?text=Pay%20me%20what%20you%20owe%20me:%20" + debt.getAmount();
+        Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
+        whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String deeplink = "http://api.whatsapp.com/send?phone=" + getLoggedPhoneNumber() + "&text=Pay%20me%20what%20you%20owe%20me:%20" + debt.getAmount();
         whatsAppIntent.setPackage("com.whatsapp");
-        whatsAppIntent.setData(Uri.parse(text));
-        getApplicationContext().startActivity(whatsAppIntent);
+        whatsAppIntent.setData(Uri.parse(deeplink));
+        startActivity(whatsAppIntent);
 
     }
 }

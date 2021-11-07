@@ -72,6 +72,6 @@ public abstract class AbstractActivity extends AppCompatActivity {
     }
 
     public String getLoggedPhoneNumber() {
-        return loginSharedPreferences.getString(LOGGED_USER_PHONE, "");
+        return "54" + loginSharedPreferences.getString(LOGGED_USER_PHONE, "");
     }
 }
