@@ -29,11 +29,11 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/member_text_mail"
+            android:id="@+id/member_text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/example_email"
+            android:text="@string/example_name"
             android:textSize="16sp" />
 
     </LinearLayout>
