@@ -67,7 +67,6 @@ public class HomePresenter {
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(this::onLoggedUserReceived, this::onLoggedUserError));
-
     }
 
     public void onSettleUpDebtClicked(Debt debt) {
@@ -126,6 +125,12 @@ public class HomePresenter {
     }
 
     public void onViewDetached() {
+        // solo en esta activity hacemos el clear, porque como el home es singleton a veces se va a necesitar volver a agregar cosas al disposable
+        disposable.clear();
+    }
+
+    public void onViewDestroyed() {
+        // cuando se destruye ahi si se hace el dispose
         disposable.dispose();
     }
 }
