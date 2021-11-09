@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -98,6 +99,16 @@ public class AddMembersActivity extends AbstractActivity implements AddMembersVi
             final SchedulerProvider schedulerProvider = dependenciesContainer.getSchedulerProvider();
             addMembersPresenter = new AddMembersPresenter(this, groupsRepository, schedulerProvider);
         }
+    }
+
+    @VisibleForTesting
+    public void setPresenter(AddMembersPresenter addMembersPresenter) {
+        this.addMembersPresenter = addMembersPresenter;
+    }
+
+    @VisibleForTesting
+    public AddMembersPresenter getPresenter() {
+        return addMembersPresenter;
     }
 
     @Nullable
