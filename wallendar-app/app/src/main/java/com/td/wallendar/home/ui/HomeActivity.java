@@ -3,8 +3,6 @@ package com.td.wallendar.home.ui;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -259,6 +257,22 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     }
 
     @Override
+    public void errorGettingUser() {
+        Toast.makeText(getApplicationContext(), getString(R.string.login_error), Toast.LENGTH_LONG).show();
+        logout();
+    }
+
+    @Override
+    public void errorGettingGroups() {
+        Toast.makeText(getApplicationContext(), getString(R.string.error_getting_groups), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void errorGettingBalances() {
+        Toast.makeText(getApplicationContext(), getString(R.string.error_getting_balances), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         if (homePresenter != null) {
@@ -336,9 +350,9 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
         String deeplink = "http://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + messageText;
         whatsAppIntent.setPackage("com.whatsapp");
         whatsAppIntent.setData(Uri.parse(deeplink));
-        try{
+        try {
             startActivity(whatsAppIntent);
-        }catch (ActivityNotFoundException ex){
+        } catch (ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), getString(R.string.whatsapp_not_installed), Toast.LENGTH_SHORT).show();
         }
     }

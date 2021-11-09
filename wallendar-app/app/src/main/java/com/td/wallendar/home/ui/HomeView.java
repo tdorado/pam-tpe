@@ -22,4 +22,10 @@ public interface HomeView {
     void updateGroup(Group group);
 
     void removeDebt(Debt debt);
+
+    void errorGettingUser();
+
+    void errorGettingGroups();
+
+    void errorGettingBalances();
 }
