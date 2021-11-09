@@ -10,6 +10,7 @@ import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.service.ApplicationUsersService;
 import com.td.wallendar.utils.mappers.ApplicationUserMapper;
 import com.td.wallendar.utils.mappers.UserAliasMapper;
+import com.td.wallendar.utils.networking.RequestException;
 import com.td.wallendar.utils.networking.RetrofitUtils;
 
 import java.util.List;

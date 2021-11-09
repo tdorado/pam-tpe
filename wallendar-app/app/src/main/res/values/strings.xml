@@ -89,4 +89,8 @@
     <string name="whatsapp_not_installed">WhatsApp is not installed!</string>
     <string name="pay_me_what_you_owe_me">Please pay me what you owe me: $%1$s</string>
 
+    <string name="login_error">Error, sign in again please.</string>
+    <string name="error_getting_groups">Error getting groups, try again later.</string>
+    <string name="error_getting_balances">Error getting balances, try again later.</string>
+
 </resources>

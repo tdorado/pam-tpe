@@ -7,6 +7,7 @@ import com.td.wallendar.models.Group;
 import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository;
 import com.td.wallendar.repositories.interfaces.DebtsRepository;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
+import com.td.wallendar.utils.networking.RequestException;
 import com.td.wallendar.utils.scheduler.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
@@ -87,7 +88,7 @@ public class HomePresenter {
     }
 
     private void onGroupsError(Throwable throwable) {
-        System.out.println(throwable);
+        homeView.get().errorGettingGroups();
     }
 
     private void onDebtsReceived(List<Debt> debts) {
@@ -97,7 +98,7 @@ public class HomePresenter {
     }
 
     private void onDebtsError(Throwable throwable) {
-        System.out.println(throwable);
+        homeView.get().errorGettingBalances();
     }
 
     private void onLoggedUserReceived(ApplicationUser applicationUser) {
@@ -107,7 +108,12 @@ public class HomePresenter {
     }
 
     private void onLoggedUserError(Throwable throwable) {
-        System.out.println(throwable);
+        if (throwable instanceof RequestException) {
+            RequestException exception = (RequestException) throwable;
+            if (exception.getCode() == 404) {
+                homeView.get().errorGettingUser();
+            }
+        }
     }
 
     private void onPaymentReceived(Group group) {
