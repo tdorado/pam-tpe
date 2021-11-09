@@ -71,8 +71,6 @@ public class AddChargePresenter {
     }
 
     private void onChargeAddedError(Throwable throwable) {
-        // TODO
-        System.out.println(throwable);
         addChargeView.get().chargeError();
     }
 }
