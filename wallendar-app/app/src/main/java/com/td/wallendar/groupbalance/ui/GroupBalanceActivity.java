@@ -97,7 +97,7 @@ public class GroupBalanceActivity extends AbstractActivity implements GroupBalan
     public void onGroupRemindClick(Debt debt) {
         Intent whatsAppIntent = new Intent(Intent.ACTION_VIEW);
         whatsAppIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        String phoneNumber = debt.getTo().getPhoneNumber();
+        String phoneNumber = debt.getFrom().getPhoneNumber();
         String messageText = getString(R.string.pay_me_what_you_owe_me, df.format(debt.getAmount()));
         String deeplink = "http://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + messageText;
         whatsAppIntent.setPackage("com.whatsapp");
