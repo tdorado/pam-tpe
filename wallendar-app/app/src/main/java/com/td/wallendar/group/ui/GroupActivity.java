@@ -165,6 +165,11 @@ public class GroupActivity extends AbstractActivity implements GroupView {
         groupHistoryAdapter.setDataset(historic);
     }
 
+    @Override
+    public void onGroupLoadError() {
+        Toast.makeText(getApplicationContext(), "There was an error loading the group, try again later", Toast.LENGTH_LONG).show();
+    }
+
     private void setUpAddChargeButton(Long groupId) {
         addChargeFAB = findViewById(R.id.add_charge_fab);
         addChargeFAB.setOnClickListener(view -> {

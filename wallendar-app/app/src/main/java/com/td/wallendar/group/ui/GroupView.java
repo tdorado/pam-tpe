@@ -11,4 +11,5 @@ public interface GroupView {
 
     void bindGroupHistory(List<GroupHistory> historic);
 
+    void onGroupLoadError();
 }

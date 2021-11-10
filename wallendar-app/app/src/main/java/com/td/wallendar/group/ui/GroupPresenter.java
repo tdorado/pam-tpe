@@ -1,5 +1,7 @@
 package com.td.wallendar.group.ui;
 
+import androidx.annotation.VisibleForTesting;
+
 import com.td.wallendar.models.Group;
 import com.td.wallendar.models.GroupHistory;
 import com.td.wallendar.repositories.interfaces.GroupsRepository;
@@ -51,7 +53,7 @@ public class GroupPresenter {
     }
 
     private void onGroupError(Throwable throwable) {
-        System.out.println(throwable);
+        groupView.get().onGroupLoadError();
     }
 
     public void onViewDetached() {
@@ -60,5 +62,10 @@ public class GroupPresenter {
 
     public void onViewDestroyed() {
         disposable.dispose();
+    }
+
+    @VisibleForTesting
+    public CompositeDisposable getDisposable() {
+        return disposable;
     }
 }
