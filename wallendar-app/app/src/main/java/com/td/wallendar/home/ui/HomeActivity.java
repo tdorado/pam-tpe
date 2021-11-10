@@ -273,6 +273,11 @@ public class HomeActivity extends AbstractActivity implements HomeView, OnGroupC
     }
 
     @Override
+    public void errorPayingDebt() {
+        Toast.makeText(getApplicationContext(), getString(R.string.error_paying_debt), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         if (homePresenter != null) {

@@ -108,12 +108,7 @@ public class HomePresenter {
     }
 
     private void onLoggedUserError(Throwable throwable) {
-        if (throwable instanceof RequestException) {
-            RequestException exception = (RequestException) throwable;
-            if (exception.getCode() == 404) {
-                homeView.get().errorGettingUser();
-            }
-        }
+        homeView.get().errorGettingUser();
     }
 
     private void onPaymentReceived(Group group) {
@@ -127,7 +122,7 @@ public class HomePresenter {
     }
 
     private void onPaymentError(Throwable throwable) {
-        System.out.println(throwable);
+        homeView.get().errorPayingDebt();
     }
 
     public void onViewDetached() {

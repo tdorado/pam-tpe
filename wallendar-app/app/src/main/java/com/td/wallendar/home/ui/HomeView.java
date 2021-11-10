@@ -28,4 +28,6 @@ public interface HomeView {
     void errorGettingGroups();
 
     void errorGettingBalances();
+
+    void errorPayingDebt();
 }
