@@ -36,7 +36,7 @@ public class AddGroupPresenter {
     }
 
     private void OnGroupCreatedWithError(Throwable throwable) {
-        //TODO error
+        view.get().onGroupCreatedWithErrors();
     }
 
     public void onViewDetached() {

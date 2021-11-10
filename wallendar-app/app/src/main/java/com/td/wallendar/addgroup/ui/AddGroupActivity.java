@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -59,6 +60,11 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
         }
     }
 
+    @VisibleForTesting
+    public void setAddGroupPresenter(final AddGroupPresenter addGroupPresenter) {
+        this.addGroupPresenter = addGroupPresenter;
+    }
+
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
 
@@ -97,13 +103,17 @@ public class AddGroupActivity extends AbstractActivity implements AddGroupView {
         return false;
     }
 
-    // TODO
     @Override
     public void onGroupCreated(final Group group) {
         final Intent resultIntent = new Intent();
         resultIntent.putExtra("NEW_GROUP", group);
         setResult(RESULT_OK, resultIntent);
         finish();
+    }
+
+    @Override
+    public void onGroupCreatedWithErrors() {
+        Toast.makeText(getApplicationContext(), "Error creating group", Toast.LENGTH_LONG).show();
     }
 
     @Override
