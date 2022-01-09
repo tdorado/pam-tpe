@@ -8,11 +8,11 @@ import com.td.wallendar.di.DependenciesContainerLocator
 import com.td.wallendar.login.ui.LoginActivity
 
 abstract class AbstractActivity : AppCompatActivity() {
-    private var loginSharedPreferences: SharedPreferences? = null
+    private lateinit var loginSharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
-        loginSharedPreferences = dependenciesContainer.loginSharedPreferences
+        loginSharedPreferences = dependenciesContainer.getLoginSharedPreferences()
     }
 
     fun checkIfUserLogged(): Boolean {
@@ -48,7 +48,7 @@ abstract class AbstractActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-        return value
+        return 0L
     }
 
     companion object {
