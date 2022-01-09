@@ -97,7 +97,7 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
                 }
                 val groupId = stringGroupMap.get(groupSelected).getId()
                 addChargePresenter.addCharge(groupId, AddChargeRequest(chargeTitle,
-                        loggedUserId, chargeAmountValue))
+                        getLoggedUserId(), chargeAmountValue))
                 return true
             } else {
                 //TODO
@@ -111,7 +111,7 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
         Toast.makeText(applicationContext, "Error adding charge", Toast.LENGTH_LONG).show()
     }
 
-    override fun chargeAddedOk(charge: Charge?) {
+    override fun chargeAddedOk(charge: Charge) {
         Toast.makeText(applicationContext, "Charge added ok", Toast.LENGTH_LONG).show()
         val resultIntent = Intent()
         resultIntent.putExtra("NEW_CHARGE", charge)
@@ -119,11 +119,11 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
         finish()
     }
 
-    override fun onGroupsLoadOk(groups: MutableList<Group?>?) {
-        val stringGroups: MutableList<String?> = ArrayList()
+    override fun onGroupsLoadOk(groups: MutableList<Group>) {
+        val stringGroups: MutableList<String> = ArrayList()
         for (group in groups) {
-            stringGroups.add(group.getTitle())
-            stringGroupMap[group.getTitle()] = group
+            stringGroups.add(group.getTitle()!!)
+            stringGroupMap[group.getTitle()!!] = group
         }
         adapter = ArrayAdapter(this, R.layout.dropdown_menu_popup_item, stringGroups)
         editTextFilledExposedDropdown = findViewById(R.id.group_charge_dropdown)
@@ -135,22 +135,22 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
         Toast.makeText(applicationContext, "Groups load error", Toast.LENGTH_LONG).show()
     }
 
-    override fun setSelectedGroup(groupId: Long?) {
+    override fun setSelectedGroup(groupId: Long) {
         for (group in stringGroupMap.values) {
             if (group.getId() == groupId) {
                 groupSelected = group.getTitle()
             }
         }
-        editTextFilledExposedDropdown.setText(groupSelected, false)
+        editTextFilledExposedDropdown?.setText(groupSelected, false)
     }
 
     public override fun onStart() {
         super.onStart()
-        addChargePresenter.onViewAttached(loggedUserId)
+        addChargePresenter?.onViewAttached(getLoggedUserId())
     }
 
     public override fun onStop() {
         super.onStop()
-        addChargePresenter.onViewDetached()
+        addChargePresenter?.onViewDetached()
     }
 }
