@@ -3,10 +3,10 @@ package com.td.wallendar.models
 import java.util.*
 
 interface GroupHistory {
-    open fun getGroupHistoryType(): GroupHistoryType
-    open fun getTitle(): String
-    open fun getFromUser(): ApplicationUser
-    open fun getToUser(): ApplicationUser
-    open fun getAmount(): Double
-    open fun getDate(): Date
+    fun getGroupHistoryType(): GroupHistoryType
+    fun getTitle(): String
+    fun getFromUser(): ApplicationUser
+    fun getToUser(): ApplicationUser
+    fun getAmount(): Double
+    fun getDate(): Date
 }

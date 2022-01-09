@@ -3,12 +3,12 @@ package com.td.wallendar.models
 import java.io.Serializable
 
 data class ApplicationUser(
-        private var id: Long = 0,
-        private var email: String,
-        private var password: String,
-        private var firstName: String,
-        private var lastName: String,
-        private var phoneNumber: String,
+        val id: Long = 0,
+        val email: String,
+        val password: String,
+        val firstName: String,
+        val lastName: String,
+        val phoneNumber: String,
 ) : Serializable {
 
 }

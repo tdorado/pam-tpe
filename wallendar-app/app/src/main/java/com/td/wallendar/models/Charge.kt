@@ -4,13 +4,13 @@ import java.io.Serializable
 import java.util.*
 
 data class Charge(
-        private var id: Long = 0,
-        private var title: String,
-        private var owner: ApplicationUser,
-        private var debtors: MutableSet<ApplicationUser>,
-        private var amount: Double,
-        private var date: Date,
-        private val chargeType: ChargeType = ChargeType.EQUAL,
+        val id: Long = 0,
+        private val title: String,
+        val owner: ApplicationUser,
+        val debtors: MutableSet<ApplicationUser>,
+        private val amount: Double,
+        private val date: Date,
+        val chargeType: ChargeType = ChargeType.EQUAL,
 ) : Serializable, GroupHistory {
     override fun getGroupHistoryType(): GroupHistoryType {
         return GroupHistoryType.CHARGE

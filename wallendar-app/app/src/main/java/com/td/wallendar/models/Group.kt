@@ -3,11 +3,11 @@ package com.td.wallendar.models
 import java.io.Serializable
 
 data class Group(
-        private var id: Long = 0,
-        private var title: String,
-        private var owner: ApplicationUser,
-        private var members: MutableSet<ApplicationUser>,
-        private var charges: MutableSet<Charge>,
-        private var debts: MutableSet<Debt>,
-        private var payments: MutableSet<Payment>,
+        val id: Long = 0,
+        val title: String,
+        val owner: ApplicationUser,
+        val members: MutableSet<ApplicationUser>,
+        val charges: MutableSet<Charge>,
+        val debts: MutableSet<Debt>,
+        val payments: MutableSet<Payment>,
 ) : Serializable

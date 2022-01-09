@@ -4,11 +4,11 @@ import java.io.Serializable
 import java.util.*
 
 data class Payment(
-        private var id: Long,
-        private var from: ApplicationUser,
-        private var to: ApplicationUser,
-        private var amount: Double,
-        private var date: Date,
+        val id: Long,
+        private val from: ApplicationUser,
+        val to: ApplicationUser,
+        private val amount: Double,
+        private val date: Date,
 ) : Serializable, GroupHistory {
     fun getFrom(): ApplicationUser {
         return from
