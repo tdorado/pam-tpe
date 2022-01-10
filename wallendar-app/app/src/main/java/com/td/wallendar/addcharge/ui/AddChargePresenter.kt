@@ -30,6 +30,7 @@ class AddChargePresenter(
     }
 
     private var groupId: Long? = null
+
     fun setGroupId(groupId: Long) {
         this.groupId = groupId
     }
@@ -49,22 +50,22 @@ class AddChargePresenter(
         addChargeView?.get()?.onGroupsLoadError()
     }
 
-    private fun onGroupsReceived(groups: MutableList<Group?>?) {
+    private fun onGroupsReceived(groups: MutableList<Group>) {
         addChargeView?.get()?.onGroupsLoadOk(groups)
         if (groupId != null) {
-            addChargeView?.get()?.setSelectedGroup(groupId)
+            addChargeView?.get()?.setSelectedGroup(groupId!!)
         }
     }
 
-    fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest?) {
+    fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest) {
         chargesRepository.addCharge(groupId, addChargeRequest)
                 ?.subscribeOn(schedulerProvider.io())
                 ?.observeOn(schedulerProvider.ui())
-                ?.subscribe({ charge: Charge? -> onChargeAdded(charge) }) { throwable: Throwable? -> onChargeAddedError(throwable) }?.let { disposable.add(it) }
+                ?.subscribe({ charge: Charge -> onChargeAdded(charge) }) { throwable: Throwable? -> onChargeAddedError(throwable) }?.let { disposable.add(it) }
     }
 
     private fun onChargeAdded(charge: Charge?) {
-        addChargeView?.get()?.chargeAddedOk(charge)
+        addChargeView?.get()?.chargeAddedOk(charge!!)
     }
 
     private fun onChargeAddedError(throwable: Throwable?) {
