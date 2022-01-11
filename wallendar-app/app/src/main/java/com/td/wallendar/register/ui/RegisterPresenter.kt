@@ -7,17 +7,15 @@ import com.td.wallendar.utils.scheduler.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
-class RegisterPresenter(registerView: RegisterView, applicationUsersRepository: ApplicationUsersRepository, schedulerProvider: SchedulerProvider) {
+class RegisterPresenter(registerView: RegisterView, private val applicationUsersRepository: ApplicationUsersRepository, private val schedulerProvider: SchedulerProvider) {
     private val registerView: WeakReference<RegisterView> = WeakReference(registerView)
-    private val applicationUsersRepository: ApplicationUsersRepository = applicationUsersRepository
     private val disposable: CompositeDisposable = CompositeDisposable()
-    private val schedulerProvider: SchedulerProvider = schedulerProvider
 
     fun onViewDetached() {
         disposable.dispose()
     }
 
-    fun attemptRegister(email: String?, firstname: String?, lastname: String?, password: String?, phoneNumber: String?) {
+    fun attemptRegister(email: String, firstname: String, lastname: String, password: String, phoneNumber: String) {
         disposable.add(applicationUsersRepository.createUser(AddApplicationUserRequest(email, password, firstname, lastname, phoneNumber))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())

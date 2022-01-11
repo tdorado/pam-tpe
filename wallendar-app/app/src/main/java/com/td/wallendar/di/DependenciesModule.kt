@@ -73,7 +73,7 @@ class DependenciesModule(context: Context) {
         return ChargesRepositoryImpl(chargesService)
     }
 
-    fun provideDebtsRepository(debtsService: DebtsService?): DebtsRepository {
+    fun provideDebtsRepository(debtsService: DebtsService): DebtsRepository {
         return DebtsRepositoryImpl(debtsService)
     }
 

@@ -37,16 +37,16 @@ class AddChargePresenter(
 
     fun onViewAttached(userId: Long) {
         groupsRepository.getGroupsByUser(userId)
-                ?.subscribeOn(schedulerProvider.io())
-                ?.observeOn(schedulerProvider.ui())
-                ?.subscribe({ groups: MutableList<Group?>? -> onGroupsReceived(groups) }) { throwable: Throwable? -> onGroupsError(throwable) }?.let { disposable?.add(it) }
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({ groups: MutableList<Group> -> onGroupsReceived(groups) }) { throwable: Throwable -> onGroupsError(throwable) }.let { disposable?.add(it) }
     }
 
     fun onViewDetached() {
         disposable.dispose()
     }
 
-    private fun onGroupsError(throwable: Throwable?) {
+    private fun onGroupsError(throwable: Throwable) {
         addChargeView?.get()?.onGroupsLoadError()
     }
 
@@ -59,16 +59,16 @@ class AddChargePresenter(
 
     fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest) {
         chargesRepository.addCharge(groupId, addChargeRequest)
-                ?.subscribeOn(schedulerProvider.io())
-                ?.observeOn(schedulerProvider.ui())
-                ?.subscribe({ charge: Charge -> onChargeAdded(charge) }) { throwable: Throwable? -> onChargeAddedError(throwable) }?.let { disposable.add(it) }
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({ charge: Charge -> onChargeAdded(charge) }) { throwable: Throwable -> onChargeAddedError(throwable) }.let { disposable.add(it) }
     }
 
-    private fun onChargeAdded(charge: Charge?) {
-        addChargeView?.get()?.chargeAddedOk(charge!!)
+    private fun onChargeAdded(charge: Charge) {
+        addChargeView?.get()?.chargeAddedOk(charge)
     }
 
-    private fun onChargeAddedError(throwable: Throwable?) {
+    private fun onChargeAddedError(throwable: Throwable) {
         addChargeView?.get()?.chargeError()
     }
 

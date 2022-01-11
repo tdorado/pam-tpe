@@ -138,14 +138,14 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         groupsView = findViewById(R.id.view_groups)
         groupAdapter = GroupAdapter(getLoggedUserId())
         groupAdapter?.setOnGroupClickedListener(this)
-        groupsView?.bind(groupAdapter, addChargeFAB)
+        groupsView?.bind(groupAdapter!!, addChargeFAB!!)
     }
 
     private fun setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances)
         balanceAdapter = BalanceAdapter(getLoggedUserId())
         balanceAdapter?.setOnBalanceSettleUpClickedListener(this, this)
-        balancesView?.bind(balanceAdapter)
+        balancesView?.bind(balanceAdapter!!)
     }
 
     private fun setUpProfileView() {
