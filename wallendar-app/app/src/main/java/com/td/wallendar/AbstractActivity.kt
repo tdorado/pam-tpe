@@ -48,12 +48,12 @@ abstract class AbstractActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-        return 0L
+        return value
     }
 
     companion object {
-        val LOGIN_SHARED_PREFERENCES: String? = "LOGIN_SHARED_PREFERENCES"
-        private val LOGGED_USER_ID: String? = "LOGGED_USER_ID"
+        val LOGIN_SHARED_PREFERENCES: String = "LOGIN_SHARED_PREFERENCES"
+        private val LOGGED_USER_ID: String = "LOGGED_USER_ID"
         private const val loggedOutValue: Long = -1
     }
 }

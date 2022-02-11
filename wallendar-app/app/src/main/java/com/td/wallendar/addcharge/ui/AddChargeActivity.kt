@@ -57,7 +57,7 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
     }
 
     private fun createPresenter() {
-        addChargePresenter = lastNonConfigurationInstance as AddChargePresenter
+        addChargePresenter = lastNonConfigurationInstance as AddChargePresenter?
         if (addChargePresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val chargesRepository = dependenciesContainer.getChargesRepository()

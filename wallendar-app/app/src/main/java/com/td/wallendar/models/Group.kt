@@ -3,7 +3,7 @@ package com.td.wallendar.models
 import java.io.Serializable
 
 data class Group(
-        val id: Long = 0,
+        val id: Long,
         val title: String,
         val owner: ApplicationUser,
         val members: MutableSet<ApplicationUser>,
