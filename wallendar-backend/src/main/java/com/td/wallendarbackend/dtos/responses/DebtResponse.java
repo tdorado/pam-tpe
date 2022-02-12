@@ -1,10 +1,14 @@
 package com.td.wallendarbackend.dtos.responses;
 
 import com.td.wallendarbackend.models.Debt;
+import com.td.wallendarbackend.models.DebtDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,6 +20,7 @@ public class DebtResponse {
     private ApplicationUserResponse to;
     private double amount;
     private long groupId;
+    private Set<DebtDetail> details;
 
     public DebtResponse(Debt debt) {
         this.id = debt.getId();
@@ -23,5 +28,10 @@ public class DebtResponse {
         this.to = new ApplicationUserResponse(debt.getTo());
         this.amount = debt.getAmount();
         this.groupId = debt.getGroup().getId();
+    }
+
+    public DebtResponse(Debt debt, Set<DebtDetail> details) {
+        this(debt);
+        this.details = details;
     }
 }

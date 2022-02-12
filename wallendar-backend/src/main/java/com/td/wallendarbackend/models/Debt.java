@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,6 +33,9 @@ public class Debt {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Group group;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<DebtDetail> details;
 
     public Debt(ApplicationUser from, ApplicationUser to, Group group) {
         this.from = from;

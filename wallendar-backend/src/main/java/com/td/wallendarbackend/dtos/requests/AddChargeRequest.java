@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,4 +22,6 @@ public class AddChargeRequest {
     private long ownerId;
 
     private double amount;
+
+    private Date date;
 }

@@ -5,6 +5,8 @@ import com.td.wallendarbackend.dtos.requests.AddApplicationUserRequest;
 import com.td.wallendarbackend.dtos.responses.ApplicationUserResponse;
 import com.td.wallendarbackend.dtos.responses.DebtResponse;
 import com.td.wallendarbackend.dtos.responses.UserAliasResponse;
+import com.td.wallendarbackend.models.Debt;
+import com.td.wallendarbackend.models.DebtDetail;
 import com.td.wallendarbackend.services.ApplicationUserService;
 import com.td.wallendarbackend.services.DebtService;
 import com.td.wallendarbackend.services.UserAliasService;
@@ -66,9 +68,9 @@ public class UserController {
     @PostMapping(value = "/{id}/createAlias")
     @ResponseBody
     public ResponseEntity<?> createAlias(@PathVariable long id,
-                                         @RequestBody @Valid AddUserAliasRequest addUserAliasRequest){
+                                         @RequestBody @Valid AddUserAliasRequest addUserAliasRequest) {
         UserAliasResponse userAliasResponse = userAliasService.createUserAlias(id, addUserAliasRequest);
-        if(userAliasResponse != null){
+        if (userAliasResponse != null) {
             return new ResponseEntity<>(userAliasResponse, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -76,9 +78,9 @@ public class UserController {
 
     @GetMapping(value = "/{id}/getAliases")
     @ResponseBody
-    public ResponseEntity<?> getUserAliases(@PathVariable long id){
+    public ResponseEntity<?> getUserAliases(@PathVariable long id) {
         List<UserAliasResponse> userAliasResponses = userAliasService.getAllUserAliases(id);
-        if(userAliasResponses != null) {
+        if (userAliasResponses != null) {
             return new ResponseEntity<>(userAliasResponses, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -86,10 +88,13 @@ public class UserController {
 
     @GetMapping(value = "/{id}/getDebts")
     @ResponseBody
-    public ResponseEntity<?> getDebts(@PathVariable long id){
-        List<DebtResponse> debtResponses = debtService.findAllFromApplicationUserId(id);
-        if(debtResponses != null){
-            return new ResponseEntity<>(debtResponses, HttpStatus.OK);
+    public ResponseEntity<?> getDebts(@PathVariable long id) {
+        List<Debt> debts = debtService.findAllFromApplicationUserId(id);
+        if (debts != null) {
+
+            return new ResponseEntity<>(debts
+                    .stream()
+                    .map(it -> new DebtResponse(it, debtService.getDetailsForDebt(it.getId()))), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
