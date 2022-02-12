@@ -35,6 +35,6 @@ class GroupHistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     }
 
     companion object {
-        private val df: DecimalFormat = DecimalFormat("0.00")
+        val df: DecimalFormat = DecimalFormat("0.00")
     }
 }

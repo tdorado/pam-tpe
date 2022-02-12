@@ -8,6 +8,5 @@ data class Debt(
         val to: ApplicationUser,
         val amount: Double,
         val groupId: Long,
-) : Serializable {
-
-}
+        val containsDetails: Boolean
+) : Serializable

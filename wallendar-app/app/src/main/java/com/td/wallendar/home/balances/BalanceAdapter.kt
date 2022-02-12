@@ -13,9 +13,16 @@ class BalanceAdapter(loggedUserId: Long) : RecyclerView.Adapter<BalanceViewHolde
     private val loggedUserId: Long
     private var onBalanceSettleUpClickedListener: OnBalanceSettleUpClickedListener? = null
     private var onRemindButtonClickedListener: OnRemindButtonClickedListener? = null
-    fun setOnBalanceSettleUpClickedListener(listener: OnBalanceSettleUpClickedListener?, onRemindButtonClickedListener: OnRemindButtonClickedListener?) {
-        onBalanceSettleUpClickedListener = listener
+    private var onDetailDebtClickedListener: OnDetailDebtClickedListener? = null
+
+    fun setOnBalanceSettleUpClickedListener(
+            listener: OnBalanceSettleUpClickedListener?,
+            onRemindButtonClickedListener: OnRemindButtonClickedListener?,
+            onDetailDebtClickedListener: OnDetailDebtClickedListener?,
+    ) {
+        this.onBalanceSettleUpClickedListener = listener
         this.onRemindButtonClickedListener = onRemindButtonClickedListener
+        this.onDetailDebtClickedListener = onDetailDebtClickedListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BalanceViewHolder {
@@ -27,6 +34,7 @@ class BalanceAdapter(loggedUserId: Long) : RecyclerView.Adapter<BalanceViewHolde
         holder.bind(dataset[position], loggedUserId)
         holder.setOnBalanceSettleUpClickedListener(onBalanceSettleUpClickedListener)
         holder.setOnRemindButtonClickedListener(onRemindButtonClickedListener)
+        holder.setOnDetailDebtClickedListener(onDetailDebtClickedListener)
     }
 
     override fun getItemCount(): Int {

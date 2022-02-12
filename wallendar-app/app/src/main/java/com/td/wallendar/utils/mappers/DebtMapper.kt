@@ -2,6 +2,7 @@ package com.td.wallendar.utils.mappers
 
 import com.td.wallendar.dtos.response.DebtResponse
 import com.td.wallendar.models.Debt
+import com.td.wallendar.models.DebtDetail
 import java.util.*
 
 object DebtMapper {
@@ -11,7 +12,8 @@ object DebtMapper {
                 ApplicationUserMapper.toModel(debtResponse.from),
                 ApplicationUserMapper.toModel(debtResponse.to),
                 debtResponse.amount,
-                debtResponse.groupId
+                debtResponse.groupId,
+                debtResponse.containsDetails
         )
     }
 
@@ -30,4 +32,18 @@ object DebtMapper {
         }
         return debts
     }
+
+    @JvmName("toModel1")
+    fun toModel(debtDetailResponse: MutableList<DebtDetail>): MutableList<DebtDetail> {
+        val debts: MutableList<DebtDetail> = ArrayList()
+        for (debtResponse in debtDetailResponse) {
+            debts.add(toModel(debtResponse))
+        }
+        return debts
+    }
+
+    private fun toModel(debtResponse: DebtDetail): DebtDetail {
+        return DebtDetail(debtResponse.amount, debtResponse.date, debtResponse.description)
+    }
+
 }

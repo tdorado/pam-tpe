@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class DebtResponse {
     private ApplicationUserResponse to;
     private double amount;
     private long groupId;
-    private Set<DebtDetail> details;
+    private boolean containsDetails;
 
     public DebtResponse(Debt debt) {
         this.id = debt.getId();
@@ -32,6 +33,6 @@ public class DebtResponse {
 
     public DebtResponse(Debt debt, Set<DebtDetail> details) {
         this(debt);
-        this.details = details;
+        this.containsDetails = !details.isEmpty();
     }
 }
