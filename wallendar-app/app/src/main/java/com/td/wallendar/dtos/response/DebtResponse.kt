@@ -6,4 +6,5 @@ data class DebtResponse(
         val to: ApplicationUserResponse,
         val amount: Double,
         val groupId: Long,
+        val containsDetails: Boolean
 )

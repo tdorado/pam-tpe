@@ -91,10 +91,7 @@ public class UserController {
     public ResponseEntity<?> getDebts(@PathVariable long id) {
         List<Debt> debts = debtService.findAllFromApplicationUserId(id);
         if (debts != null) {
-
-            return new ResponseEntity<>(debts
-                    .stream()
-                    .map(it -> new DebtResponse(it, debtService.getDetailsForDebt(it.getId()))), HttpStatus.OK);
+            return new ResponseEntity<>(debts.stream().map(it -> new DebtResponse(it, debtService.getDetailsForDebt(it.getId()))), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

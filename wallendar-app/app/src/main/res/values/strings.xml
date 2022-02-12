@@ -93,5 +93,6 @@
     <string name="error_getting_groups">Error getting groups, try again later.</string>
     <string name="error_getting_balances">Error getting balances, try again later.</string>
     <string name="error_paying_debt">Error paying debt, try again later</string>
+    <string name="failed_to_load_details">Failed to load debt details</string>
 
 </resources>

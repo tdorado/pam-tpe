@@ -16,10 +16,12 @@ import com.td.wallendar.AbstractActivity
 import com.td.wallendar.R
 import com.td.wallendar.addcharge.ui.AddChargeActivity
 import com.td.wallendar.addgroup.ui.AddGroupActivity
+import com.td.wallendar.debtdetail.ui.DebtDetailActivity
 import com.td.wallendar.di.DependenciesContainerLocator
 import com.td.wallendar.group.ui.GroupActivity
 import com.td.wallendar.home.balances.BalanceAdapter
 import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener
+import com.td.wallendar.home.balances.OnDetailDebtClickedListener
 import com.td.wallendar.home.balances.OnRemindButtonClickedListener
 import com.td.wallendar.home.balances.ui.BalancesView
 import com.td.wallendar.home.groups.GroupAdapter
@@ -31,7 +33,7 @@ import com.td.wallendar.home.profile.ui.ProfileView
 import com.td.wallendar.models.*
 import java.text.DecimalFormat
 
-class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener, OnRemindButtonClickedListener {
+class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBalanceSettleUpClickedListener, OnShowAliasesClickedListener, OnLogoutClickedListener, OnRemindButtonClickedListener, OnDetailDebtClickedListener {
     private var currentView = GROUPS
     private var viewFlipper: ViewFlipper? = null
     private var addChargeFAB: ExtendedFloatingActionButton? = null
@@ -131,7 +133,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
 
     private fun setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab)
-        addChargeFAB?.setOnClickListener(View.OnClickListener { view: View? -> startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) })
+        addChargeFAB?.setOnClickListener({ view: View? -> startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) })
     }
 
     private fun setUpGroupsView() {
@@ -144,7 +146,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     private fun setUpBalancesView() {
         balancesView = findViewById(R.id.view_balances)
         balanceAdapter = BalanceAdapter(getLoggedUserId())
-        balanceAdapter?.setOnBalanceSettleUpClickedListener(this, this)
+        balanceAdapter?.setOnBalanceSettleUpClickedListener(this, this, this)
         balancesView?.bind(balanceAdapter!!)
     }
 
@@ -297,5 +299,11 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         private const val PROFILE = 2
         private const val REQUEST_ADD_GROUP = 1
         private const val REFRESH = 2
+    }
+
+    override fun onDetailDebtClickedListener(debtId: Long) {
+        val intent = Intent(applicationContext, DebtDetailActivity::class.java)
+        intent.putExtra("DEBT_ID", debtId)
+        startActivityForResult(intent, REFRESH)
     }
 }

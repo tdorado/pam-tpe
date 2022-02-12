@@ -1,6 +1,7 @@
 package com.td.wallendar.repositories
 
 import com.td.wallendar.models.Debt
+import com.td.wallendar.models.DebtDetail
 import com.td.wallendar.repositories.interfaces.DebtsRepository
 import com.td.wallendar.service.DebtsService
 import com.td.wallendar.utils.mappers.DebtMapper
@@ -11,6 +12,12 @@ class DebtsRepositoryImpl(private val debtsService: DebtsService) : DebtsReposit
     override fun getTotalDebtsByUserId(userId: Long): Single<MutableList<Debt>> {
         return RetrofitUtils
                 .performRequest(debtsService.getTotalDebtsByUserId(userId))
+                .map { DebtMapper.toModel(it) }
+    }
+
+    override fun getDebtDetail(debtId: Long): Single<MutableList<DebtDetail>> {
+        return RetrofitUtils
+                .performRequest(debtsService.getDebtDetail(debtId))
                 .map { DebtMapper.toModel(it) }
     }
 }

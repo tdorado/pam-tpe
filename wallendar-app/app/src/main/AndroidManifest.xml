@@ -38,6 +38,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".groupbalance.ui.GroupBalanceActivity" />
         <activity android:name=".groupmembers.ui.GroupMembersActivity" />
+        <activity android:name=".debtdetail.ui.DebtDetailActivity" />
 
     </application>
 
