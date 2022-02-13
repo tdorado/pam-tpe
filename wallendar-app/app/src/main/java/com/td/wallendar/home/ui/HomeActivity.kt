@@ -24,9 +24,9 @@ import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener
 import com.td.wallendar.home.balances.OnDetailDebtClickedListener
 import com.td.wallendar.home.balances.OnRemindButtonClickedListener
 import com.td.wallendar.home.balances.ui.BalancesView
-import com.td.wallendar.home.groups.GroupAdapter
-import com.td.wallendar.home.groups.OnGroupClickedListener
-import com.td.wallendar.home.groups.ui.GroupsView
+import com.td.wallendar.home.groupsandevents.GroupAdapter
+import com.td.wallendar.home.groupsandevents.OnGroupClickedListener
+import com.td.wallendar.home.groupsandevents.ui.GroupsView
 import com.td.wallendar.home.profile.OnLogoutClickedListener
 import com.td.wallendar.home.profile.OnShowAliasesClickedListener
 import com.td.wallendar.home.profile.ui.ProfileView
@@ -71,10 +71,12 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         if (homePresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
+
             val debtsRepository = dependenciesContainer.getDebtsRepository()
             val applicationUsersRepository = dependenciesContainer.getApplicationUsersRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            homePresenter = HomePresenter(this, groupsRepository, debtsRepository,
+            homePresenter = HomePresenter(this, groupsRepository, eventsRepository, debtsRepository,
                     applicationUsersRepository, schedulerProvider)
         }
     }

@@ -3,16 +3,20 @@ package com.td.wallendar.home.ui
 import com.td.wallendar.dtos.request.AddPaymentRequest
 import com.td.wallendar.models.ApplicationUser
 import com.td.wallendar.models.Debt
+import com.td.wallendar.models.Event
 import com.td.wallendar.models.Group
 import com.td.wallendar.repositories.interfaces.ApplicationUsersRepository
 import com.td.wallendar.repositories.interfaces.DebtsRepository
+import com.td.wallendar.repositories.interfaces.EventsRepository
 import com.td.wallendar.repositories.interfaces.GroupsRepository
 import com.td.wallendar.utils.scheduler.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 
 class HomePresenter(
-        homeView: HomeView, private val groupsRepository: GroupsRepository,
+        homeView: HomeView,
+        private val groupsRepository: GroupsRepository,
+        private val eventsRepository: EventsRepository,
         private val debtsRepository: DebtsRepository,
         private val applicationUsersRepository: ApplicationUsersRepository,
         private val schedulerProvider: SchedulerProvider
@@ -43,6 +47,11 @@ class HomePresenter(
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ groups: MutableList<Group> -> onGroupsReceived(groups) }) { throwable: Throwable -> onGroupsError(throwable) })
+
+        disposable.add(eventsRepository.getEventsByUser(userId)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({ events: MutableList<Event> -> onEventsReceived(events) }) { throwable: Throwable -> onEventsError(throwable) })
         disposable.add(debtsRepository.getTotalDebtsByUserId(userId)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
@@ -51,6 +60,14 @@ class HomePresenter(
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ applicationUser: ApplicationUser -> onLoggedUserReceived(applicationUser) }) { throwable: Throwable -> onLoggedUserError(throwable) })
+    }
+
+    private fun onEventsError(throwable: Throwable) {
+        homeView.get()?.errorGettingGroups()
+    }
+
+    private fun onEventsReceived(events: MutableList<Event>) {
+        homeView.get()?.bindEvents(events)
     }
 
     fun onSettleUpDebtClicked(debt: Debt) {

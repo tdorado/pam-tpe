@@ -1,13 +1,14 @@
-package com.td.wallendar.home.groups.ui
+package com.td.wallendar.home.groupsandevents.ui
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.td.wallendar.home.groups.GroupAdapter
+import com.td.wallendar.home.groupsandevents.GroupAdapter
 
-class GroupsViewImpl @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), GroupsView {
+class GroupsViewImpl @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : RecyclerView(context, attrs, defStyleAttr), GroupsView {
     override fun bind(groupAdapter: GroupAdapter, addChargeFAB: ExtendedFloatingActionButton) {
         setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

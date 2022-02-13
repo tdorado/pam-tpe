@@ -2,6 +2,7 @@ package com.td.wallendar.home.ui
 
 import com.td.wallendar.models.ApplicationUser
 import com.td.wallendar.models.Debt
+import com.td.wallendar.models.Event
 import com.td.wallendar.models.Group
 
 interface HomeView {
@@ -16,4 +17,5 @@ interface HomeView {
     fun errorGettingGroups()
     fun errorGettingBalances()
     fun errorPayingDebt()
+    fun bindEvents(events: MutableList<Event>)
 }

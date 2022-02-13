@@ -1,4 +1,4 @@
-package com.td.wallendar.home.groups
+package com.td.wallendar.home.groupsandevents
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import com.td.wallendar.R
 import com.td.wallendar.models.Group
 
 class GroupAdapter(private val loggedUserId: Long) : RecyclerView.Adapter<GroupViewHolder?>() {
-    private val dataset: MutableList<Group> = emptyArray<Group>().toMutableList()
+    private val groupDataset: MutableList<Group> = emptyArray<Group>().toMutableList()
     private var listener: OnGroupClickedListener? = null
     fun setOnGroupClickedListener(listener: OnGroupClickedListener?) {
         this.listener = listener
@@ -20,29 +20,29 @@ class GroupAdapter(private val loggedUserId: Long) : RecyclerView.Adapter<GroupV
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        holder.bind(dataset[position], loggedUserId)
+        holder.bind(groupDataset[position], loggedUserId)
         holder.setOnGroupClickedListener(listener)
     }
 
     override fun getItemCount(): Int {
-        return dataset.size ?: 0
+        return groupDataset.size ?: 0
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setDataset(newDataset: MutableList<Group>) {
-        dataset.clear()
-        dataset.addAll(newDataset)
+        groupDataset.clear()
+        groupDataset.addAll(newDataset)
         notifyDataSetChanged()
     }
 
     fun addToDataset(group: Group) {
-        dataset.add(group)
-        notifyItemInserted(dataset.size - 1)
+        groupDataset.add(group)
+        notifyItemInserted(groupDataset.size - 1)
     }
 
     fun updateInDataset(group: Group) {
-        val position = dataset.indexOf(group)
-        dataset[position] = group
+        val position = groupDataset.indexOf(group)
+        groupDataset[position] = group
         notifyItemChanged(position)
     }
 

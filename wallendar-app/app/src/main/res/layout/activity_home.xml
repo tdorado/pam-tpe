@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.td.wallendar.home.groups.ui.GroupsViewImpl
+        <com.td.wallendar.home.groupsandevents.ui.GroupsViewImpl
             android:id="@+id/view_groups"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

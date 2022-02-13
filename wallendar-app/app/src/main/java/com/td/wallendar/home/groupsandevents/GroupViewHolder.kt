@@ -1,4 +1,4 @@
-package com.td.wallendar.home.groups
+package com.td.wallendar.home.groupsandevents
 
 import android.view.View
 import android.widget.TextView

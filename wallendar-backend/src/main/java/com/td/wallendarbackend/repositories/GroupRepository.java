@@ -11,6 +11,6 @@ import java.util.List;
 public interface GroupRepository extends JpaRepository<Group, Long> {
     Group findById(long id);
 
-    @Query("SELECT g FROM Group g WHERE :applicationUser MEMBER OF g.members AND TYPE(g) = Group")
-    List<Group> findGroupsByApplicationUserId(@Param("applicationUser") ApplicationUser applicationUser);
+    @Query("SELECT g FROM Group g WHERE :applicationUser MEMBER OF g.members AND g.type = :type")
+    List<Group> findGroupsByApplicationUserId(@Param("applicationUser") ApplicationUser applicationUser, @Param("type") String type);
 }
