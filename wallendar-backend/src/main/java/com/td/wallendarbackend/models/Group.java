@@ -16,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "groups")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

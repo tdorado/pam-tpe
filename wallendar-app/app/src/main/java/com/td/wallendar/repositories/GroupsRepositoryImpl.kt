@@ -36,15 +36,12 @@ class GroupsRepositoryImpl(val groupsService: GroupsService) : GroupsRepository 
                 .map { GroupMapper.toModel(it) }
     }
 
-    override fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Group> {
-        return RetrofitUtils
-                .performRequest(groupsService.addMembers(groupId, addMembersRequest))
-                .map { GroupMapper.toModel(it) }
-    }
+    override fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest) =
+            RetrofitUtils
+                    .performRequest(groupsService.addMembers(groupId, addMembersRequest))
 
-    override fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Group> {
-        return RetrofitUtils
-                .performRequest(groupsService.addPayment(groupId, addPaymentRequest))
-                .map { GroupMapper.toModel(it) }
-    }
+
+    override fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest) =
+            RetrofitUtils
+                    .performRequest(groupsService.addPayment(groupId, addPaymentRequest))
 }

@@ -8,10 +8,10 @@ import com.td.wallendar.models.Group
 import io.reactivex.Single
 
 interface GroupsRepository {
-    open fun getGroupsByUser(userId: Long): Single<MutableList<Group>>
-    open fun getGroup(groupId: Long): Single<Group>
-    open fun createGroup(addGroupRequest: AddGroupRequest): Single<Group>
-    open fun addMemberByEmail(groupId: Long, addMemberByEmailRequest: AddMemberByEmailRequest): Single<Group>
-    open fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Group>
-    open fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Group>
+    fun getGroupsByUser(userId: Long): Single<MutableList<Group>>
+    fun getGroup(groupId: Long): Single<Group>
+    fun createGroup(addGroupRequest: AddGroupRequest): Single<Group>
+    fun addMemberByEmail(groupId: Long, addMemberByEmailRequest: AddMemberByEmailRequest): Single<Group>
+    fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Void>
+    fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Void>
 }

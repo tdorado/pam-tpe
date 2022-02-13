@@ -11,7 +11,6 @@ interface HomeView {
     fun bindGroups(groups: MutableList<Group>)
     fun bindDebts(debts: MutableList<Debt>)
     fun bindProfile(applicationUser: ApplicationUser)
-    fun updateGroup(group: Group)
     fun removeDebt(debt: Debt)
     fun errorGettingUser()
     fun errorGettingGroups()
