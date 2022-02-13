@@ -1,10 +1,13 @@
 package com.td.wallendarbackend.controllers;
 
-import com.td.wallendarbackend.dtos.requests.*;
+import com.td.wallendarbackend.dtos.requests.AddChargeRequest;
+import com.td.wallendarbackend.dtos.requests.AddEventRequest;
+import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
+import com.td.wallendarbackend.dtos.requests.AddPaymentRequest;
 import com.td.wallendarbackend.dtos.responses.ChargeResponse;
-import com.td.wallendarbackend.dtos.responses.GroupResponse;
+import com.td.wallendarbackend.dtos.responses.EventResponse;
 import com.td.wallendarbackend.services.ChargeService;
-import com.td.wallendarbackend.services.GroupService;
+import com.td.wallendarbackend.services.EventService;
 import com.td.wallendarbackend.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,45 +20,45 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/groups")
-public class GroupController {
+@RequestMapping("/events")
+public class EventController {
 
-    private final GroupService groupService;
+    private final EventService eventService;
     private final ChargeService chargeService;
     private final PaymentService paymentService;
 
     @Autowired
-    public GroupController(GroupService groupService, ChargeService chargeService, PaymentService paymentService) {
-        this.groupService = groupService;
+    public EventController(EventService eventService, ChargeService chargeService, PaymentService paymentService) {
+        this.eventService = eventService;
         this.chargeService = chargeService;
         this.paymentService = paymentService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createGroup(@RequestBody @Valid AddGroupRequest addGroupRequest) {
-        GroupResponse group = groupService.createGroup(addGroupRequest);
-        if (group != null) {
-            return new ResponseEntity<>(group, HttpStatus.CREATED);
+    public ResponseEntity<?> createEvent(@RequestBody @Valid AddEventRequest addEventRequest) {
+        EventResponse event = eventService.createEvent(addEventRequest);
+        if (event != null) {
+            return new ResponseEntity<>(event, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public ResponseEntity<?> getGroupById(@PathVariable long id) {
-        GroupResponse group = groupService.findById(id);
-        if (group != null) {
-            return new ResponseEntity<>(group, HttpStatus.OK);
+    public ResponseEntity<?> getEventById(@PathVariable long id) {
+        EventResponse event = eventService.findById(id);
+        if (event != null) {
+            return new ResponseEntity<>(event, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/allFromUser/{id}")
     @ResponseBody
-    public ResponseEntity<?> getGroupsByApplicationUserId(@PathVariable long id) {
-        List<GroupResponse> groups = groupService.findGroupsByApplicationUserId(id);
-        if (groups != null) {
-            return new ResponseEntity<>(groups, HttpStatus.OK);
+    public ResponseEntity<?> getEventsByApplicationUserId(@PathVariable long id) {
+        List<EventResponse> events = eventService.findEventsByApplicationUserId(id);
+        if (events != null) {
+            return new ResponseEntity<>(events, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -63,9 +66,9 @@ public class GroupController {
     @PostMapping(value = "/{id}/addMembers")
     @ResponseBody
     public ResponseEntity<?> addMembers(@PathVariable long id, @RequestBody @Valid AddMembersRequest addMembersRequest) {
-        GroupResponse group = groupService.addMembers(id, addMembersRequest);
-        if (group != null) {
-            return new ResponseEntity<>(group, HttpStatus.OK);
+        boolean addMembersSuccess = eventService.addMembers(id, addMembersRequest);
+        if (addMembersSuccess) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -83,8 +86,8 @@ public class GroupController {
     @PostMapping(value = "/{id}/addPayment")
     @ResponseBody
     public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid AddPaymentRequest addPaymentRequest) {
-        boolean paymentStatus = paymentService.addPayment(id, addPaymentRequest);
-        if (paymentStatus) {
+        boolean paymentSuccess = paymentService.addPayment(id, addPaymentRequest);
+        if (paymentSuccess) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

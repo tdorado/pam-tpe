@@ -61,7 +61,7 @@ class HomePresenter(
         disposable.add(groupsRepository.addPayment(debt.groupId, addPaymentRequest)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe({ group: Group -> onPaymentReceived(group) }) { throwable: Throwable -> onPaymentError(throwable) })
+                .subscribe({ onPaymentReceived() }) { throwable: Throwable -> onPaymentError(throwable) })
     }
 
     private fun onGroupsReceived(groups: MutableList<Group>) {
@@ -94,13 +94,12 @@ class HomePresenter(
         homeView.get()?.errorGettingUser()
     }
 
-    private fun onPaymentReceived(group: Group) {
+    private fun onPaymentReceived() {
         if (homeView.get() != null) {
             if (debtToSettleUp != null) {
                 homeView.get()?.removeDebt(debtToSettleUp!!)
                 debtToSettleUp = null
             }
-            homeView.get()?.updateGroup(group)
         }
     }
 

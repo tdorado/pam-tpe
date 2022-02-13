@@ -2,8 +2,9 @@ package com.td.wallendar.addmembers.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
-import android.widget.*
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -108,7 +109,7 @@ class AddMembersActivity : AbstractActivity(), AddMembersView {
     }
 
     // TODO we are not using the groupId param right now, may be useful in some borders cases
-    override fun onMembersAddedSuccessfully(groupId: Long) {
+    override fun onMembersAddedSuccessfully() {
         val resultIntent = Intent()
         setResult(RESULT_OK, resultIntent)
         finish()

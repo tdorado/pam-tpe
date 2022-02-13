@@ -1,7 +1,6 @@
 package com.td.wallendar.addmembers.ui
 
 import com.td.wallendar.dtos.request.AddMembersRequest
-import com.td.wallendar.models.Group
 import com.td.wallendar.repositories.interfaces.GroupsRepository
 import com.td.wallendar.utils.scheduler.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +14,7 @@ class AddMembersPresenter(addMembersView: AddMembersView, private val groupsRepo
         disposable.add(groupsRepository.addMembers(groupId, AddMembersRequest(HashSet(emailMembers)))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe({ group: Group -> onMembersAddedSuccessfully(group) }) { throwable: Throwable -> onMembersAddedWithError(throwable) })
+                .subscribe({ onMembersAddedSuccessfully() }) { throwable: Throwable -> onMembersAddedWithError(throwable) })
     }
 
     fun onViewDetached() {
@@ -26,8 +25,8 @@ class AddMembersPresenter(addMembersView: AddMembersView, private val groupsRepo
         view.get()?.onMembersAddedWithError()
     }
 
-    private fun onMembersAddedSuccessfully(group: Group) {
-        view.get()?.onMembersAddedSuccessfully(group.id)
+    private fun onMembersAddedSuccessfully() {
+        view.get()?.onMembersAddedSuccessfully()
     }
 
 }

@@ -194,10 +194,6 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         profileView?.bind(applicationUser, this, this)
     }
 
-    override fun updateGroup(group: Group) {
-        groupAdapter?.updateInDataset(group)
-    }
-
     override fun removeDebt(debt: Debt) {
         balanceAdapter?.removeFromDataset(debt)
     }

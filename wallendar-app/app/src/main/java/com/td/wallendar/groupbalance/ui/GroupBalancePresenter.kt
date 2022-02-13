@@ -32,7 +32,7 @@ class GroupBalancePresenter(groupBalanceView: GroupBalanceView, private val grou
         disposable.add(groupsRepository.addPayment(debt.groupId, addPaymentRequest)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe({ group: Group -> onSettleUpDebtSuccessful(group) }) { throwable: Throwable -> onSettleUpDebtFailed(throwable) })
+                .subscribe({ onSettleUpDebtSuccessful() }) { throwable: Throwable -> onSettleUpDebtFailed(throwable) })
     }
 
     private fun onGroupReceived(group: Group) {
@@ -50,7 +50,7 @@ class GroupBalancePresenter(groupBalanceView: GroupBalanceView, private val grou
         groupBalanceView.get()?.failedToLoadDebts()
     }
 
-    private fun onSettleUpDebtSuccessful(group: Group) {
+    private fun onSettleUpDebtSuccessful() {
         if (debtToSettleUp != null) {
             groupBalanceView.get()?.onSettleUpPaymentDone(debtToSettleUp!!)
             debtToSettleUp = null
