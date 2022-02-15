@@ -9,6 +9,7 @@ interface HomeView {
     fun showGroups()
     fun showBalances()
     fun showProfile()
+    fun showEvents()
     fun bindGroups(groups: MutableList<Group>)
     fun bindDebts(debts: MutableList<Debt>)
     fun bindProfile(applicationUser: ApplicationUser)

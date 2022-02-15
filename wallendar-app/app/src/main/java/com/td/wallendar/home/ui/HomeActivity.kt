@@ -24,9 +24,9 @@ import com.td.wallendar.home.balances.OnBalanceSettleUpClickedListener
 import com.td.wallendar.home.balances.OnDetailDebtClickedListener
 import com.td.wallendar.home.balances.OnRemindButtonClickedListener
 import com.td.wallendar.home.balances.ui.BalancesView
-import com.td.wallendar.home.groupsandevents.GroupAdapter
-import com.td.wallendar.home.groupsandevents.OnGroupClickedListener
-import com.td.wallendar.home.groupsandevents.ui.GroupsView
+import com.td.wallendar.home.groups.GroupAdapter
+import com.td.wallendar.home.groups.OnGroupClickedListener
+import com.td.wallendar.home.groups.ui.GroupsView
 import com.td.wallendar.home.profile.OnLogoutClickedListener
 import com.td.wallendar.home.profile.OnShowAliasesClickedListener
 import com.td.wallendar.home.profile.ui.ProfileView
@@ -38,12 +38,15 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     private var viewFlipper: ViewFlipper? = null
     private var addChargeFAB: ExtendedFloatingActionButton? = null
     private var bottomNavigationView: BottomNavigationView? = null
-    private var groupsView: GroupsView? = null
+    private var groupsView: GroupsView<Group>? = null
     private var balancesView: BalancesView? = null
     private var profileView: ProfileView? = null
     private var homePresenter: HomePresenter? = null
-    private var groupAdapter: GroupAdapter? = null
+    private var groupAdapter: GroupAdapter<Group>? = null
     private var balanceAdapter: BalanceAdapter? = null
+
+    private var eventsView: GroupsView<Event>? = null
+    private var eventsAdapter: GroupAdapter<Event>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -129,13 +132,14 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         viewFlipper = findViewById(R.id.view_flipper)
         setUpAddChargeButton()
         setUpGroupsView()
+        setUpEventsView()
         setUpBalancesView()
         setUpProfileView()
     }
 
     private fun setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab)
-        addChargeFAB?.setOnClickListener({ view: View? -> startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) })
+        addChargeFAB?.setOnClickListener { startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) }
     }
 
     private fun setUpGroupsView() {
@@ -143,6 +147,13 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         groupAdapter = GroupAdapter(getLoggedUserId())
         groupAdapter?.setOnGroupClickedListener(this)
         groupsView?.bind(groupAdapter!!, addChargeFAB!!)
+    }
+
+    private fun setUpEventsView() {
+        eventsView = findViewById(R.id.view_events)
+        eventsAdapter = GroupAdapter(getLoggedUserId())
+        eventsAdapter?.setOnGroupClickedListener(this)
+        eventsView?.bind(eventsAdapter!!)
     }
 
     private fun setUpBalancesView() {
@@ -161,6 +172,13 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         invalidateOptionsMenu()
         addChargeFAB?.show()
         viewFlipper?.displayedChild = GROUPS
+    }
+
+    override fun showEvents() {
+        currentView = EVENTS
+        invalidateOptionsMenu()
+        addChargeFAB?.show()
+        viewFlipper?.displayedChild = EVENTS
     }
 
     override fun showBalances() {
@@ -217,6 +235,10 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
 
     override fun errorPayingDebt() {
         Toast.makeText(applicationContext, getString(R.string.error_paying_debt), Toast.LENGTH_LONG).show()
+    }
+
+    override fun bindEvents(events: MutableList<Event>) {
+        eventsAdapter?.setDataset(events)
     }
 
     public override fun onStart() {
@@ -293,8 +315,9 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     companion object {
         private val df: DecimalFormat = DecimalFormat("0.00")
         private const val GROUPS = 0
-        private const val BALANCES = 1
-        private const val PROFILE = 2
+        private const val EVENTS = 1
+        private const val BALANCES = 2
+        private const val PROFILE = 3
         private const val REQUEST_ADD_GROUP = 1
         private const val REFRESH = 2
     }

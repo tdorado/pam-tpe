@@ -1,15 +1,17 @@
-package com.td.wallendar.home.groupsandevents
+package com.td.wallendar.home.groups
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.td.wallendar.R
+import com.td.wallendar.models.Event
 import com.td.wallendar.models.Group
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
-class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class GroupViewHolder<T : Group>(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var listener: OnGroupClickedListener? = null
-    fun bind(group: Group, loggedUserId: Long) {
+    fun bind(group: T, loggedUserId: Long) {
         val groupTitleTextView = itemView.findViewById<TextView?>(R.id.row_group_name)
         val amountOwedTextView = itemView.findViewById<TextView?>(R.id.row_you_are_owed)
         val amountYouOweTextView = itemView.findViewById<TextView?>(R.id.row_you_owe)
@@ -32,6 +34,10 @@ class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             if (listener != null) {
                 listener!!.onGroupClicked(group.id)
             }
+        }
+        if (group is Event) {
+            val eventDate = itemView.findViewById<TextView?>(R.id.row_event_date)
+            eventDate?.text = SimpleDateFormat("dd-MM").format(group.date)
         }
     }
 

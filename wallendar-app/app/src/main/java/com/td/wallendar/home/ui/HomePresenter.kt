@@ -30,6 +30,12 @@ class HomePresenter(
         }
     }
 
+    fun onEventsClicked() {
+        if (homeView.get() != null) {
+            homeView.get()?.showEvents()
+        }
+    }
+
     fun onBalancesClicked() {
         if (homeView.get() != null) {
             homeView.get()?.showBalances()
