@@ -27,8 +27,13 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
     private var groupSelected: String? = null
     private var addChargePresenter: AddChargePresenter? = null
     private var editTextFilledExposedDropdown: AutoCompleteTextView? = null
+    private val IS_EVENT: String = "IS_EVENT"
+    private var isEvent: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+
         setContentView(R.layout.activity_add_charge)
         setupActionBar()
         setupInputs()
@@ -62,9 +67,10 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val chargesRepository = dependenciesContainer.getChargesRepository()
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
             addChargePresenter = AddChargePresenter(this, chargesRepository,
-                    groupsRepository, schedulerProvider)
+                    groupsRepository,eventsRepository, schedulerProvider, isEvent)
         }
     }
 

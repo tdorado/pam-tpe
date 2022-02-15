@@ -20,16 +20,22 @@ import java.text.DecimalFormat
 
 class GroupBalanceActivity : AbstractActivity(), GroupBalanceView, OnGroupSettleUpClickedListener, OnGroupRemindClickedListener {
     private val GROUP_ID: String = "GROUP_ID"
+    private val IS_EVENT: String = "IS_EVENT"
+
     private var groupBalancePresenter: GroupBalancePresenter? = null
     private var groupBalanceAdapter: GroupBalanceAdapter? = null
     private var groupId: Long = 0
     private var needsToRefresh = false
+    private var isEvent: Boolean = false
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_balance)
         groupId = intent.extras?.getLong(GROUP_ID)!!
+        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+
         setUpView()
-        createPresenter()
+        createPresenter(isEvent)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -125,13 +131,14 @@ class GroupBalanceActivity : AbstractActivity(), GroupBalanceView, OnGroupSettle
         actionBar.setTitle(R.string.balances)
     }
 
-    private fun createPresenter() {
+    private fun createPresenter(isEvent: Boolean) {
         groupBalancePresenter = lastNonConfigurationInstance as GroupBalancePresenter?
         if (groupBalancePresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            groupBalancePresenter = GroupBalancePresenter(this, groupsRepository, schedulerProvider)
+            groupBalancePresenter = GroupBalancePresenter(this, groupsRepository, eventsRepository, schedulerProvider, isEvent)
         }
     }
 

@@ -9,7 +9,11 @@ import com.td.wallendar.utils.networking.RetrofitUtils
 import io.reactivex.Single
 
 class ChargesRepositoryImpl(val chargesService: ChargesService) : ChargesRepository {
-    override fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest): Single<Charge> {
-        return RetrofitUtils.performRequest(chargesService.addCharge(groupId, addChargeRequest)).map { ChargeMapper.toModel(it) }
+    override fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest, isEvent: Boolean): Single<Charge> {
+        val apiCall = {
+            if (isEvent) chargesService.addChargeToEvent(groupId, addChargeRequest)
+            else chargesService.addCharge(groupId, addChargeRequest)
+        }
+        return RetrofitUtils.performRequest(apiCall()).map { ChargeMapper.toModel(it) }
     }
 }

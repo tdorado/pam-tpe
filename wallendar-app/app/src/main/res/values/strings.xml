@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Wallendar</string>
     <string name="groups">Groups</string>
-    <string name="events">Events</string>
     <string name="activity">Activity</string>
     <string name="balances">Balances</string>
     <string name="profile">Profile</string>
@@ -94,5 +93,6 @@
     <string name="error_getting_balances">Error getting balances, try again later.</string>
     <string name="error_paying_debt">Error paying debt, try again later</string>
     <string name="failed_to_load_details">Failed to load debt details</string>
+    <string name="events">Events</string>
 
 </resources>

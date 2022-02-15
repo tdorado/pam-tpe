@@ -1,6 +1,5 @@
 package com.td.wallendarbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "groups")
-@DiscriminatorColumn(name = "type")
-@DiscriminatorValue(value = "0")
+@DiscriminatorColumn(name="isGroup", discriminatorType=DiscriminatorType.INTEGER)
+@DiscriminatorValue("0")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Group {
     @Id
@@ -41,9 +40,6 @@ public class Group {
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Payment> payments;
-
-    @Column(insertable = false, updatable = false)
-    private String type;
 
     public Group(String title, ApplicationUser owner) {
         this.title = title;

@@ -12,15 +12,20 @@ import com.td.wallendar.models.ApplicationUser
 
 class GroupMembersActivity : AbstractActivity(), GroupMembersView {
     private val GROUP_ID: String = "GROUP_ID"
+    private val IS_EVENT: String = "IS_EVENT"
+
     private var groupMembersPresenter: GroupMembersPresenter? = null
     private var groupMembersAdapter: GroupMembersAdapter? = null
     private var groupId: Long? = null
+    private var isEvent: Boolean = false
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_members)
         groupId = intent.extras?.getLong(GROUP_ID)
+        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+
         setUpView()
-        createPresenter()
+        createPresenter(isEvent)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -66,13 +71,14 @@ class GroupMembersActivity : AbstractActivity(), GroupMembersView {
         actionBar.setTitle(R.string.members)
     }
 
-    private fun createPresenter() {
+    private fun createPresenter(isEvent: Boolean) {
         groupMembersPresenter = lastNonConfigurationInstance as GroupMembersPresenter?
         if (groupMembersPresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            groupMembersPresenter = GroupMembersPresenter(this, groupsRepository, schedulerProvider)
+            groupMembersPresenter = GroupMembersPresenter(this, groupsRepository, eventsRepository, schedulerProvider, isEvent)
         }
     }
 }

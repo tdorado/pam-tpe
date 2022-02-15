@@ -15,7 +15,6 @@ class GroupsViewImpl<T: Group> @JvmOverloads constructor(context: Context, attrs
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = groupAdapter
 
-        addChargeFAB.visibility = VISIBLE
         // Shrink floating button when scrolling, extend at the top. Just fancy fab
         addOnScrollListener(object : OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

@@ -43,7 +43,7 @@ public class GroupService {
         if (applicationUser == null) {
             return null;
         }
-        List<Group> groups = groupRepository.findGroupsByApplicationUserId(applicationUser, "1");
+        List<Group> groups = groupRepository.findGroupsByApplicationUserId(applicationUser, 0);
         return groups.stream().map(GroupResponse::new).collect(Collectors.toList());
     }
 

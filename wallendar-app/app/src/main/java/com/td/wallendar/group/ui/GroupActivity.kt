@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,13 +35,17 @@ class GroupActivity : AbstractActivity(), GroupView {
 
     // Intended to be nullable
     private var groupId: Long? = null
+    private var isEvent: Boolean = false
     private var needsToRefresh = false
     private val GROUP_ID: String = "GROUP_ID"
+    private val IS_EVENT: String = "IS_EVENT"
+
     private val NEW_CHARGE: String = "NEW_CHARGE"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group)
         groupId = intent.extras?.getLong(GROUP_ID)
+        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
         setUpView()
         createPresenter()
     }
@@ -59,14 +66,20 @@ class GroupActivity : AbstractActivity(), GroupView {
             Toast.makeText(applicationContext,
                     getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show()
         }
+        findViewById<View?>(R.id.group_events).visibility = if (isEvent) GONE else VISIBLE
+        findViewById<LinearLayout?>(R.id.group_linear_buttons).weightSum = if (isEvent) 2F else 3F
+
+
         findViewById<View?>(R.id.group_balances).setOnClickListener {
             val intent = Intent(this, GroupBalanceActivity::class.java)
             intent.putExtra(GROUP_ID, groupId)
+            intent.putExtra(IS_EVENT, isEvent)
             startActivityForResult(intent, REFRESH)
         }
         findViewById<View?>(R.id.group_members).setOnClickListener {
             val intent = Intent(this, GroupMembersActivity::class.java)
             intent.putExtra(GROUP_ID, groupId)
+            intent.putExtra(IS_EVENT, isEvent)
             startActivity(intent)
         }
     }
@@ -142,6 +155,7 @@ class GroupActivity : AbstractActivity(), GroupView {
         addChargeFAB?.setOnClickListener {
             val intent = Intent(this, AddChargeActivity::class.java)
             intent.putExtra(GROUP_ID, groupId)
+            intent.putExtra(IS_EVENT, isEvent)
             startActivityForResult(intent, REQUEST_ADD_CHARGE)
         }
         // Shrink floating button when scrolling, extend at the top. Just fancy fab

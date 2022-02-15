@@ -120,6 +120,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         bottomNavigationView?.setOnItemSelectedListener { item: MenuItem? ->
             when (item?.itemId) {
                 R.id.groups -> homePresenter?.onGroupsClicked()
+                R.id.events -> homePresenter?.onEventsClicked()
                 R.id.balances -> homePresenter?.onBalancesClicked()
                 R.id.profile -> homePresenter?.onProfileClicked()
                 else -> return@setOnItemSelectedListener false
@@ -177,7 +178,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     override fun showEvents() {
         currentView = EVENTS
         invalidateOptionsMenu()
-        addChargeFAB?.show()
+        addChargeFAB?.hide()
         viewFlipper?.displayedChild = EVENTS
     }
 
@@ -262,9 +263,10 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         }
     }
 
-    override fun onGroupClicked(groupId: Long) {
+    override fun onGroupClicked(groupId: Long, isEvent: Boolean) {
         val intent = Intent(applicationContext, GroupActivity::class.java)
         intent.putExtra("GROUP_ID", groupId)
+        intent.putExtra("IS_EVENT", isEvent)
         startActivityForResult(intent, REFRESH)
     }
 

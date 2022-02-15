@@ -1,6 +1,7 @@
 package com.td.wallendar.home.groups
 
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.td.wallendar.R
@@ -32,12 +33,13 @@ class GroupViewHolder<T : Group>(itemView: View) : RecyclerView.ViewHolder(itemV
         amountYouOweTextView.text = amountYouOweString
         itemView.setOnClickListener {
             if (listener != null) {
-                listener!!.onGroupClicked(group.id)
+                listener!!.onGroupClicked(group.id, group is Event)
             }
         }
         if (group is Event) {
             val eventDate = itemView.findViewById<TextView?>(R.id.row_event_date)
-            eventDate?.text = SimpleDateFormat("dd-MM").format(group.date)
+            eventDate.visibility = VISIBLE
+            eventDate?.text = "FECHA: " + SimpleDateFormat("dd-MM").format(group.date)
         }
     }
 
