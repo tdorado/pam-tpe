@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import com.google.android.material.textfield.TextInputLayout
@@ -18,6 +19,7 @@ import com.td.wallendar.addgroup.ui.pickers.OnTimePickerSelected
 import com.td.wallendar.addgroup.ui.pickers.TimePickerFragment
 import com.td.wallendar.di.DependenciesContainerLocator
 import com.td.wallendar.models.Group
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddGroupActivity : AbstractActivity(), AddGroupView, OnTimePickerSelected, OnDatePickerSelected {
@@ -37,6 +39,7 @@ class AddGroupActivity : AbstractActivity(), AddGroupView, OnTimePickerSelected,
                     .setOnClickListener { DatePickerFragment(this).show(supportFragmentManager, "datePicker") }
             findViewById<Button?>(R.id.pick_time_button)
                     .setOnClickListener { TimePickerFragment(this).show(supportFragmentManager, "timePicker") }
+            findViewById<TextInputLayout?>(R.id.group_title).hint= "Enter event title"
         }
         setupActionBar()
         setupGroupTitleInput()
@@ -122,12 +125,17 @@ class AddGroupActivity : AbstractActivity(), AddGroupView, OnTimePickerSelected,
     override fun onTimeSelected(hourOfDay: Int, minute: Int) {
         dateForEvent.set(Calendar.HOUR_OF_DAY, hourOfDay)
         dateForEvent.set(Calendar.MINUTE, minute)
+
+        findViewById<TextView?>(R.id.preview_picked_time_textView).text = SimpleDateFormat("HH:mm:ss").format(dateForEvent.time).toString()
+
     }
 
     override fun onDateSelected(year: Int, month: Int, day: Int) {
         dateForEvent.set(Calendar.DAY_OF_MONTH, day)
         dateForEvent.set(Calendar.YEAR, year)
         dateForEvent.set(Calendar.MONTH, month)
+
+        findViewById<TextView?>(R.id.preview_picked_date_textView).text = SimpleDateFormat("yyyy-MM-dd").format(dateForEvent.time).toString()
     }
 
 }
