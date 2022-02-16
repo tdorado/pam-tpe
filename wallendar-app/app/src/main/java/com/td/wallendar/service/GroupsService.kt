@@ -22,7 +22,7 @@ interface GroupsService {
     @POST("/api/groups/{groupId}/addMemberByEmail")
     fun addMemberByEmail(@Path("groupId") groupId: Long, @Body addMemberByEmailRequest: AddMemberByEmailRequest): Single<Response<GroupResponse>>
     @POST("/api/groups/{groupId}/addMembers")
-    fun addMembers(@Path("groupId") groupId: Long, @Body addMembersRequest: AddMembersRequest): Single<Response<Void>>
+    fun addMembers(@Path("groupId") groupId: Long, @Body addMembersRequest: AddMembersRequest): Single<Response<GroupResponse>>
     @POST("/api/groups/{groupId}/addPayment")
     fun addPayment(@Path("groupId") groupId: Long, @Body addPaymentRequest: AddPaymentRequest): Single<Response<Void>>
 }

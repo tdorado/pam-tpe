@@ -36,9 +36,10 @@ class EventsRepositoryImpl(private val eventsService: EventsService) : EventsRep
                 .map { EventMapper.toModel(it) }
     }
 
-    override fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest) =
+    override fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Event> =
             RetrofitUtils
                     .performRequest(eventsService.addMembers(groupId, addMembersRequest))
+                    .map { EventMapper.toModel(it) }
 
 
     override fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest) =

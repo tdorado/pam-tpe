@@ -63,10 +63,10 @@ public class EventService {
         return new EventResponse(event);
     }
 
-    public boolean addMembers(long groupId, AddMembersRequest addMembersRequest) {
+    public EventResponse addMembers(long groupId, AddMembersRequest addMembersRequest) {
         Optional<Event> eventOptional = eventRepository.findById(groupId);
         if (eventOptional.isEmpty()) {
-            return false;
+            return null;
         }
         Event event = eventOptional.get();
         Set<ApplicationUser> membersToAdd = new HashSet<>();
@@ -74,7 +74,7 @@ public class EventService {
         for (String userEmail : addMembersRequest.getUserEmails()) {
             ApplicationUser user = applicationUserRepository.findByEmail(userEmail);
             if (user == null) {
-                return false;
+                return null;
             }
             if (!groupMembers.contains(user)) {
                 membersToAdd.add(user);
@@ -82,7 +82,7 @@ public class EventService {
         }
 
         if (membersToAdd.size() == 0) {
-            return true;
+            return new EventResponse(event);
         }
 
         Set<Debt> groupDebts = event.getDebts();
@@ -107,6 +107,6 @@ public class EventService {
 
         event.getMembers().addAll(membersToAdd);
         eventRepository.save(event);
-        return true;
+        return new EventResponse(event);
     }
 }

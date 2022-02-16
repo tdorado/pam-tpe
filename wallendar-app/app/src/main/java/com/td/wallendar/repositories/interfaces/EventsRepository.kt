@@ -12,6 +12,6 @@ interface EventsRepository {
     fun getEvent(groupId: Long): Single<Event>
     fun createEvent(addEventRequest: AddEventRequest): Single<Event>
     fun addMemberByEmail(groupId: Long, addMemberByEmailRequest: AddMemberByEmailRequest): Single<Event>
-    fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Void>
+    fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Event>
     fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Void>
 }

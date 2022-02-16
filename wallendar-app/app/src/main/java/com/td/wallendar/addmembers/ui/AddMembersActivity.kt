@@ -24,6 +24,9 @@ class AddMembersActivity : AbstractActivity(), AddMembersView {
     private val members: MutableList<String> = ArrayList()
     private val NO_GROUP_ID: Long = -1
     private val GROUP_ID: String = "GROUP_ID"
+    private val IS_EVENT: String = "IS_EVENT"
+    private var isEvent: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_members)
@@ -77,8 +80,10 @@ class AddMembersActivity : AbstractActivity(), AddMembersView {
         if (addMembersPresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            addMembersPresenter = AddMembersPresenter(this, groupsRepository, schedulerProvider)
+            isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+            addMembersPresenter = AddMembersPresenter(this, groupsRepository, eventsRepository, schedulerProvider, isEvent)
         }
     }
 
