@@ -1,6 +1,6 @@
 package com.td.wallendar.dtos.request
 
-open class AddGroupRequest(
-        open val title: String,
-        open val ownerId: Long,
+data class AddGroupRequest(
+        val title: String,
+        val ownerId: Long,
 )

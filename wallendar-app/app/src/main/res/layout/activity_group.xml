@@ -68,26 +68,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_group">
-
-        <Button
-            android:id="@+id/group_events"
-            style="@style/payable_button_style"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:text="@string/events" />
 
         <Button
             android:id="@+id/group_balances"
             style="@style/group_button_style"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:text="@string/balances" />
 

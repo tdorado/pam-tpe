@@ -61,8 +61,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ADD_GROUP && resultCode == RESULT_OK) {
-            val group = data?.extras?.getSerializable("NEW_GROUP") as Group?
-            groupAdapter?.addToDataset(group!!) // FIXME
+            // FIXME reload api call
         }
         if (requestCode == REFRESH && resultCode == RESULT_OK) {
             homePresenter?.onViewAttached(getLoggedUserId())
@@ -96,7 +95,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
-        if (currentView == GROUPS) {
+        if (currentView == GROUPS || currentView == EVENTS) {
             menu?.findItem(R.id.add_group)?.isVisible = true
             return true
         }
@@ -107,7 +106,9 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     @SuppressLint("NonConstantResourceId")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_group) {
-            startActivityForResult(Intent(this, AddGroupActivity::class.java), REQUEST_ADD_GROUP)
+            val intent = Intent(this, AddGroupActivity::class.java)
+            intent.putExtra("IS_EVENT", currentView == EVENTS)
+            startActivityForResult(intent, REQUEST_ADD_GROUP)
             return true
         }
         return false

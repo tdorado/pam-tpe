@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -39,8 +37,8 @@ class GroupActivity : AbstractActivity(), GroupView {
     private var needsToRefresh = false
     private val GROUP_ID: String = "GROUP_ID"
     private val IS_EVENT: String = "IS_EVENT"
-
     private val NEW_CHARGE: String = "NEW_CHARGE"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group)
@@ -61,14 +59,7 @@ class GroupActivity : AbstractActivity(), GroupView {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // TODO
-        findViewById<View?>(R.id.group_events).setOnClickListener {
-            Toast.makeText(applicationContext,
-                    getString(R.string.feature_not_ready), Toast.LENGTH_SHORT).show()
-        }
-        findViewById<View?>(R.id.group_events).visibility = if (isEvent) GONE else VISIBLE
         findViewById<LinearLayout?>(R.id.group_linear_buttons).weightSum = if (isEvent) 2F else 3F
-
 
         findViewById<View?>(R.id.group_balances).setOnClickListener {
             val intent = Intent(this, GroupBalanceActivity::class.java)
