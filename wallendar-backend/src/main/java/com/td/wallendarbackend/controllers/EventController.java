@@ -6,6 +6,7 @@ import com.td.wallendarbackend.dtos.requests.AddMembersRequest;
 import com.td.wallendarbackend.dtos.requests.AddPaymentRequest;
 import com.td.wallendarbackend.dtos.responses.ChargeResponse;
 import com.td.wallendarbackend.dtos.responses.EventResponse;
+import com.td.wallendarbackend.dtos.responses.GroupResponse;
 import com.td.wallendarbackend.models.Event;
 import com.td.wallendarbackend.services.ChargeService;
 import com.td.wallendarbackend.services.EventService;
@@ -87,9 +88,9 @@ public class EventController {
     @PostMapping(value = "/{id}/addPayment")
     @ResponseBody
     public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid AddPaymentRequest addPaymentRequest) {
-        boolean paymentSuccess = paymentService.addPayment(id, addPaymentRequest);
-        if (paymentSuccess) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        GroupResponse groupResponse = paymentService.addPayment(id, addPaymentRequest);
+        if (groupResponse != null) {
+            return new ResponseEntity<>(groupResponse, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

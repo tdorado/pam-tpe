@@ -5,6 +5,7 @@ import com.td.wallendar.dtos.request.AddMemberByEmailRequest
 import com.td.wallendar.dtos.request.AddMembersRequest
 import com.td.wallendar.dtos.request.AddPaymentRequest
 import com.td.wallendar.models.Event
+import com.td.wallendar.models.Group
 import io.reactivex.Single
 
 interface EventsRepository {
@@ -13,5 +14,5 @@ interface EventsRepository {
     fun createEvent(addEventRequest: AddEventRequest): Single<Event>
     fun addMemberByEmail(groupId: Long, addMemberByEmailRequest: AddMemberByEmailRequest): Single<Event>
     fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Event>
-    fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Void>
+    fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Group>
 }

@@ -83,9 +83,9 @@ public class GroupController {
     @PostMapping(value = "/{id}/addPayment")
     @ResponseBody
     public ResponseEntity<?> addPayment(@PathVariable long id, @RequestBody @Valid AddPaymentRequest addPaymentRequest) {
-        boolean paymentStatus = paymentService.addPayment(id, addPaymentRequest);
-        if (paymentStatus) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        GroupResponse groupResponse = paymentService.addPayment(id, addPaymentRequest);
+        if (groupResponse != null) {
+            return new ResponseEntity<>(groupResponse, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

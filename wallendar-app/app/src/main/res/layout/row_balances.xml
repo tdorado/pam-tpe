@@ -37,6 +37,7 @@
             android:id="@+id/debt_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@drawable/ic_baseline_info_24"/>
 
     </LinearLayout>

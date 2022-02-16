@@ -31,20 +31,20 @@ public class PaymentService {
         this.applicationUserRepository = applicationUserRepository;
     }
 
-    public boolean addPayment(long groupId, AddPaymentRequest addPaymentRequest) {
+    public GroupResponse addPayment(long groupId, AddPaymentRequest addPaymentRequest) {
         Group group = groupRepository.findById(groupId);
         if (group == null) {
-            return false;
+            return null;
         }
 
         ApplicationUser fromUser = applicationUserRepository.findById(addPaymentRequest.getFromUserId());
         if (fromUser == null) {
-            return false;
+            return null;
         }
 
         ApplicationUser toUser = applicationUserRepository.findById(addPaymentRequest.getToUserId());
         if (toUser == null) {
-            return false;
+            return null;
         }
 
         Payment payment = new Payment(fromUser, toUser, addPaymentRequest.getAmount(),
@@ -60,7 +60,7 @@ public class PaymentService {
 
         groupRepository.save(group);
 
-        return true;
+        return new GroupResponse(group);
     }
 
     private void fromUserPaidAmountToUser(double amount, Debt debt) {

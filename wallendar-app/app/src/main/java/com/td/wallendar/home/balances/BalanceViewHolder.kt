@@ -2,6 +2,7 @@ package com.td.wallendar.home.balances
 
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,6 +24,7 @@ class BalanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (!debt.containsDetails) {
             debtDetail.visibility = GONE
         } else {
+            debtDetail.visibility = VISIBLE
             debtDetail.setOnClickListener { onDetailDebtClickedListener?.onDetailDebtClickedListener(debt.id) }
         }
 

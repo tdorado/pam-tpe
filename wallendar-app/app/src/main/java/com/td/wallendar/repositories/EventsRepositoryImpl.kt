@@ -8,6 +8,7 @@ import com.td.wallendar.models.Event
 import com.td.wallendar.repositories.interfaces.EventsRepository
 import com.td.wallendar.service.EventsService
 import com.td.wallendar.utils.mappers.EventMapper
+import com.td.wallendar.utils.mappers.GroupMapper
 import com.td.wallendar.utils.networking.RetrofitUtils
 import io.reactivex.Single
 
@@ -44,5 +45,5 @@ class EventsRepositoryImpl(private val eventsService: EventsService) : EventsRep
 
     override fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest) =
             RetrofitUtils
-                    .performRequest(eventsService.addPayment(groupId, addPaymentRequest))
+                    .performRequest(eventsService.addPayment(groupId, addPaymentRequest)).map { GroupMapper.toModel(it) }
 }

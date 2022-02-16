@@ -32,7 +32,7 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+        isEvent = intent.extras?.getBoolean(IS_EVENT) ?: false
 
         setContentView(R.layout.activity_add_charge)
         setupActionBar()
@@ -70,7 +70,7 @@ class AddChargeActivity : AbstractActivity(), AddChargeView {
             val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
             addChargePresenter = AddChargePresenter(this, chargesRepository,
-                    groupsRepository,eventsRepository, schedulerProvider, isEvent)
+                    groupsRepository, eventsRepository, schedulerProvider, isEvent)
         }
     }
 

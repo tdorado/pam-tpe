@@ -13,5 +13,5 @@ interface GroupsRepository {
     fun createGroup(addGroupRequest: AddGroupRequest): Single<Group>
     fun addMemberByEmail(groupId: Long, addMemberByEmailRequest: AddMemberByEmailRequest): Single<Group>
     fun addMembers(groupId: Long, addMembersRequest: AddMembersRequest): Single<Group>
-    fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Void>
+    fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest): Single<Group>
 }

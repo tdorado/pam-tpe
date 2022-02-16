@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Preview picked date here"
+                android:text="yyyy-mm-dd"
                 app:layout_constraintEnd_toEndOf="@+id/pick_date_button"
                 app:layout_constraintStart_toStartOf="@+id/pick_date_button"
                 app:layout_constraintTop_toBottomOf="@+id/pick_date_button" />
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Preview picked time here"
+                android:text="hh:mm:ss"
                 app:layout_constraintEnd_toEndOf="@+id/pick_time_button"
                 app:layout_constraintStart_toStartOf="@+id/pick_time_button"
                 app:layout_constraintTop_toBottomOf="@+id/pick_time_button" />

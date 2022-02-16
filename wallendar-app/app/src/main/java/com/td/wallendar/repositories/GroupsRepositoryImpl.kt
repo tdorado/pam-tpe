@@ -43,5 +43,5 @@ class GroupsRepositoryImpl(val groupsService: GroupsService) : GroupsRepository 
 
     override fun addPayment(groupId: Long, addPaymentRequest: AddPaymentRequest) =
             RetrofitUtils
-                    .performRequest(groupsService.addPayment(groupId, addPaymentRequest))
+                    .performRequest(groupsService.addPayment(groupId, addPaymentRequest)).map { GroupMapper.toModel(it) }
 }

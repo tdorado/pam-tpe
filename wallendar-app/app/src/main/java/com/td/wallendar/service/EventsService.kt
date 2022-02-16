@@ -5,6 +5,7 @@ import com.td.wallendar.dtos.request.AddMemberByEmailRequest
 import com.td.wallendar.dtos.request.AddMembersRequest
 import com.td.wallendar.dtos.request.AddPaymentRequest
 import com.td.wallendar.dtos.response.EventResponse
+import com.td.wallendar.dtos.response.GroupResponse
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,5 +25,5 @@ interface EventsService {
     @POST("/api/events/{eventId}/addMembers")
     fun addMembers(@Path("eventId") groupId: Long, @Body addMembersRequest: AddMembersRequest): Single<Response<EventResponse>>
     @POST("/api/events/{eventId}/addPayment")
-    fun addPayment(@Path("eventId") groupId: Long, @Body addPaymentRequest: AddPaymentRequest): Single<Response<Void>>
+    fun addPayment(@Path("eventId") groupId: Long, @Body addPaymentRequest: AddPaymentRequest): Single<Response<GroupResponse>>
 }
