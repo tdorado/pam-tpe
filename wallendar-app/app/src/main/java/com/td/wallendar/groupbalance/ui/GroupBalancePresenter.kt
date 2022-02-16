@@ -3,18 +3,27 @@ package com.td.wallendar.groupbalance.ui
 import com.td.wallendar.dtos.request.AddPaymentRequest
 import com.td.wallendar.models.Debt
 import com.td.wallendar.models.Group
+import com.td.wallendar.repositories.interfaces.EventsRepository
 import com.td.wallendar.repositories.interfaces.GroupsRepository
 import com.td.wallendar.utils.scheduler.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.WeakReference
 import java.util.*
 
-class GroupBalancePresenter(groupBalanceView: GroupBalanceView, private val groupsRepository: GroupsRepository, private val schedulerProvider: SchedulerProvider) {
+class GroupBalancePresenter(
+        groupBalanceView: GroupBalanceView,
+        private val groupsRepository: GroupsRepository,
+        private val eventsRepository: EventsRepository,
+        private val schedulerProvider: SchedulerProvider,
+        private val isEvent: Boolean,
+) {
     private val groupBalanceView: WeakReference<GroupBalanceView?> = WeakReference(groupBalanceView)
     private val disposable: CompositeDisposable = CompositeDisposable()
     private var debtToSettleUp: Debt? = null
     fun onViewAttached(groupId: Long) {
-        disposable.add(groupsRepository.getGroup(groupId)
+        val repository = { if (isEvent) eventsRepository.getEvent(groupId) else groupsRepository.getGroup(groupId) }
+
+        disposable.add(repository()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ group: Group -> onGroupReceived(group) }) { throwable: Throwable -> onGroupFailed(throwable) })
@@ -29,7 +38,12 @@ class GroupBalancePresenter(groupBalanceView: GroupBalanceView, private val grou
                 debt.to.id,
                 debt.amount)
         debtToSettleUp = debt
-        disposable.add(groupsRepository.addPayment(debt.groupId, addPaymentRequest)
+        val repository = {
+            if (isEvent) eventsRepository.addPayment(debt.groupId, addPaymentRequest)
+            else groupsRepository.addPayment(debt.groupId, addPaymentRequest)
+        }
+
+        disposable.add(repository()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ onSettleUpDebtSuccessful() }) { throwable: Throwable -> onSettleUpDebtFailed(throwable) })

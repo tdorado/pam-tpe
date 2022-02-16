@@ -38,12 +38,15 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     private var viewFlipper: ViewFlipper? = null
     private var addChargeFAB: ExtendedFloatingActionButton? = null
     private var bottomNavigationView: BottomNavigationView? = null
-    private var groupsView: GroupsView? = null
+    private var groupsView: GroupsView<Group>? = null
     private var balancesView: BalancesView? = null
     private var profileView: ProfileView? = null
     private var homePresenter: HomePresenter? = null
-    private var groupAdapter: GroupAdapter? = null
+    private var groupAdapter: GroupAdapter<Group>? = null
     private var balanceAdapter: BalanceAdapter? = null
+
+    private var eventsView: GroupsView<Event>? = null
+    private var eventsAdapter: GroupAdapter<Event>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -58,8 +61,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ADD_GROUP && resultCode == RESULT_OK) {
-            val group = data?.extras?.getSerializable("NEW_GROUP") as Group?
-            groupAdapter?.addToDataset(group!!) // FIXME
+            // FIXME reload api call
         }
         if (requestCode == REFRESH && resultCode == RESULT_OK) {
             homePresenter?.onViewAttached(getLoggedUserId())
@@ -71,10 +73,12 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         if (homePresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
+
             val debtsRepository = dependenciesContainer.getDebtsRepository()
             val applicationUsersRepository = dependenciesContainer.getApplicationUsersRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            homePresenter = HomePresenter(this, groupsRepository, debtsRepository,
+            homePresenter = HomePresenter(this, groupsRepository, eventsRepository, debtsRepository,
                     applicationUsersRepository, schedulerProvider)
         }
     }
@@ -91,7 +95,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
-        if (currentView == GROUPS) {
+        if (currentView == GROUPS || currentView == EVENTS) {
             menu?.findItem(R.id.add_group)?.isVisible = true
             return true
         }
@@ -102,7 +106,9 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     @SuppressLint("NonConstantResourceId")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.add_group) {
-            startActivityForResult(Intent(this, AddGroupActivity::class.java), REQUEST_ADD_GROUP)
+            val intent = Intent(this, AddGroupActivity::class.java)
+            intent.putExtra("IS_EVENT", currentView == EVENTS)
+            startActivityForResult(intent, REQUEST_ADD_GROUP)
             return true
         }
         return false
@@ -115,6 +121,7 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         bottomNavigationView?.setOnItemSelectedListener { item: MenuItem? ->
             when (item?.itemId) {
                 R.id.groups -> homePresenter?.onGroupsClicked()
+                R.id.events -> homePresenter?.onEventsClicked()
                 R.id.balances -> homePresenter?.onBalancesClicked()
                 R.id.profile -> homePresenter?.onProfileClicked()
                 else -> return@setOnItemSelectedListener false
@@ -127,13 +134,14 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         viewFlipper = findViewById(R.id.view_flipper)
         setUpAddChargeButton()
         setUpGroupsView()
+        setUpEventsView()
         setUpBalancesView()
         setUpProfileView()
     }
 
     private fun setUpAddChargeButton() {
         addChargeFAB = findViewById(R.id.add_charge_fab)
-        addChargeFAB?.setOnClickListener({ view: View? -> startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) })
+        addChargeFAB?.setOnClickListener { startActivityForResult(Intent(this, AddChargeActivity::class.java), REFRESH) }
     }
 
     private fun setUpGroupsView() {
@@ -141,6 +149,13 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         groupAdapter = GroupAdapter(getLoggedUserId())
         groupAdapter?.setOnGroupClickedListener(this)
         groupsView?.bind(groupAdapter!!, addChargeFAB!!)
+    }
+
+    private fun setUpEventsView() {
+        eventsView = findViewById(R.id.view_events)
+        eventsAdapter = GroupAdapter(getLoggedUserId())
+        eventsAdapter?.setOnGroupClickedListener(this)
+        eventsView?.bind(eventsAdapter!!)
     }
 
     private fun setUpBalancesView() {
@@ -159,6 +174,13 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         invalidateOptionsMenu()
         addChargeFAB?.show()
         viewFlipper?.displayedChild = GROUPS
+    }
+
+    override fun showEvents() {
+        currentView = EVENTS
+        invalidateOptionsMenu()
+        addChargeFAB?.hide()
+        viewFlipper?.displayedChild = EVENTS
     }
 
     override fun showBalances() {
@@ -217,6 +239,10 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         Toast.makeText(applicationContext, getString(R.string.error_paying_debt), Toast.LENGTH_LONG).show()
     }
 
+    override fun bindEvents(events: MutableList<Event>) {
+        eventsAdapter?.setDataset(events)
+    }
+
     public override fun onStart() {
         super.onStart()
         if (homePresenter != null) {
@@ -238,9 +264,10 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
         }
     }
 
-    override fun onGroupClicked(groupId: Long) {
+    override fun onGroupClicked(groupId: Long, isEvent: Boolean) {
         val intent = Intent(applicationContext, GroupActivity::class.java)
         intent.putExtra("GROUP_ID", groupId)
+        intent.putExtra("IS_EVENT", isEvent)
         startActivityForResult(intent, REFRESH)
     }
 
@@ -291,8 +318,9 @@ class HomeActivity : AbstractActivity(), HomeView, OnGroupClickedListener, OnBal
     companion object {
         private val df: DecimalFormat = DecimalFormat("0.00")
         private const val GROUPS = 0
-        private const val BALANCES = 1
-        private const val PROFILE = 2
+        private const val EVENTS = 1
+        private const val BALANCES = 2
+        private const val PROFILE = 3
         private const val REQUEST_ADD_GROUP = 1
         private const val REFRESH = 2
     }

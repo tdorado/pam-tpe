@@ -1,7 +1,7 @@
 package com.td.wallendar.dtos.request
 
-data class AddChargeRequest(
+data class AddEventRequest(
         val title: String,
         val ownerId: Long,
-        val amount: Double,
+        val date: String,
 )

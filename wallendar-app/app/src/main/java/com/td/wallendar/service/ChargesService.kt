@@ -11,4 +11,6 @@ import retrofit2.http.Path
 interface ChargesService {
     @POST("/api/groups/{id}/addCharge")
     fun addCharge(@Path("id") groupId: Long, @Body addChargeRequest: AddChargeRequest): Single<Response<ChargeResponse>>
+    @POST("/api/events/{id}/addCharge")
+    fun addChargeToEvent(@Path("id") groupId: Long, @Body addChargeRequest: AddChargeRequest): Single<Response<ChargeResponse>>
 }

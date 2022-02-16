@@ -5,5 +5,5 @@ import com.td.wallendar.models.Charge
 import io.reactivex.Single
 
 interface ChargesRepository {
-    fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest): Single<Charge>
+    fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest, isEvent: Boolean): Single<Charge>
 }

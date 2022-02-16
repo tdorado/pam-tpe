@@ -2,8 +2,10 @@ package com.td.wallendar.addcharge.ui
 
 import com.td.wallendar.dtos.request.AddChargeRequest
 import com.td.wallendar.models.Charge
+import com.td.wallendar.models.Event
 import com.td.wallendar.models.Group
 import com.td.wallendar.repositories.interfaces.ChargesRepository
+import com.td.wallendar.repositories.interfaces.EventsRepository
 import com.td.wallendar.repositories.interfaces.GroupsRepository
 import com.td.wallendar.utils.scheduler.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +15,9 @@ class AddChargePresenter(
         addChargeView: AddChargeView,
         chargesRepository: ChargesRepository,
         groupsRepository: GroupsRepository,
+        private val eventsRepository: EventsRepository,
         schedulerProvider: SchedulerProvider,
+        private val isEvent: Boolean,
 ) {
     private val addChargeView: WeakReference<AddChargeView>?
     private val chargesRepository: ChargesRepository
@@ -36,10 +40,20 @@ class AddChargePresenter(
     }
 
     fun onViewAttached(userId: Long) {
-        groupsRepository.getGroupsByUser(userId)
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.ui())
-                .subscribe({ groups: MutableList<Group> -> onGroupsReceived(groups) }) { throwable: Throwable -> onGroupsError(throwable) }.let { disposable?.add(it) }
+        val repository = { if (isEvent) eventsRepository.getEventsByUser(userId) else groupsRepository.getGroupsByUser(userId) }
+
+        if (isEvent) {
+            disposable.add(eventsRepository.getEventsByUser(userId)
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .subscribe({ events: MutableList<Event> -> onEventsReceived(events) }) { throwable: Throwable -> onGroupsError(throwable) })
+        } else {
+            disposable.add(groupsRepository.getGroupsByUser(userId)
+                    .subscribeOn(schedulerProvider.io())
+                    .observeOn(schedulerProvider.ui())
+                    .subscribe({ group: MutableList<Group> -> onGroupsReceived(group) }) { throwable: Throwable -> onGroupsError(throwable) })
+        }
+
     }
 
     fun onViewDetached() {
@@ -57,8 +71,15 @@ class AddChargePresenter(
         }
     }
 
+    private fun onEventsReceived(events: MutableList<Event>) {
+        addChargeView?.get()?.onGroupsLoadOk(events.toMutableList())
+        if (groupId != null) {
+            addChargeView?.get()?.setSelectedGroup(groupId!!)
+        }
+    }
+
     fun addCharge(groupId: Long, addChargeRequest: AddChargeRequest) {
-        chargesRepository.addCharge(groupId, addChargeRequest)
+        chargesRepository.addCharge(groupId, addChargeRequest, isEvent)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe({ charge: Charge -> onChargeAdded(charge) }) { throwable: Throwable -> onChargeAddedError(throwable) }.let { disposable.add(it) }

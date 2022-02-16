@@ -4,20 +4,40 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.VISIBLE
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import com.google.android.material.textfield.TextInputLayout
 import com.td.wallendar.AbstractActivity
 import com.td.wallendar.R
+import com.td.wallendar.addgroup.ui.pickers.DatePickerFragment
+import com.td.wallendar.addgroup.ui.pickers.OnDatePickerSelected
+import com.td.wallendar.addgroup.ui.pickers.OnTimePickerSelected
+import com.td.wallendar.addgroup.ui.pickers.TimePickerFragment
 import com.td.wallendar.di.DependenciesContainerLocator
 import com.td.wallendar.models.Group
+import java.util.*
 
-class AddGroupActivity : AbstractActivity(), AddGroupView {
+class AddGroupActivity : AbstractActivity(), AddGroupView, OnTimePickerSelected, OnDatePickerSelected {
+    private val IS_EVENT: String = "IS_EVENT"
     private var addGroupPresenter: AddGroupPresenter? = null
     private var groupTitleInput: TextInputLayout? = null
+    private var isEvent: Boolean = false
+
+    private var dateForEvent: Calendar = Calendar.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_group)
+        isEvent = intent.extras?.getBoolean(IS_EVENT)!!
+        if (isEvent) {
+            findViewById<LinearLayout>(R.id.event_inputs).visibility = VISIBLE
+            findViewById<Button?>(R.id.pick_date_button)
+                    .setOnClickListener { DatePickerFragment(this).show(supportFragmentManager, "datePicker") }
+            findViewById<Button?>(R.id.pick_time_button)
+                    .setOnClickListener { TimePickerFragment(this).show(supportFragmentManager, "timePicker") }
+        }
         setupActionBar()
         setupGroupTitleInput()
         createPresenter()
@@ -36,8 +56,9 @@ class AddGroupActivity : AbstractActivity(), AddGroupView {
         if (addGroupPresenter == null) {
             val dependenciesContainer = DependenciesContainerLocator.locateComponent(this)
             val groupsRepository = dependenciesContainer.getGroupsRepository()
+            val eventsRepository = dependenciesContainer.getEventsRepository()
             val schedulerProvider = dependenciesContainer.getSchedulerProvider()
-            addGroupPresenter = AddGroupPresenter(this, groupsRepository, schedulerProvider)
+            addGroupPresenter = AddGroupPresenter(this, groupsRepository, eventsRepository, schedulerProvider, isEvent)
         }
     }
 
@@ -69,7 +90,12 @@ class AddGroupActivity : AbstractActivity(), AddGroupView {
             val editableGroupTitle = groupTitleInput?.editText?.text
             if (editableGroupTitle != null) {
                 val groupTitle = editableGroupTitle.toString()
-                addGroupPresenter?.createGroup(groupTitle, getLoggedUserId())
+
+                if (isEvent) {
+                    addGroupPresenter?.createEvent(groupTitle, getLoggedUserId(), dateForEvent)
+                } else {
+                    addGroupPresenter?.createGroup(groupTitle, getLoggedUserId())
+                }
             } else {
                 // TODO
                 Toast.makeText(applicationContext, "PONELE UN TITULO", Toast.LENGTH_LONG).show()
@@ -80,7 +106,6 @@ class AddGroupActivity : AbstractActivity(), AddGroupView {
 
     override fun onGroupCreated(group: Group) {
         val resultIntent = Intent()
-        resultIntent.putExtra("NEW_GROUP", group)
         setResult(RESULT_OK, resultIntent)
         finish()
     }
@@ -93,4 +118,16 @@ class AddGroupActivity : AbstractActivity(), AddGroupView {
         super.onStop()
         addGroupPresenter?.onViewDetached()
     }
+
+    override fun onTimeSelected(hourOfDay: Int, minute: Int) {
+        dateForEvent.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        dateForEvent.set(Calendar.MINUTE, minute)
+    }
+
+    override fun onDateSelected(year: Int, month: Int, day: Int) {
+        dateForEvent.set(Calendar.DAY_OF_MONTH, day)
+        dateForEvent.set(Calendar.YEAR, year)
+        dateForEvent.set(Calendar.MONTH, month)
+    }
+
 }

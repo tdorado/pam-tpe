@@ -16,6 +16,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "groups")
+@DiscriminatorColumn(name="isGroup", discriminatorType=DiscriminatorType.INTEGER)
+@DiscriminatorValue("0")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Group {
     @Id

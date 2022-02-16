@@ -47,6 +47,12 @@
             android:text="@string/you_are_owed_template"
             android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/row_event_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
