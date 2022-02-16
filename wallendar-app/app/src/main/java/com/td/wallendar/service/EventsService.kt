@@ -22,7 +22,7 @@ interface EventsService {
     @POST("/api/events/{eventId}/addMemberByEmail")
     fun addMemberByEmail(@Path("eventId") groupId: Long, @Body addMemberByEmailRequest: AddMemberByEmailRequest): Single<Response<EventResponse>>
     @POST("/api/events/{eventId}/addMembers")
-    fun addMembers(@Path("eventId") groupId: Long, @Body addMembersRequest: AddMembersRequest): Single<Response<Void>>
+    fun addMembers(@Path("eventId") groupId: Long, @Body addMembersRequest: AddMembersRequest): Single<Response<EventResponse>>
     @POST("/api/events/{eventId}/addPayment")
     fun addPayment(@Path("eventId") groupId: Long, @Body addPaymentRequest: AddPaymentRequest): Single<Response<Void>>
 }

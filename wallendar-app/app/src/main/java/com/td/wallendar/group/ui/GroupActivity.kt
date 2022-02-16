@@ -59,8 +59,6 @@ class GroupActivity : AbstractActivity(), GroupView {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        findViewById<LinearLayout?>(R.id.group_linear_buttons).weightSum = if (isEvent) 2F else 3F
-
         findViewById<View?>(R.id.group_balances).setOnClickListener {
             val intent = Intent(this, GroupBalanceActivity::class.java)
             intent.putExtra(GROUP_ID, groupId)
@@ -104,6 +102,7 @@ class GroupActivity : AbstractActivity(), GroupView {
         if (item.itemId == R.id.add_members) {
             val addMembersIntent = Intent(this, AddMembersActivity::class.java)
             addMembersIntent.putExtra(GROUP_ID, groupId)
+            addMembersIntent.putExtra(IS_EVENT, isEvent)
             startActivityForResult(addMembersIntent, REQUEST_ADD_MEMBERS)
             return true
         }
